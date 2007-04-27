@@ -1,0 +1,17 @@
+This is a simple benchmark that creates believable spike data and
+attempts to write it to disk, with varying chunk sizes and block
+sizes. 
+
+There is infrastructure in place to enable multiple threads using the thread-save version of the hdf5 library, but evidently all the real work is serialized, so this makes no performance difference. 
+
+The resulting files are: 
+benchmark.dat: running it on the athlon x2 to disk
+benchmark.tmpfs.dat: running it on the athlon x2 to tmpfs
+benchmark.tmpfs.2threads.dat: running it on the athlon x2 to tmpfs, with multiple write threads
+
+the best-case performance, when writing to ram, is ~20 MB/sec, suggesting that we're in no way limited by disk speed. 
+
+To create tempfs volumes
+sudo mount tmpfs /mnt/tmpfs -t tmpfs
+
+./configure --enable-threadsafe --enable-cxx --prefix=/usr/local --with-pthread=/usr
