@@ -1,0 +1,42 @@
+The recorder takes in packets and events from the data stream and
+saves them to disk as HDF5 files.
+
+This means that it understands the internal meaning of the data
+packets, and additionally save all outbound event packets.
+
+
+Record runs and connects to the master dbus daemon, exposing and
+reflecting the following methods:
+
+openFile(filename)
+createEpoch()
+switchEpoch()
+closeFile()
+
+createEpoch() just creates the epoch
+
+Questions: 
+
+There's clearly the notion of the "current epoch", with associated data
+
+createEpoch(string name):
+   creates an epoch with name Name off the root tree
+switchEpoch():
+   changes the current epoch; by default reopens all groups that are marked as enabled
+
+
+enableRx(typ, src)
+disableRx(typ, src)
+switchEpoch(name)
+startRecord()
+stopRecord()
+
+The recorder contains a network object, and processes data; it takes a
+network object
+
+
+recorder(network, filename)
+
+what if we have one recorder associated with each file? That's not a bad decision
+
+

@@ -1,0 +1,41 @@
+We save data as an hdf5 file with the relevant metadata, such as file
+start time, date, etc. The goal here is to have a single giant file
+that lets us do "stuff". 
+
+Ideally a single file represents a single "experiment" of recording. 
+
+
+Data is organized into "epochs", each epoch corresponding to an hdf5
+group. Epoch transitions result in the system being momentarially
+blind.
+
+
+a data file will look like: 
+
+/ (root) 
+  epochname1
+  epochname2
+  epochname3/
+      type1 
+	 src0 table
+	 src1 table
+      type2
+         src table
+	 	 
+which sources are "on" is decided on the soma-host side -- this eliminates our ability to mask out / selectively record data, should the data throughput be too high, but we don't really care, do we ? 
+
+We might want to visualize but not save packets, fair enough
+
+
+when you switch to an epoch, something something. There are still some design decisions that need to be made here. Can we go back in epochs? How do we specify _what_ we're recording during an epoch? 
+
+recorder events: 
+openfile()
+closefile()
+
+-------------------------------------------------------------------
+dbus
+-------------------------------------------------------------------
+http://lists.freedesktop.org/archives/dbus/2007-January/006982.html
+
+http://lists.freedesktop.org/archives/dbus/2007-January/006985.html
