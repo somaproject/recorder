@@ -1,7 +1,7 @@
 #include "h5filerecorder.h"
 #include <iostream>
 #include "hdf5.h"
-
+#include "tspiketable.h"
 using namespace soma::recorder; 
 
 
@@ -11,7 +11,7 @@ H5FileRecorder::H5FileRecorder(const std::string  & filename) :
   epochGroup_()
 {
 
-
+  H5::Exception::dontPrint(); 
 }
 
 H5FileRecorder::~H5FileRecorder()
@@ -60,9 +60,9 @@ H5::Group H5FileRecorder::getTypeGroup(DATATYPES typ)
   try 
     {
       hg =  epochGroup_.openGroup(typeName); 
+
     } 
   catch(H5::GroupIException & e){ 
-    std::cout << " IN THE EXCEPTION" << std::endl; 
     hg =  epochGroup_.createGroup(typeName); 
   }
 
@@ -74,5 +74,6 @@ H5::Group H5FileRecorder::getTypeGroup(DATATYPES typ)
 void H5FileRecorder::enableRX(DATATYPES typ, int src)
 {
   H5::Group hg = getTypeGroup(typ); 
+  createTSpikeTable(src, hg.getLocId());
   
 }

@@ -20,14 +20,13 @@ BOOST_AUTO_TEST_CASE(H5FileRecorder_test )
 
   prec->createEpoch("test1"); 
   prec->switchEpoch("test1"); 
-
-  prec->enableRX(TSPIKE, 10); 
-
-
+  
+  for (int i = 0; i < 1; i++ ) 
+    {
+      prec->enableRX(TSPIKE, i); 
+    }
 
   delete prec; 
-
-
   
   // confirm existence of file
   path p(filename); 
