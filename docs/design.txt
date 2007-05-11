@@ -4,7 +4,6 @@ saves them to disk as HDF5 files.
 This means that it understands the internal meaning of the data
 packets, and additionally save all outbound event packets.
 
-
 Record runs and connects to the master dbus daemon, exposing and
 reflecting the following methods:
 
@@ -25,8 +24,8 @@ switchEpoch():
    changes the current epoch; by default reopens all groups that are marked as enabled
 
 
-enableRx(typ, src)
-disableRx(typ, src)
+enableDataRx(typ, src)
+disableDataRx(typ, src)
 switchEpoch(name)
 startRecord()
 stopRecord()
@@ -39,4 +38,28 @@ recorder(network, filename)
 
 what if we have one recorder associated with each file? That's not a bad decision
 
+Okay, that's fine, how do we handle dispatch? 
+
+we get some packet, we look up source/type. IF we get that, we add it to some list of data points, and we periodically serialize those to disk. 
+
+Ideal P-code:
+
+pkt = getPacket
+dispatch(pkt) : looks up associated type, src object
+
+DatasetIO:
+the datasetIO handles creation of the dataset 
+	append()
+	flush()
+	constructor(H5 node location)
+	destructor
+
+--------------------------------------------------------------------------
+
+Recorder provides a generic interface between data and the H5T interface. internally, we'd love to separate the decode-and-dispatch function from the disk-serialize function, but really that's the whole purpose of this object. So recorder needs to keep track of internal state, and when we switch to an epoch, we: 
+
+examine the existing structure, and populate the dispatch table with associated dataset objects
+
+the dispatcher associateds an inbound (src, typ) or an inbound event
+with a dataset.
 

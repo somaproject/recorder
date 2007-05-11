@@ -74,6 +74,6 @@ H5::Group H5FileRecorder::getTypeGroup(DATATYPES typ)
 void H5FileRecorder::enableRX(DATATYPES typ, int src)
 {
   H5::Group hg = getTypeGroup(typ); 
-  createTSpikeTable(src, hg.getLocId());
+  TSpikeTable tst(src, hg.getLocId());
   
 }

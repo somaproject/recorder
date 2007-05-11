@@ -12,12 +12,18 @@ struct TSpikeWave_t {
   int32_t wave[TSPIKEWAVE_LEN]; 
 }; 
 
+
 struct TSpike_t
 {
   uint8_t src; 
   uint64_t time; 
-  TSpikeWave_t waveforms[4]; 
+  TSpikeWave_t x; 
+  TSpikeWave_t y; 
+  TSpikeWave_t a; 
+  TSpikeWave_t b; 
+
 }; 
+
 
 
 #endif // TSPIKE_H_H

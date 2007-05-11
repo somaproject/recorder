@@ -138,7 +138,7 @@ int appendRecords(const std::vector<TSpike_t> & spikes,
 			 TSpike_dst_sizes, 
 			 &spikes[i * CSIZE]); 
     }
-
+  
 }
 
 int main(int argc, char * argv[])
