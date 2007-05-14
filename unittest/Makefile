@@ -1,6 +1,6 @@
 
 SRCDIR = ../src/
-CXXFLAGS=-I$(SRCDIR) -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_POSIX_SOURCE -UNDEBUG -I../
+CXXFLAGS=-I$(SRCDIR) -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_POSIX_SOURCE -UNDEBUG -I../ -g
 
 LDFLAGS=-lboost_unit_test_framework  -lhdf5_cpp -lhdf5  -lboost_filesystem -lhdf5_hl
 
@@ -17,7 +17,7 @@ h5filerecorder.o: $(SRCDIR)/h5filerecorder.cc
 H5FileRecorder_create.o: h5filerecorder.o
 tspiketable_test.o: tspiketable_test.cc
 
-runner: runner.o  tspiketable.o tspiketable_test.o 
+runner: runner.o  tspiketable.o tspiketable_test.o h5filerecorder.o
 
 clean:
 	rm *.o

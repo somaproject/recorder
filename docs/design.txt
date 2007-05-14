@@ -56,10 +56,21 @@ the datasetIO handles creation of the dataset
 
 --------------------------------------------------------------------------
 
-Recorder provides a generic interface between data and the H5T interface. internally, we'd love to separate the decode-and-dispatch function from the disk-serialize function, but really that's the whole purpose of this object. So recorder needs to keep track of internal state, and when we switch to an epoch, we: 
+Recorder provides a generic interface between data and the H5T
+interface. internally, we'd love to separate the decode-and-dispatch
+function from the disk-serialize function, but really that's the whole
+purpose of this object. So recorder needs to keep track of internal
+state, and when we switch to an epoch, we:
 
-examine the existing structure, and populate the dispatch table with associated dataset objects
+examine the existing structure, and populate the dispatch table with
+associated dataset objects
 
 the dispatcher associateds an inbound (src, typ) or an inbound event
 with a dataset.
+
+recorder has a newDataDispatch() and a newEventDispatch() function that
+dispatches inbound data and events
+
+how to dispatch? We pass the rawPointers via the internal
+dispatchTable_, which is a map of (TYP, src)
 

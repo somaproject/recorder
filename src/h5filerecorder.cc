@@ -28,13 +28,24 @@ void H5FileRecorder::createEpoch(const std::string & epochName)
 
 void H5FileRecorder::switchEpoch(const std::string & epochName)
 {
-  //  try {
+  try {
     epochGroup_ = h5file_.openGroup(epochName);
-//   } 
-//   catch(H5::FileIException & e){ 
-//     std::cout << e.getCDetailMsg() << std::endl; 
-//     // FIXME 
-//   }
+
+    // close existing dispatch table:
+    for (dispatchTable_t::iterator i = dispatchTable_.begin();
+	 i != dispatchTable_.end(); i++) 
+      {
+	datasrc_t ds = i->first;
+	DATATYPES typ = ds.first;
+	int src = ds.second; 
+	disableRX(typ, src); 
+
+      }
+  } 
+  catch(H5::FileIException & e){ 
+    std::cout << e.getCDetailMsg() << std::endl; 
+    
+  }
 
 }
 
@@ -66,14 +77,30 @@ H5::Group H5FileRecorder::getTypeGroup(DATATYPES typ)
     hg =  epochGroup_.createGroup(typeName); 
   }
 
-
   return hg; 
-   
-
 }
+
 void H5FileRecorder::enableRX(DATATYPES typ, int src)
 {
+
   H5::Group hg = getTypeGroup(typ); 
-  TSpikeTable tst(src, hg.getLocId());
+  TSpikeTable *  tst = new TSpikeTable(src, hg);
+  datasrc_t dataorigin(typ, src); 
+  dispatchTable_[dataorigin] = (DatasetIO *)tst; 
   
 }
+
+void H5FileRecorder::disableRX(DATATYPES typ, int src)
+{
+
+  datasrc_t dataorigin(typ, src); 
+  DatasetIO * tst; 
+  tst = dispatchTable_[dataorigin]; 
+  delete tst; 
+  dispatchTable_.erase(dispatchTable_.find(dataorigin)); 
+  
+  
+  
+}
+
+

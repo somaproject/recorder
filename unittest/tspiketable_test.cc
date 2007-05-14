@@ -3,11 +3,13 @@
 #include "boost/filesystem/operations.hpp"
 #include "boost/filesystem/fstream.hpp"   
 #include <iostream>                        
+#include <fstream>
 #include "h5filerecorder.h"
 #include "tspiketable.h"
 using namespace soma; 
 using  namespace boost;       
 using namespace boost::filesystem; 
+using namespace std; 
 
 BOOST_AUTO_TEST_SUITE(TSpikeTable); 
 
@@ -29,18 +31,25 @@ BOOST_AUTO_TEST_CASE(TSpikeTable_append)
   H5::H5File::H5File h5file("append.h5", H5F_ACC_TRUNC); 
   H5::Group grp = h5file.createGroup("testGroup");
   
+
+
   int SRC = 23; 
   TSpikeTable tst(23, grp); 
-  int N = 1000; 
+  int N = 100; 
+
+  std::fstream pyfile("frompy.dat", ios::in | ios::binary); 
+      
   for (int i = 0; i < N; i++)
     {
-      TSpike_t t; 
-      t.src = 17; 
-      t.time = i; 
-
-      RawData * x = rawFromTSpike(t); 
-      tst.append(x); 
-      delete x; 
+      RawData * rdp = new RawData(); 
+      const int PACKLEN = 548; 
+      char buffer[PACKLEN]; 
+      
+      pyfile.read(buffer, PACKLEN); 
+      memcpy(&rdp->body[0], buffer, PACKLEN); 
+      
+      tst.append(rdp); 
+      delete rdp; 
 
     }
 
