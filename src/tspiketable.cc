@@ -1,9 +1,10 @@
 #include <boost/format.hpp> 
 #include <iostream>
+#include <netdata/tspike.h>
+#include <netdata/rawdata.h>
 
-#include "tspike.h"
+
 #include "tspiketable.h"
-
 TSpikeTable::TSpikeTable(int src, H5::Group gloc) :
   src_(src), 
   dataCache_(),
@@ -71,7 +72,7 @@ TSpikeTable::TSpikeTable(int src, H5::Group gloc) :
 			   TSpike_field_names, 
 			   &dstOffsets_[0], 
 			   TSpike_field_type,
-			   1, NULL, 
+			   100, NULL, 
 			   false, NULL  );
   
 }
@@ -89,20 +90,19 @@ void TSpikeTable::append(const RawData * rdp)
 
 void TSpikeTable::flush()
 {
-
-  H5TBappend_records(tableLoc_.getLocId(), tableName_.c_str(), 
-		     dataCache_.size(), 
-		     sizeof(TSpike_t), 
-		     &dstOffsets_[0], 
-		     &dstSizes_[0], 
-		     &dataCache_[0]); 
-  dataCache_.clear(); 
-
+  if (dataCache_.size() > 0) {
+    
+    H5TBappend_records(tableLoc_.getLocId(), tableName_.c_str(), 
+		       dataCache_.size(), 
+		       sizeof(TSpike_t), 
+		       &dstOffsets_[0], 
+		       &dstSizes_[0], 
+		       &dataCache_[0]); 
+    dataCache_.clear(); 
+  }
 }
 
 TSpikeTable::~TSpikeTable()
 {
-
   flush(); 
-
 }

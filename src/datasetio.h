@@ -2,16 +2,7 @@
 #define DATASETIO_H
 
 #include <boost/array.hpp>
-
-struct RawData
-{
-  int seq; 
-  unsigned char src; 
-  unsigned char typ; 
-  bool missing; 
-  boost::array<char, 580> body;
-}; 
-
+#include <netdata/rawdata.h>
 
 class DatasetIO
 {
