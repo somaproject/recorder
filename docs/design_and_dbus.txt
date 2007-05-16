@@ -1,0 +1,20 @@
+The recorder daemon controls all saving of data to the soma system. It
+will run under dedicated hardware and attempt best-possible packet
+delivery. 
+
+Generally a single experiment will be represented by a single
+file. Each experiment is divided up into a number of temporal
+epochs. These represent the top-level objects in the HDF5 file.
+
+
+The dbus interface to the recorder object has the following methods: 
+
+createFile("filename") : creates the requested file
+closeFile() : closes the current file
+createEpoch("epochname")
+switchEpoch("epochname")
+enableDataRX(type, src)
+disableDataRX(type, src)
+startRecording()
+endRecording()
+

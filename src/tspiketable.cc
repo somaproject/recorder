@@ -80,7 +80,6 @@ TSpikeTable::TSpikeTable(int src, H5::Group gloc) :
 void TSpikeTable::append(const RawData * rdp)
 {
   TSpike_t tspike = rawToTSpike(rdp);
-  std::cout << (int)tspike.x.filtid << std::endl;
   dataCache_.push_back(tspike); 
   if (dataCache_.size() == CACHESIZE -1)
     {

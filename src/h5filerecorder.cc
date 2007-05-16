@@ -99,8 +99,4 @@ void H5FileRecorder::disableRX(DATATYPES typ, int src)
   delete tst; 
   dispatchTable_.erase(dispatchTable_.find(dataorigin)); 
   
-  
-  
 }
-
-

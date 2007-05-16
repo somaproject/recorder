@@ -21,7 +21,7 @@ namespace soma
       public: 
 	H5FileRecorder(const std::string & filename); 
 	~H5FileRecorder(); 
-	void  createEpoch(const std::string & epochName); 
+	void createEpoch(const std::string & epochName); 
 	void switchEpoch(const std::string & epochName); 
 	void enableRX(DATATYPES typ, int src); 
 	void disableRX(DATATYPES typ, int src);
