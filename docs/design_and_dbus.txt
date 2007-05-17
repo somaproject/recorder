@@ -18,3 +18,4 @@ disableDataRX(type, src)
 startRecording()
 endRecording()
 
+this closely mirrors the functionality of the h5file recorder

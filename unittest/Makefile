@@ -1,11 +1,17 @@
 
 SRCDIR = ../src/
-CXXFLAGS=-I$(SRCDIR) -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_POSIX_SOURCE -UNDEBUG -I../ -g
+CXXFLAGS=-I$(SRCDIR) -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_POSIX_SOURCE -UNDEBUG -I../netdata -g `pkg-config --cflags dbus-c++-1 glibmm-2.4 gtkmm-2.4 gdkmm-2.4 glibmm-2.4`
 
-LDFLAGS=-lboost_unit_test_framework  -lhdf5_cpp -lhdf5  -lboost_filesystem -lhdf5_hl
+LDFLAGS=-lboost_unit_test_framework  -lhdf5_cpp -lhdf5  -lboost_filesystem -lhdf5_hl `pkg-config --libs dbus-c++-1 gtkmm-2.4 gdkmm-2.4 glibmm-2.4`
 
-all: runner
+all: recorder_runner
 
+recorder.o: $(SRCDIR)/recorder.cc
+	$(CXX) $(CXXFLAGS) -c $(SRCDIR)/recorder.cc
+
+recorder: recorder.o 
+$(SRCDIR)/recorder-glue.h: $(SRCDIR)/recorder-introspect.xml
+	/usr/local/bin/dbusxx-xml2cpp $(SRCDIR)/recorder-introspect.xml --adaptor=$(SRCDIR)/recorder-glue.h
 
 tspiketable.o: $(SRCDIR)/tspiketable.cc
 	$(CXX) $(CXXFLAGS) -c $(SRCDIR)/tspiketable.cc
@@ -19,6 +25,9 @@ tspiketable_test.o: tspiketable_test.cc
 
 runner: runner.o  tspiketable.o tspiketable_test.o h5filerecorder.o
 
+recorder_runner: runner.o recorder.o recorder_test.o
+
+	$(CXX) $(LDFLAGS) runner.o recorder.o recorder_test.o -o recorder_runner 
 clean:
 	rm *.o
 

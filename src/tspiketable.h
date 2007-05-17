@@ -5,7 +5,7 @@
 
 #include "H5Cpp.h"
 #include "hdf5_hl.h"
-#include <netdata/tspike.h>
+#include <data/tspike.h>
 #include "datasetio.h"
 
 using namespace H5;

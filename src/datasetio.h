@@ -2,7 +2,7 @@
 #define DATASETIO_H
 
 #include <boost/array.hpp>
-#include <netdata/rawdata.h>
+#include <data/rawdata.h>
 
 class DatasetIO
 {

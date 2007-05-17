@@ -1,14 +1,41 @@
-#ifndef H5FILERECORDER_H
-#define H5FILERECORDER_H
+#ifndef RECORDER_H
+#define RECORDER_H
 
-namespace soma 
-{ 
-  namespace recorder {
- 
+#include <dbus-c++/dbus.h>
+#include <dbus-c++/glib-integration.h>
+#include <dbus-c++/error.h>
+#include "recorder-glue.h"
+#include "h5filerecorder.h"
+#include <network/network.h>
 
-class H5FileRecorder
+namespace soma { namespace recorder {
   
-  }
+  
+  class Recorder
+    : public org::soma::Recorder, 
+    public DBus::IntrospectableAdaptor,
+    public DBus::ObjectAdaptor
+    {
+    public:
+      Recorder(DBus::Connection & connection); 
+      // DBUS-exposed methods
+      void createFile(const DBus::String & filename); 
+      void closeFile(); 
+      void createEpoch(const DBus::String & epochname); 
+      void switchEpoch(const DBus::String & epochname); 
+      DBus::String getEpoch(); 
+      void enableDataRX(int typ, int src); 
+      void disableDataRX(int typ, int src); 
+      void startRecording(); 
+      void stopRecording(); 
+    private: 
+      auto_ptr<H5FileRecorder> pH5F; 
+      auto_ptr<Network> pNetwork; 
+      
+    };
+  
+  
+}
 }
 
-#endif // H5FILERECORDER_H
+#endif // RECORDER_H

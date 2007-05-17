@@ -14,8 +14,8 @@ namespace soma
 { 
   namespace recorder {
     
-    typedef std::pair<DATATYPES, int> datasrc_t; 
-    typedef std::map< datasrc_t, DatasetIO *> dispatchTable_t; 
+    typedef std::pair<datatype_t, datasource_t> dpair_t; 
+    typedef std::map< dpair_t, DatasetIO *> dispatchTable_t; 
     class H5FileRecorder
       { 
       public: 
@@ -25,7 +25,9 @@ namespace soma
 	void switchEpoch(const std::string & epochName); 
 	void enableRX(DATATYPES typ, int src); 
 	void disableRX(DATATYPES typ, int src);
-	
+
+	std::list<dpair_t> getDataRX(); 
+	void append(RawData* rdp); 
       private:
 	std::string filename_; 
 	H5::H5File h5file_; 

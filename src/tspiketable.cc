@@ -1,7 +1,7 @@
 #include <boost/format.hpp> 
 #include <iostream>
-#include <netdata/tspike.h>
-#include <netdata/rawdata.h>
+#include <data/tspike.h>
+#include <data/rawdata.h>
 
 
 #include "tspiketable.h"
