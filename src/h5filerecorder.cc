@@ -35,10 +35,10 @@ void H5FileRecorder::switchEpoch(const std::string & epochName)
     for (dispatchTable_t::iterator i = dispatchTable_.begin();
 	 i != dispatchTable_.end(); i++) 
       {
-	dtype_t ds = i->first;
-	DATATYPES typ = ds.first;
-	int src = ds.second; 
-	disableRX(typ, src); 
+	dpair_t ds = i->first;
+	datatype_t typ = ds.second; 
+	datasource_t src = ds.first; 
+	disableRX( src, typ); 
 
       }
   } 
@@ -49,7 +49,7 @@ void H5FileRecorder::switchEpoch(const std::string & epochName)
 
 }
 
-H5::Group H5FileRecorder::getTypeGroup(DATATYPES typ)
+H5::Group H5FileRecorder::getTypeGroup(datatype_t typ)
 {
   // get the group for the type if it exists
   std::string typeName;
@@ -80,20 +80,20 @@ H5::Group H5FileRecorder::getTypeGroup(DATATYPES typ)
   return hg; 
 }
 
-void H5FileRecorder::enableRX(DATATYPES typ, int src)
+void H5FileRecorder::enableRX(datasource_t src, datatype_t typ)
 {
 
   H5::Group hg = getTypeGroup(typ); 
   TSpikeTable *  tst = new TSpikeTable(src, hg);
-  dtype_t dataorigin(typ, src); 
+  dpair_t dataorigin(src, typ); 
   dispatchTable_[dataorigin] = (DatasetIO *)tst; 
   
 }
 
-void H5FileRecorder::disableRX(DATATYPES typ, int src)
+void H5FileRecorder::disableRX(datasource_t src, datatype_t typ)
 {
 
-  dtype_t dataorigin(typ, src); 
+  dpair_t dataorigin(src, typ); 
   DatasetIO * tst; 
   tst = dispatchTable_[dataorigin]; 
   delete tst; 
@@ -111,10 +111,10 @@ std::list<dpair_t> H5FileRecorder::getDataRX()
 {
   std::list<dpair_t> datarxlist; 
   dispatchTable_t::iterator i; 
-  for (i = dispatchTable_.begin(); i != dispatchTable.end();
+  for (i = dispatchTable_.begin(); i != dispatchTable_.end();
        i++)
     {
-      datarxlist.push_back(*i.first); 
+      datarxlist.push_back(i->first); 
     }
 
     

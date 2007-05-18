@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<node name="/org/soma/Recorder">
+  <interface name="org.soma.Recorder">
+    <method name="createFile">
+      <arg type="s" name="filename" direction="in"/>
+    </method>
+    <method name="closeFile">
+      <arg type="s" name="filename" direction="in"/>
+    </method>
+  </interface>
+
+
+</node>

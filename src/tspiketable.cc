@@ -1,11 +1,11 @@
 #include <boost/format.hpp> 
 #include <iostream>
-#include <data/tspike.h>
-#include <data/rawdata.h>
+#include <network/data/tspike.h>
+#include <network/data/rawdata.h>
 
 
 #include "tspiketable.h"
-TSpikeTable::TSpikeTable(int src, H5::Group gloc) :
+TSpikeTable::TSpikeTable(datasource_t src, H5::Group gloc) :
   src_(src), 
   dataCache_(),
   tableLoc_(gloc)

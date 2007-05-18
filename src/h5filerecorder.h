@@ -5,16 +5,13 @@
 #include <string>
 #include <H5Cpp.h>
 #include <map>
+#include <list>
 #include "datasetio.h"
-
-enum DATATYPES {TSPIKE, WAVE, RAW};
-
 
 namespace soma 
 { 
   namespace recorder {
-    
-    typedef std::pair<datatype_t, datasource_t> dpair_t; 
+    typedef std::pair< datasource_t, datatype_t> dpair_t; 
     typedef std::map< dpair_t, DatasetIO *> dispatchTable_t; 
     class H5FileRecorder
       { 
@@ -23,8 +20,8 @@ namespace soma
 	~H5FileRecorder(); 
 	void createEpoch(const std::string & epochName); 
 	void switchEpoch(const std::string & epochName); 
-	void enableRX(DATATYPES typ, int src); 
-	void disableRX(DATATYPES typ, int src);
+	void enableRX(datasource_t src, datatype_t typ); 
+	void disableRX(datasource_t src, datatype_t typ); 
 
 	std::list<dpair_t> getDataRX(); 
 	void append(RawData* rdp); 
@@ -33,7 +30,7 @@ namespace soma
 	H5::H5File h5file_; 
 	H5::Group epochGroup_;
 
-	H5::Group getTypeGroup(DATATYPES typ);
+	H5::Group getTypeGroup(datatype_t typ);
 	dispatchTable_t dispatchTable_; 
 	  friend void H5FileRecorder_test(); 
 	

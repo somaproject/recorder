@@ -29,8 +29,9 @@ namespace soma { namespace recorder {
       void startRecording(); 
       void stopRecording(); 
     private: 
-      auto_ptr<H5FileRecorder> pH5F; 
-      auto_ptr<Network> pNetwork; 
+      std::auto_ptr<H5FileRecorder> pH5F; 
+      std::auto_ptr<Network> pNetwork; 
+      void newDataCallback(); 
       
     };
   

@@ -5,7 +5,7 @@
 
 #include "H5Cpp.h"
 #include "hdf5_hl.h"
-#include <data/tspike.h>
+#include <network/data/tspike.h>
 #include "datasetio.h"
 
 using namespace H5;
@@ -15,7 +15,7 @@ const int CACHESIZE =100;
 class TSpikeTable : public DatasetIO
 {
  public:
-  TSpikeTable(int src, H5::Group gloc); 
+  TSpikeTable(datasource_t src, H5::Group gloc); 
   ~TSpikeTable(); 
   void append(const RawData *); 
   void flush();
