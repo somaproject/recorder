@@ -19,19 +19,81 @@ public:
     Recorder()
     : ::DBus::InterfaceAdaptor("org.soma.Recorder")
     {
-        register_method(Recorder, createFile, _createFile_stub);
+        register_method(Recorder, CreateFile, _CreateFile_stub);
+        register_method(Recorder, CloseFile, _CloseFile_stub);
+        register_method(Recorder, CreateEpoch, _CreateEpoch_stub);
+        register_method(Recorder, SwitchEpoch, _SwitchEpoch_stub);
+        register_method(Recorder, GetEpoch, _GetEpoch_stub);
+        register_method(Recorder, EnableDataRX, _EnableDataRX_stub);
+        register_method(Recorder, DisableDataRX, _DisableDataRX_stub);
+        register_method(Recorder, StartRecording, _StartRecording_stub);
+        register_method(Recorder, StopRecording, _StopRecording_stub);
+        register_method(Recorder, NetworkStats, _NetworkStats_stub);
     }
 
     ::DBus::IntrospectedInterface* const introspect() const 
     {
-        static ::DBus::IntrospectedArgument createFile_args[] = 
+        static ::DBus::IntrospectedArgument CreateFile_args[] = 
         {
             { "filename", "s", true },
             { 0, 0, 0 }
         };
+        static ::DBus::IntrospectedArgument CloseFile_args[] = 
+        {
+            { 0, 0, 0 }
+        };
+        static ::DBus::IntrospectedArgument CreateEpoch_args[] = 
+        {
+            { "epochname", "s", true },
+            { 0, 0, 0 }
+        };
+        static ::DBus::IntrospectedArgument SwitchEpoch_args[] = 
+        {
+            { "epochname", "s", true },
+            { 0, 0, 0 }
+        };
+        static ::DBus::IntrospectedArgument GetEpoch_args[] = 
+        {
+            { "epochname", "s", false },
+            { 0, 0, 0 }
+        };
+        static ::DBus::IntrospectedArgument EnableDataRX_args[] = 
+        {
+            { "src", "i", true },
+            { "typ", "i", true },
+            { 0, 0, 0 }
+        };
+        static ::DBus::IntrospectedArgument DisableDataRX_args[] = 
+        {
+            { "src", "i", true },
+            { "typ", "i", true },
+            { 0, 0, 0 }
+        };
+        static ::DBus::IntrospectedArgument StartRecording_args[] = 
+        {
+            { 0, 0, 0 }
+        };
+        static ::DBus::IntrospectedArgument StopRecording_args[] = 
+        {
+            { 0, 0, 0 }
+        };
+        static ::DBus::IntrospectedArgument NetworkStats_args[] = 
+        {
+            { "networkStats", "a{ss}", false },
+            { 0, 0, 0 }
+        };
         static ::DBus::IntrospectedMethod Recorder_methods[] = 
         {
-            { "createFile", createFile_args },
+            { "CreateFile", CreateFile_args },
+            { "CloseFile", CloseFile_args },
+            { "CreateEpoch", CreateEpoch_args },
+            { "SwitchEpoch", SwitchEpoch_args },
+            { "GetEpoch", GetEpoch_args },
+            { "EnableDataRX", EnableDataRX_args },
+            { "DisableDataRX", DisableDataRX_args },
+            { "StartRecording", StartRecording_args },
+            { "StopRecording", StopRecording_args },
+            { "NetworkStats", NetworkStats_args },
             { 0, 0 }
         };
         static ::DBus::IntrospectedMethod Recorder_signals[] = 
@@ -63,7 +125,16 @@ public:
     /* methods exported by this interface,
      * you will have to implement them in your ObjectAdaptor
      */
-    virtual void createFile( const ::DBus::String& filename ) = 0;
+    virtual void CreateFile( const ::DBus::String& filename ) = 0;
+    virtual void CloseFile(  ) = 0;
+    virtual void CreateEpoch( const ::DBus::String& epochname ) = 0;
+    virtual void SwitchEpoch( const ::DBus::String& epochname ) = 0;
+    virtual ::DBus::String GetEpoch(  ) = 0;
+    virtual void EnableDataRX( const ::DBus::Int32& src, const ::DBus::Int32& typ ) = 0;
+    virtual void DisableDataRX( const ::DBus::Int32& src, const ::DBus::Int32& typ ) = 0;
+    virtual void StartRecording(  ) = 0;
+    virtual void StopRecording(  ) = 0;
+    virtual std::map< ::DBus::String, ::DBus::String > NetworkStats(  ) = 0;
 
 public:
 
@@ -74,13 +145,95 @@ private:
 
     /* unmarshalers (to unpack the DBus message before calling the actual interface method)
      */
-    ::DBus::Message _createFile_stub( const ::DBus::CallMessage& call )
+    ::DBus::Message _CreateFile_stub( const ::DBus::CallMessage& call )
     {
         ::DBus::MessageIter ri = call.reader();
 
         ::DBus::String argin1; ri >> argin1;
-        createFile(argin1);
+        CreateFile(argin1);
         ::DBus::ReturnMessage reply(call);
+        return reply;
+    }
+    ::DBus::Message _CloseFile_stub( const ::DBus::CallMessage& call )
+    {
+        ::DBus::MessageIter ri = call.reader();
+
+        CloseFile();
+        ::DBus::ReturnMessage reply(call);
+        return reply;
+    }
+    ::DBus::Message _CreateEpoch_stub( const ::DBus::CallMessage& call )
+    {
+        ::DBus::MessageIter ri = call.reader();
+
+        ::DBus::String argin1; ri >> argin1;
+        CreateEpoch(argin1);
+        ::DBus::ReturnMessage reply(call);
+        return reply;
+    }
+    ::DBus::Message _SwitchEpoch_stub( const ::DBus::CallMessage& call )
+    {
+        ::DBus::MessageIter ri = call.reader();
+
+        ::DBus::String argin1; ri >> argin1;
+        SwitchEpoch(argin1);
+        ::DBus::ReturnMessage reply(call);
+        return reply;
+    }
+    ::DBus::Message _GetEpoch_stub( const ::DBus::CallMessage& call )
+    {
+        ::DBus::MessageIter ri = call.reader();
+
+        ::DBus::String argout1 = GetEpoch();
+        ::DBus::ReturnMessage reply(call);
+        ::DBus::MessageIter wi = reply.writer();
+        wi << argout1;
+        return reply;
+    }
+    ::DBus::Message _EnableDataRX_stub( const ::DBus::CallMessage& call )
+    {
+        ::DBus::MessageIter ri = call.reader();
+
+        ::DBus::Int32 argin1; ri >> argin1;
+        ::DBus::Int32 argin2; ri >> argin2;
+        EnableDataRX(argin1, argin2);
+        ::DBus::ReturnMessage reply(call);
+        return reply;
+    }
+    ::DBus::Message _DisableDataRX_stub( const ::DBus::CallMessage& call )
+    {
+        ::DBus::MessageIter ri = call.reader();
+
+        ::DBus::Int32 argin1; ri >> argin1;
+        ::DBus::Int32 argin2; ri >> argin2;
+        DisableDataRX(argin1, argin2);
+        ::DBus::ReturnMessage reply(call);
+        return reply;
+    }
+    ::DBus::Message _StartRecording_stub( const ::DBus::CallMessage& call )
+    {
+        ::DBus::MessageIter ri = call.reader();
+
+        StartRecording();
+        ::DBus::ReturnMessage reply(call);
+        return reply;
+    }
+    ::DBus::Message _StopRecording_stub( const ::DBus::CallMessage& call )
+    {
+        ::DBus::MessageIter ri = call.reader();
+
+        StopRecording();
+        ::DBus::ReturnMessage reply(call);
+        return reply;
+    }
+    ::DBus::Message _NetworkStats_stub( const ::DBus::CallMessage& call )
+    {
+        ::DBus::MessageIter ri = call.reader();
+
+        std::map< ::DBus::String, ::DBus::String > argout1 = NetworkStats();
+        ::DBus::ReturnMessage reply(call);
+        ::DBus::MessageIter wi = reply.writer();
+        wi << argout1;
         return reply;
     }
 };

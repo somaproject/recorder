@@ -4,12 +4,13 @@
 #include <dbus-c++/dbus.h>
 #include <dbus-c++/glib-integration.h>
 #include <dbus-c++/error.h>
+#include <gtkmm/main.h>
+
 #include "recorder-glue.h"
 #include "h5filerecorder.h"
 #include <network/network.h>
 
 namespace soma { namespace recorder {
-  
   
   class Recorder
     : public org::soma::Recorder, 
@@ -19,24 +20,28 @@ namespace soma { namespace recorder {
     public:
       Recorder(DBus::Connection & connection); 
       // DBUS-exposed methods
-      void createFile(const DBus::String & filename); 
-      void closeFile(); 
-      void createEpoch(const DBus::String & epochname); 
-      void switchEpoch(const DBus::String & epochname); 
-      DBus::String getEpoch(); 
-      void enableDataRX(int typ, int src); 
-      void disableDataRX(int typ, int src); 
-      void startRecording(); 
-      void stopRecording(); 
+      void CreateFile(const DBus::String & filename); 
+      void CloseFile(); 
+      void CreateEpoch(const DBus::String & epochname); 
+      void SwitchEpoch(const DBus::String & epochname); 
+      DBus::String GetEpoch(); 
+      void EnableDataRX(const DBus::Int32 & typ, const DBus::Int32 & src); 
+      void DisableDataRX(const DBus::Int32 & typ, const DBus::Int32 & src); 
+      void StartRecording(); 
+      void StopRecording(); 
+      std::map< DBus::String, DBus::String > NetworkStats();
+
     private: 
-      std::auto_ptr<H5FileRecorder> pH5F; 
-      std::auto_ptr<Network> pNetwork; 
-      void newDataCallback(); 
-      
+      std::auto_ptr<H5FileRecorder> pH5F_; 
+      std::auto_ptr<Network> pNetwork_; 
+      bool newDataCallback(Glib::IOCondition io_condition); 
+      sigc::connection sigNewData_; 
+      bool recording_ ; 
+      void checkRecording(bool isRecording); 
+
     };
   
   
-}
-}
+}}
 
 #endif // RECORDER_H

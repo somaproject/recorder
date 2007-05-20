@@ -10,43 +10,37 @@ H5FileRecorder::H5FileRecorder(const std::string  & filename) :
   h5file_(filename, H5F_ACC_TRUNC),
   epochGroup_()
 {
-
   H5::Exception::dontPrint(); 
 }
 
 H5FileRecorder::~H5FileRecorder()
 {
-
+  h5file_.flush(H5F_SCOPE_GLOBAL); 
+  h5file_.close(); 
 
 }
 
 void H5FileRecorder::createEpoch(const std::string & epochName)
 {
   h5file_.createGroup(epochName);
-
+  h5file_.flush(H5F_SCOPE_GLOBAL); 
 }
 
 void H5FileRecorder::switchEpoch(const std::string & epochName)
 {
-  try {
-    epochGroup_ = h5file_.openGroup(epochName);
-
-    // close existing dispatch table:
-    for (dispatchTable_t::iterator i = dispatchTable_.begin();
-	 i != dispatchTable_.end(); i++) 
-      {
-	dpair_t ds = i->first;
-	datatype_t typ = ds.second; 
-	datasource_t src = ds.first; 
-	disableRX( src, typ); 
-
-      }
-  } 
-  catch(H5::FileIException & e){ 
-    std::cout << e.getCDetailMsg() << std::endl; 
-    
-  }
-
+  
+  epochGroup_ = h5file_.openGroup(epochName);
+  
+  // close existing dispatch table:
+  for (dispatchTable_t::iterator i = dispatchTable_.begin();
+       i != dispatchTable_.end(); i++) 
+    {
+      dpair_t ds = i->first;
+      datatype_t typ = ds.second; 
+      datasource_t src = ds.first; 
+      disableRX( src, typ); 
+      
+    }
 }
 
 H5::Group H5FileRecorder::getTypeGroup(datatype_t typ)
@@ -64,6 +58,7 @@ H5::Group H5FileRecorder::getTypeGroup(datatype_t typ)
     case RAW:
       typeName = "raw"; 
       break; 
+
     }
   
   H5::Group hg; 
@@ -74,19 +69,20 @@ H5::Group H5FileRecorder::getTypeGroup(datatype_t typ)
 
     } 
   catch(H5::GroupIException & e){ 
+    std::cout << "Creating group ..." << typeName << std::endl; 
     hg =  epochGroup_.createGroup(typeName); 
   }
-
+  
   return hg; 
 }
 
 void H5FileRecorder::enableRX(datasource_t src, datatype_t typ)
 {
-
   H5::Group hg = getTypeGroup(typ); 
   TSpikeTable *  tst = new TSpikeTable(src, hg);
   dpair_t dataorigin(src, typ); 
   dispatchTable_[dataorigin] = (DatasetIO *)tst; 
+
   
 }
 
@@ -103,6 +99,14 @@ void H5FileRecorder::disableRX(datasource_t src, datatype_t typ)
 
 void H5FileRecorder::append(RawData * rdp)
 {
+  // make sure we really want this data
+   datasource_t src = rdp->src; 
+ 
+   datatype_t typ = rdp->typ; 
+
+   dpair_t dataorigin(src, typ); 
+  
+   dispatchTable_[dataorigin]->append(rdp); 
   
 
 }
@@ -114,9 +118,10 @@ std::list<dpair_t> H5FileRecorder::getDataRX()
   for (i = dispatchTable_.begin(); i != dispatchTable_.end();
        i++)
     {
+      
       datarxlist.push_back(i->first); 
     }
-
+  return datarxlist; 
     
 
 }

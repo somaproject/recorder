@@ -14,6 +14,8 @@ using  namespace boost;
 using namespace boost::filesystem; 
 using namespace std; 
 
+
+
 int main()
 {
   
@@ -26,7 +28,6 @@ int main()
   DBus::Connection conn = DBus::Connection::SessionBus();
   conn.request_name("org.soma.Recorder"); 
   soma::recorder::Recorder server(conn);
-  //dispatcher.enter();
   mainloop = Glib::MainLoop::create(); 
   mainloop->run(); 
 
