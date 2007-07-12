@@ -79,9 +79,21 @@ H5::Group H5FileRecorder::getTypeGroup(datatype_t typ)
 void H5FileRecorder::enableRX(datasource_t src, datatype_t typ)
 {
   H5::Group hg = getTypeGroup(typ); 
-  TSpikeTable *  tst = new TSpikeTable(src, hg);
+  
+  DatasetIO * pIO; 
+  switch (typ) {
+  case TSPIKE:
+    pIO = new TSpikeTable(src, hg);
+    break; 
+  case WAVE: 
+    pIO = new TSpikeTable(src, hg);
+    break; 
+  default: 
+    throw std::runtime_error("Do not know how to save that type of data");
+  }
+
   dpair_t dataorigin(src, typ); 
-  dispatchTable_[dataorigin] = (DatasetIO *)tst; 
+  dispatchTable_[dataorigin] = pIO; 
 
   
 }

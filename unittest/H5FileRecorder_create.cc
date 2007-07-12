@@ -24,6 +24,7 @@ BOOST_AUTO_TEST_CASE(H5FileRecorder_test )
   for (int i = 0; i < 1; i++ ) 
     {
       prec->enableRX(TSPIKE, i); 
+      prec->enableRX(WAVE, i); 
     }
 
   delete prec; 
@@ -31,7 +32,7 @@ BOOST_AUTO_TEST_CASE(H5FileRecorder_test )
   // confirm existence of file
   path p(filename); 
   BOOST_CHECK( exists(p) );
-
+  
   
 }
 

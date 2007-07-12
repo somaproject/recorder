@@ -12,6 +12,5 @@ class DatasetIO
     {}; 
 };
 
-//DatasetIO::~DatasetIO() {}
 
 #endif //DATASETIO_H

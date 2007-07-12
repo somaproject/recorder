@@ -61,7 +61,7 @@ TSpikeTable::TSpikeTable(datasource_t src, H5::Group gloc) :
 
   herr_t     status;
 
-  tableName_ = str(boost::format("chan%1d") % src); 
+  tableName_ = str(boost::format("chan%d") % (int)src); 
   
   status = H5TBmake_table( "Table Title", 
 			   tableLoc_.getLocId(),

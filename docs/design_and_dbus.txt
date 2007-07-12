@@ -6,7 +6,6 @@ Generally a single experiment will be represented by a single
 file. Each experiment is divided up into a number of temporal
 epochs. These represent the top-level objects in the HDF5 file.
 
-
 The dbus interface to the recorder object has the following methods: 
 
 createFile("filename") : creates the requested file
@@ -18,4 +17,10 @@ disableDataRX(type, src)
 startRecording()
 endRecording()
 
-this closely mirrors the functionality of the h5file recorder
+this closely mirrors the functionality of the h5file recorder. The
+idea of "epochs", enable/disable, status, etc. are all designed to be
+somewhat file-format-neutral. The recorder object interfaces to the h5
+file recorder, which takes in the relevant data types and saves them
+to disk.
+
+

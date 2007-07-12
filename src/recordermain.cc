@@ -14,8 +14,6 @@ using namespace boost;
 using namespace boost::filesystem; 
 using namespace std; 
 
-
-
 int main()
 {
   
@@ -31,5 +29,4 @@ int main()
   mainloop = Glib::MainLoop::create(); 
   mainloop->run(); 
   
-
 }
