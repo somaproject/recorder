@@ -97,7 +97,7 @@ void H5FileRecorder::disableRX(datasource_t src, datatype_t typ)
   
 }
 
-void H5FileRecorder::append(RawData * rdp)
+void H5FileRecorder::append(DataPacket_t * rdp)
 {
   // make sure we really want this data
    datasource_t src = rdp->src; 

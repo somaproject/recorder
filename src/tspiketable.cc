@@ -1,10 +1,10 @@
 #include <boost/format.hpp> 
 #include <iostream>
-#include <network/data/tspike.h>
-#include <network/data/rawdata.h>
-
+#include <somanetwork/tspike.h>
+#include <somanetwork/datapacket.h>
 
 #include "tspiketable.h"
+
 TSpikeTable::TSpikeTable(datasource_t src, H5::Group gloc) :
   src_(src), 
   dataCache_(),
@@ -77,7 +77,7 @@ TSpikeTable::TSpikeTable(datasource_t src, H5::Group gloc) :
   
 }
 
-void TSpikeTable::append(const RawData * rdp)
+void TSpikeTable::append(const DataPacket_t * rdp)
 {
   TSpike_t tspike = rawToTSpike(rdp);
   dataCache_.push_back(tspike); 

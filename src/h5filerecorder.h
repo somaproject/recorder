@@ -24,7 +24,7 @@ namespace soma
 	void disableRX(datasource_t src, datatype_t typ); 
 
 	std::list<dpair_t> getDataRX(); 
-	void append(RawData* rdp); 
+	void append(DataPacket_t * rdp); 
       private:
 	std::string filename_; 
 	H5::H5File h5file_; 

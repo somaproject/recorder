@@ -2,12 +2,12 @@
 #define DATASETIO_H
 
 #include <boost/array.hpp>
-#include <network/data/rawdata.h>
+#include <somanetwork/datapacket.h>
 
 class DatasetIO
 {
  public:
-  virtual void append(const RawData *) = 0;
+  virtual void append(const DataPacket_t *) = 0;
   virtual ~DatasetIO() 
     {}; 
 };

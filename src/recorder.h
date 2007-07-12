@@ -8,7 +8,7 @@
 
 #include "recorder-glue.h"
 #include "h5filerecorder.h"
-#include <network/network.h>
+#include <somanetwork/network.h>
 
 namespace soma { namespace recorder {
   
@@ -30,12 +30,14 @@ namespace soma { namespace recorder {
       void StartRecording(); 
       void StopRecording(); 
       std::map< DBus::String, DBus::String > NetworkStats();
-
+      
     private: 
       std::auto_ptr<H5FileRecorder> pH5F_; 
       std::auto_ptr<Network> pNetwork_; 
       bool newDataCallback(Glib::IOCondition io_condition); 
+      bool newEventCallback(Glib::IOCondition io_condition); 
       sigc::connection sigNewData_; 
+      sigc::connection sigNewEvent_; 
       bool recording_ ; 
       void checkRecording(bool isRecording); 
 

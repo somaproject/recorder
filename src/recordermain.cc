@@ -10,7 +10,7 @@
 #include "recorder.h"
 
 using namespace soma; 
-using  namespace boost;       
+using namespace boost;       
 using namespace boost::filesystem; 
 using namespace std; 
 
@@ -30,6 +30,6 @@ int main()
   soma::recorder::Recorder server(conn);
   mainloop = Glib::MainLoop::create(); 
   mainloop->run(); 
-
+  
 
 }
