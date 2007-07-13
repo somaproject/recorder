@@ -28,7 +28,8 @@ BOOST_AUTO_TEST_CASE(TSpikeTable_create)
 BOOST_AUTO_TEST_CASE(TSpikeTable_append)
 {
   // create a temp file
-  H5::H5File::H5File h5file("tspikeappend.h5", H5F_ACC_TRUNC); 
+  H5::H5File::H5File h5file("tspikeappend.h5", H5F_ACC_TRUNC);
+
   H5::Group grp = h5file.createGroup("testGroup");
   
   int SRC = 23; 

@@ -14,9 +14,12 @@ using namespace boost;
 using namespace boost::filesystem; 
 using namespace std; 
 
-int main()
+int main(int argc, char * argv[])
 {
   
+  // by default, we try and discover and use the link-local soma bus
+  
+
   DBus::Glib::BusDispatcher dispatcher;
   Glib::RefPtr<Glib::MainLoop> mainloop;
 
