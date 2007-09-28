@@ -13,18 +13,23 @@ namespace soma
   namespace recorder {
     typedef std::pair< datasource_t, datatype_t> dpair_t; 
     typedef std::map< dpair_t, DatasetIO *> dispatchTable_t; 
+
     class H5FileRecorder
       { 
+
       public: 
 	H5FileRecorder(const std::string & filename); 
 	~H5FileRecorder(); 
+
 	void createEpoch(const std::string & epochName); 
 	void switchEpoch(const std::string & epochName); 
-	void enableRX(datasource_t src, datatype_t typ); 
-	void disableRX(datasource_t src, datatype_t typ); 
+	void enableDataRX(datasource_t src, datatype_t typ); 
+	void disableDataRX(datasource_t src, datatype_t typ); 
 
 	std::list<dpair_t> getDataRX(); 
-	void append(DataPacket_t * rdp); 
+	void appendData(DataPacket_t * rdp); 
+	void appendEvent(EventPacket_t * ep); 
+
       private:
 	std::string filename_; 
 	H5::H5File h5file_; 

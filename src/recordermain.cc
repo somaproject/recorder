@@ -1,5 +1,5 @@
 
-#include <boost/test/auto_unit_test.hpp>
+#include <boost/program_options.hpp>
 #include "boost/filesystem/operations.hpp"
 #include "boost/filesystem/fstream.hpp"   
 #include <iostream>                        
@@ -18,7 +18,6 @@ int main(int argc, char * argv[])
 {
   
   // by default, we try and discover and use the link-local soma bus
-  
 
   DBus::Glib::BusDispatcher dispatcher;
   Glib::RefPtr<Glib::MainLoop> mainloop;

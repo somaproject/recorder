@@ -16,24 +16,34 @@ BOOST_AUTO_TEST_SUITE(WaveTable);
 BOOST_AUTO_TEST_CASE(WaveTable_create)
 {
   // create a temp file
-  H5::H5File::H5File h5file("wavecreate.h5", H5F_ACC_TRUNC); 
-  H5::Group grp = h5file.createGroup("testGroup");
+  H5::H5File::H5File * h5file 
+    = new H5::H5File::H5File("WaveTable_create.h5", H5F_ACC_TRUNC); 
+
+  H5::Group grp = h5file->createGroup("testGroup");
   
   int SRC = 17; 
-  WaveTable tst(17, grp); 
-  h5file.close(); 
+  WaveTable tst(SRC, grp); 
+  h5file->flush(H5F_SCOPE_GLOBAL); 
+
+  h5file->close(); 
+  delete h5file; 
+
+  int retval = system("python WaveTable_test.py create");
+  BOOST_CHECK_EQUAL(retval , 0); 
 
 }
 
 BOOST_AUTO_TEST_CASE(WaveTable_append)
 {
   // create a temp file
-  H5::H5File::H5File h5file("waveappend.h5", H5F_ACC_TRUNC); 
-  H5::Group grp = h5file.createGroup("testGroup");
+  H5::H5File::H5File * h5file 
+    = new H5::H5File::H5File("WaveTable_append.h5", H5F_ACC_TRUNC); 
+
+  H5::Group grp = h5file->createGroup("testGroup");
   
   int SRC = 23; 
-  WaveTable tst(23, grp); 
-  int N = 100; 
+  WaveTable*  tst = new WaveTable(23, grp); 
+  int N = 1000; 
   
   
   for (int i = 0; i < N; i++)
@@ -50,13 +60,21 @@ BOOST_AUTO_TEST_CASE(WaveTable_append)
       }
       
       DataPacket_t * rdp = rawFromWave(w); 
-      tst.append(rdp); 
+      tst->append(rdp); 
       delete rdp; 
 
+
     }
+  delete tst; 
+  h5file->flush(H5F_SCOPE_GLOBAL); 
 
-  h5file.close(); 
+  h5file->close(); 
 
+  delete h5file; 
+
+
+  int retval = system("python WaveTable_test.py append");
+  BOOST_CHECK_EQUAL(retval , 0); 
   
 
 }

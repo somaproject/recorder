@@ -3,6 +3,7 @@
 
 #include <boost/array.hpp>
 #include <somanetwork/datapacket.h>
+#include <somanetwork/event.h>
 
 class DatasetIO
 {

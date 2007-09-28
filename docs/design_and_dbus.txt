@@ -17,10 +17,14 @@ disableDataRX(type, src)
 startRecording()
 endRecording()
 
-this closely mirrors the functionality of the h5file recorder. The
+this closely mirrors the functionality of the H5FileRecorder. The
 idea of "epochs", enable/disable, status, etc. are all designed to be
 somewhat file-format-neutral. The recorder object interfaces to the h5
 file recorder, which takes in the relevant data types and saves them
 to disk.
 
+There are three components: 
+H5FileRecorder: All File and datatype IO
+Network : Interface with the network
+Recorder: Dbus interface
 

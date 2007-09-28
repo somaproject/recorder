@@ -1,0 +1,9 @@
+
+We use the wengophone Dbus bindings, which we hope we'll move to
+sourceforge soon. 
+
+
+svn --username guest --password guest --non-interactive co http://dev.openwengo.org/svn/openwengo/wengophone-ng/branches/wengophone-dbus-api/libs/dbus/
+
+And remember to configure with 
+--enable-glib

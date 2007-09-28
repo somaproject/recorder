@@ -38,7 +38,7 @@ void H5FileRecorder::switchEpoch(const std::string & epochName)
       dpair_t ds = i->first;
       datatype_t typ = ds.second; 
       datasource_t src = ds.first; 
-      disableRX( src, typ); 
+      disableDataRX( src, typ); 
       
     }
 }
@@ -76,7 +76,7 @@ H5::Group H5FileRecorder::getTypeGroup(datatype_t typ)
   return hg; 
 }
 
-void H5FileRecorder::enableRX(datasource_t src, datatype_t typ)
+void H5FileRecorder::enableDataRX(datasource_t src, datatype_t typ)
 {
   H5::Group hg = getTypeGroup(typ); 
   
@@ -94,11 +94,10 @@ void H5FileRecorder::enableRX(datasource_t src, datatype_t typ)
 
   dpair_t dataorigin(src, typ); 
   dispatchTable_[dataorigin] = pIO; 
-
   
 }
 
-void H5FileRecorder::disableRX(datasource_t src, datatype_t typ)
+void H5FileRecorder::disableDataRX(datasource_t src, datatype_t typ)
 {
 
   dpair_t dataorigin(src, typ); 
@@ -109,7 +108,7 @@ void H5FileRecorder::disableRX(datasource_t src, datatype_t typ)
   
 }
 
-void H5FileRecorder::append(DataPacket_t * rdp)
+void H5FileRecorder::appendData(DataPacket_t * rdp)
 {
   // make sure we really want this data
    datasource_t src = rdp->src; 
@@ -119,7 +118,6 @@ void H5FileRecorder::append(DataPacket_t * rdp)
    dpair_t dataorigin(src, typ); 
   
    dispatchTable_[dataorigin]->append(rdp); 
-  
 
 }
 

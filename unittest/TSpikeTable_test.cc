@@ -16,25 +16,33 @@ BOOST_AUTO_TEST_SUITE(TSpikeTable);
 BOOST_AUTO_TEST_CASE(TSpikeTable_create)
 {
   // create a temp file
-  H5::H5File::H5File h5file("tspikecreate.h5", H5F_ACC_TRUNC); 
-  H5::Group grp = h5file.createGroup("testGroup");
+  H5::H5File::H5File * h5file 
+    = new H5::H5File::H5File("TSpikeTable_create.h5", H5F_ACC_TRUNC); 
+  H5::Group grp = h5file->createGroup("testGroup");
   
   int SRC = 17; 
   TSpikeTable tst(17, grp); 
-  h5file.close(); 
+  h5file->flush(H5F_SCOPE_GLOBAL); 
+  h5file->close(); 
+  delete h5file; 
+  
+  
+  int retval = system("python TSpikeTable_test.py create");
+  BOOST_CHECK_EQUAL(retval , 0); 
 
 }
 
 BOOST_AUTO_TEST_CASE(TSpikeTable_append)
 {
   // create a temp file
-  H5::H5File::H5File h5file("tspikeappend.h5", H5F_ACC_TRUNC);
+  H5::H5File::H5File * h5file =
+    new H5::H5File::H5File("TSpikeTable_append.h5", H5F_ACC_TRUNC);
 
-  H5::Group grp = h5file.createGroup("testGroup");
+  H5::Group grp = h5file->createGroup("testGroup");
   
   int SRC = 23; 
   TSpikeTable tst(23, grp); 
-  int N = 2; 
+  int N = 1000; 
   
   
   for (int i = 0; i < N; i++)
@@ -63,13 +71,15 @@ BOOST_AUTO_TEST_CASE(TSpikeTable_append)
       delete rdp; 
     }
 
-  h5file.close(); 
+  h5file->flush(H5F_SCOPE_GLOBAL); 
+  h5file->close(); 
+  delete h5file; 
 
   // verify the table
-  H5::H5File::H5File h5fileRead("tspikeappend.h5", H5F_ACC_RDONLY); 
-  H5::Group grpread = h5fileRead.openGroup("testGroup"); 
   
 
+  int retval = system("python TSpikeTable_test.py append");
+  BOOST_CHECK_EQUAL(retval , 0); 
 
 }
 

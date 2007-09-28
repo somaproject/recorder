@@ -50,7 +50,7 @@ WaveTable::WaveTable(datasource_t src, H5::Group gloc) :
   Wave_field_type[4] = H5T_NATIVE_UINT16; 
   Wave_field_type[5] = wt; 
 
-  tableName_ = str(boost::format("chan%1d") % src); 
+  tableName_ = str(boost::format("chan%d") % (int)src); 
   
   status = H5TBmake_table( "Table Title", 
 			   tableLoc_.getLocId(),

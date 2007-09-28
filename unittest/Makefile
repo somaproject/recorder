@@ -24,11 +24,13 @@ h5filerecorder.o: $(SRCDIR)/h5filerecorder.cc
 
 H5FileRecorder_create.o: h5filerecorder.o
 
-tspiketable_test.o: tspiketable_test.cc
+TSpikeTable_test.o: TSpikeTable_test.cc
 
-wavetable_test.o: wavetable_test.cc
+WaveTable_test.o: WaveTable_test.cc
 
-runner: runner.o  tspiketable.o tspiketable_test.o h5filerecorder.o wavetable.o wavetable_test.o
+runner: runner.o  tspiketable.o TSpikeTable_test.o h5filerecorder.o wavetable.o WaveTable_test.o H5FileRecorder_create.o
+
+
 
 recorder_runner: runner.o tspiketable.o tspiketable_test.o
 
