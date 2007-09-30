@@ -1,5 +1,5 @@
-#ifndef TSPIKETABLE_H
-#define TSPIKETABLE_H
+#ifndef WAVETABLE_H
+#define WAVETABLE_H
 
 #include <vector>
 
@@ -31,4 +31,4 @@ class WaveTable : public DatasetIO
   
 }; 
 
-#endif // TSPIKETABLE_H
+#endif // WAVETABLE_H

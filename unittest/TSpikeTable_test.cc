@@ -1,17 +1,18 @@
 
 #include <boost/test/auto_unit_test.hpp>
-#include "boost/filesystem/operations.hpp"
-#include "boost/filesystem/fstream.hpp"   
+#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/fstream.hpp>
 #include <iostream>                        
 #include <fstream>
+
+#include <tspiketable.h>
 #include "h5filerecorder.h"
-#include "tspiketable.h"
 using namespace soma; 
 using  namespace boost;       
 using namespace boost::filesystem; 
 using namespace std; 
 
-BOOST_AUTO_TEST_SUITE(TSpikeTable); 
+BOOST_AUTO_TEST_SUITE(TSpikeTableTest); 
 
 BOOST_AUTO_TEST_CASE(TSpikeTable_create)
 {

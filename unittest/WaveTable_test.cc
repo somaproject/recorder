@@ -11,7 +11,7 @@ using  namespace boost;
 using namespace boost::filesystem; 
 using namespace std; 
 
-BOOST_AUTO_TEST_SUITE(WaveTable); 
+BOOST_AUTO_TEST_SUITE(WaveTableTest); 
 
 BOOST_AUTO_TEST_CASE(WaveTable_create)
 {

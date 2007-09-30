@@ -14,7 +14,7 @@ library_names='libdbus-c++-1.so.0.0.0 libdbus-c++-1.so.0 libdbus-c++-1.so'
 old_library='libdbus-c++-1.a'
 
 # Libraries that this one depends upon.
-dependency_libs=' -ldbus-1 /usr/lib/libexpat.la /usr/lib/libglib-2.0.la'
+dependency_libs=' -ldbus-1 /usr/lib/libexpat.la'
 
 # Version information for libdbus-c++-1.
 current=0

@@ -23,10 +23,15 @@ namespace soma
 
 	void createEpoch(const std::string & epochName); 
 	void switchEpoch(const std::string & epochName); 
+	std::string getCurrentEpoch(); 
+	std::list<std::string> getAvailableEpochs(); 
+
 	void enableDataRX(datasource_t src, datatype_t typ); 
 	void disableDataRX(datasource_t src, datatype_t typ); 
 
 	std::list<dpair_t> getDataRX(); 
+
+
 	void appendData(DataPacket_t * rdp); 
 	void appendEvent(EventPacket_t * ep); 
 
