@@ -12,9 +12,9 @@ epoch, data is organized by type, and then by name.
    /notes
    /(other multimodal data)
 
----------------
+--------------------------------------------------------------------
 tspikes (and waves)
----------------
+--------------------------------------------------------------------
 
 Each entry in tspikes is a table consisting of tspike data, named
 according to a 'human-readable' name.
@@ -25,10 +25,31 @@ for example, under tspikes:
  ec4
  pfc1
 
-There are attributes that help with data management here. 
+There are attributes that help with data management here: 
+    int: source: the source that this data generator corresponds to
 
 The right answer would seem to be store data by source and only "tag"
 it with meaningful names, since we only record each source to one
 destination.
 
+
+--------------------------------------------------------------------
+events
+--------------------------------------------------------------------
+Events is a lot of all received events. Note that transmitted events cannot
+be included in this list, as the could come from anywhere. 
+
+The event structure is a table with:
+cmd
+src
+5-length array of 16-bit words
+
+-------------------------------------------------------------------
+notes
+-------------------------------------------------------------------
+
+These are per-epoch notes. Arbitrary textual data that hsa been added,
+with a timestamp/event stamp
+
+-------------------------------------------------------------------
 
