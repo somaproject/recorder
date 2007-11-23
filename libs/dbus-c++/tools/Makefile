@@ -46,7 +46,7 @@ AR = ar
 AUTOCONF = ${SHELL} /home/jonas/soma/software/recorder/libs/dbus-c++/missing --run autoconf
 AUTOHEADER = ${SHELL} /home/jonas/soma/software/recorder/libs/dbus-c++/missing --run autoheader
 AUTOMAKE = ${SHELL} /home/jonas/soma/software/recorder/libs/dbus-c++/missing --run automake-1.7
-AWK = mawk
+AWK = gawk
 BUILD_LIBDBUS_CXX_DIR = $(top_builddir)
 CC = gcc
 CCDEPMODE = depmode=gcc3

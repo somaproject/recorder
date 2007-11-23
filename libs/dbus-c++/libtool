@@ -44,7 +44,7 @@ available_tags=" CXX F77"
 
 # ### BEGIN LIBTOOL CONFIG
 
-# Libtool was configured on host shannon:
+# Libtool was configured on host hamiltonian:
 
 # Shell to use when invoking shell scripts.
 SHELL="/bin/bash"
@@ -325,10 +325,10 @@ variables_saved_for_relink="PATH LD_LIBRARY_PATH LD_RUN_PATH GCC_EXEC_PREFIX COM
 link_all_deplibs=no
 
 # Compile-time system search path for libraries
-sys_lib_search_path_spec=" /usr/lib/gcc/x86_64-linux-gnu/4.1.2/ /usr/lib/gcc/x86_64-linux-gnu/4.1.2/ /usr/lib/gcc/x86_64-linux-gnu/4.1.2/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/4.1.2/ /usr/lib/gcc/x86_64-linux-gnu/4.1.2/../../../../x86_64-linux-gnu/lib/ /usr/lib/gcc/x86_64-linux-gnu/4.1.2/../../../x86_64-linux-gnu/4.1.2/ /usr/lib/gcc/x86_64-linux-gnu/4.1.2/../../../ /lib/x86_64-linux-gnu/4.1.2/ /lib/ /usr/lib/x86_64-linux-gnu/4.1.2/ /usr/lib/"
+sys_lib_search_path_spec=" /usr/lib/gcc/x86_64-linux-gnu/4.1.3/ /usr/lib/gcc/x86_64-linux-gnu/4.1.3/ /usr/lib/gcc/x86_64-linux-gnu/4.1.3/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/4.1.3/ /usr/lib/gcc/x86_64-linux-gnu/4.1.3/../../../../x86_64-linux-gnu/lib/ /usr/lib/gcc/x86_64-linux-gnu/4.1.3/../../../x86_64-linux-gnu/4.1.3/ /usr/lib/gcc/x86_64-linux-gnu/4.1.3/../../../ /lib/x86_64-linux-gnu/4.1.3/ /lib/ /usr/lib/x86_64-linux-gnu/4.1.3/ /usr/lib/"
 
 # Run-time system search path for libraries
-sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/lib/atlas /usr/local/lib "
+sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/local/lib /usr/local/lib "
 
 # Fix the shell variable $srcfile for the compiler.
 fix_srcfile_path=""
@@ -7223,7 +7223,7 @@ disable_libs=static
 # End:
 # ### BEGIN LIBTOOL TAG CONFIG: CXX
 
-# Libtool was configured on host shannon:
+# Libtool was configured on host hamiltonian:
 
 # Shell to use when invoking shell scripts.
 SHELL="/bin/bash"
@@ -7405,11 +7405,11 @@ striplib="strip --strip-unneeded"
 
 # Dependencies to place before the objects being linked to create a
 # shared library.
-predep_objects="/usr/lib/gcc/x86_64-linux-gnu/4.1.2/../../../../lib64/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.1.2/crtbeginS.o"
+predep_objects="/usr/lib/gcc/x86_64-linux-gnu/4.1.3/../../../../lib/crti.o /usr/lib/gcc/x86_64-linux-gnu/4.1.3/crtbeginS.o"
 
 # Dependencies to place after the objects being linked to create a
 # shared library.
-postdep_objects="/usr/lib/gcc/x86_64-linux-gnu/4.1.2/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/4.1.2/../../../../lib64/crtn.o"
+postdep_objects="/usr/lib/gcc/x86_64-linux-gnu/4.1.3/crtendS.o /usr/lib/gcc/x86_64-linux-gnu/4.1.3/../../../../lib/crtn.o"
 
 # Dependencies to place before the objects being linked to create a
 # shared library.
@@ -7421,7 +7421,7 @@ postdeps="-lstdc++ -lm -lgcc_s -lc -lgcc_s"
 
 # The library search path used internally by the compiler when linking
 # a shared library.
-compiler_lib_search_path="-L/usr/lib/gcc/x86_64-linux-gnu/4.1.2 -L/usr/lib/gcc/x86_64-linux-gnu/4.1.2 -L/usr/lib/gcc/x86_64-linux-gnu/4.1.2/../../../../lib64 -L/lib/../lib64 -L/usr/lib/../lib64"
+compiler_lib_search_path="-L/usr/lib/gcc/x86_64-linux-gnu/4.1.3 -L/usr/lib/gcc/x86_64-linux-gnu/4.1.3 -L/usr/lib/gcc/x86_64-linux-gnu/4.1.3/../../../../lib -L/lib/../lib -L/usr/lib/../lib"
 
 # Method to check whether dependent libraries are shared objects.
 deplibs_check_method="pass_all"
@@ -7501,10 +7501,10 @@ variables_saved_for_relink="PATH LD_LIBRARY_PATH LD_RUN_PATH GCC_EXEC_PREFIX COM
 link_all_deplibs=no
 
 # Compile-time system search path for libraries
-sys_lib_search_path_spec=" /usr/lib/gcc/x86_64-linux-gnu/4.1.2/ /usr/lib/gcc/x86_64-linux-gnu/4.1.2/ /usr/lib/gcc/x86_64-linux-gnu/4.1.2/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/4.1.2/ /usr/lib/gcc/x86_64-linux-gnu/4.1.2/../../../../x86_64-linux-gnu/lib/ /usr/lib/gcc/x86_64-linux-gnu/4.1.2/../../../x86_64-linux-gnu/4.1.2/ /usr/lib/gcc/x86_64-linux-gnu/4.1.2/../../../ /lib/x86_64-linux-gnu/4.1.2/ /lib/ /usr/lib/x86_64-linux-gnu/4.1.2/ /usr/lib/"
+sys_lib_search_path_spec=" /usr/lib/gcc/x86_64-linux-gnu/4.1.3/ /usr/lib/gcc/x86_64-linux-gnu/4.1.3/ /usr/lib/gcc/x86_64-linux-gnu/4.1.3/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/4.1.3/ /usr/lib/gcc/x86_64-linux-gnu/4.1.3/../../../../x86_64-linux-gnu/lib/ /usr/lib/gcc/x86_64-linux-gnu/4.1.3/../../../x86_64-linux-gnu/4.1.3/ /usr/lib/gcc/x86_64-linux-gnu/4.1.3/../../../ /lib/x86_64-linux-gnu/4.1.3/ /lib/ /usr/lib/x86_64-linux-gnu/4.1.3/ /usr/lib/"
 
 # Run-time system search path for libraries
-sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/lib/atlas /usr/local/lib "
+sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/local/lib /usr/local/lib "
 
 # Fix the shell variable $srcfile for the compiler.
 fix_srcfile_path=""
@@ -7528,7 +7528,7 @@ include_expsyms=""
 
 # ### BEGIN LIBTOOL TAG CONFIG: F77
 
-# Libtool was configured on host shannon:
+# Libtool was configured on host hamiltonian:
 
 # Shell to use when invoking shell scripts.
 SHELL="/bin/bash"
@@ -7812,7 +7812,7 @@ link_all_deplibs=no
 sys_lib_search_path_spec=" /usr/lib/gcc/x86_64-linux-gnu/3.4.6/ /usr/lib/gcc/x86_64-linux-gnu/3.4.6/ /usr/lib/gcc/x86_64-linux-gnu/3.4.6/../../../../x86_64-linux-gnu/lib/x86_64-linux-gnu/3.4.6/ /usr/lib/gcc/x86_64-linux-gnu/3.4.6/../../../../x86_64-linux-gnu/lib/ /usr/lib/gcc/x86_64-linux-gnu/3.4.6/../../../x86_64-linux-gnu/3.4.6/ /usr/lib/gcc/x86_64-linux-gnu/3.4.6/../../../ /lib/x86_64-linux-gnu/3.4.6/ /lib/ /usr/lib/x86_64-linux-gnu/3.4.6/ /usr/lib/"
 
 # Run-time system search path for libraries
-sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/lib/atlas /usr/local/lib "
+sys_lib_dlsearch_path_spec="/lib /usr/lib /usr/local/lib /usr/local/lib "
 
 # Fix the shell variable $srcfile for the compiler.
 fix_srcfile_path=""

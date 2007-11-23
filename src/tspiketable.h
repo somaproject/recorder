@@ -15,9 +15,10 @@ const int CACHESIZE =100;
 class TSpikeTable : public DatasetIO
 {
  public:
-  TSpikeTable(datasource_t src, H5::Group gloc); 
+  TSpikeTable(datasource_t src, std::string name, 
+	      H5::Group gloc); 
   ~TSpikeTable(); 
-  void append(const DataPacket_t *); 
+  void append(const pDataPacket_t); 
   void flush();
   
  private:
@@ -27,6 +28,9 @@ class TSpikeTable : public DatasetIO
   std::vector<size_t> dstSizes_; 
   std::vector<size_t> dstOffsets_; 
   std::string tableName_; 
+  //void addNote(std::string str); 
+  //std::list<std::string> getNotes(); 
+    
   //size_t fieldTypes[]; 
   
 }; 

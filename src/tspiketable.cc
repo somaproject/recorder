@@ -5,10 +5,12 @@
 
 #include "tspiketable.h"
 
-TSpikeTable::TSpikeTable(datasource_t src, H5::Group gloc) :
+TSpikeTable::TSpikeTable(datasource_t src, std::string name, 
+			 H5::Group gloc) :
   src_(src), 
   dataCache_(),
-  tableLoc_(gloc)
+  tableLoc_(gloc), 
+  tableName_(name)
 {
   // setup cache
   dataCache_.reserve(CACHESIZE); 
@@ -18,8 +20,8 @@ TSpikeTable::TSpikeTable(datasource_t src, H5::Group gloc) :
   const int NFIELDS = 6; 
   size_t TSpike_dst_size =  sizeof( TSpike_t );
   
-  dstOffsets_.push_back(HOFFSET( TSpike_t, src)); 
-  dstOffsets_.push_back(HOFFSET( TSpike_t, time)); 
+  dstOffsets_.push_back(HOFFSET(TSpike_t, src)); 
+  dstOffsets_.push_back(HOFFSET(TSpike_t, time)); 
   dstOffsets_.push_back(HOFFSET(TSpike_t, x)); 
   dstOffsets_.push_back(HOFFSET(TSpike_t, y)); 
   dstOffsets_.push_back(HOFFSET(TSpike_t, a)); 
@@ -36,7 +38,7 @@ TSpikeTable::TSpikeTable(datasource_t src, H5::Group gloc) :
 
   
   hsize_t wave_dims[1] = {TSPIKEWAVE_LEN}; 
-  hid_t wt = H5Tarray_create(H5T_NATIVE_INT32, 1, wave_dims, NULL);  
+  hid_t wt = H5Tarray_create(H5T_NATIVE_INT32, 1, wave_dims);  
 
   hid_t TSpikeWave_type = H5Tcreate(H5T_COMPOUND, sizeof(TSpikeWave_t)); 
   H5Tinsert(TSpikeWave_type, "filtid", 
@@ -61,8 +63,6 @@ TSpikeTable::TSpikeTable(datasource_t src, H5::Group gloc) :
 
   herr_t     status;
 
-  tableName_ = str(boost::format("chan%d") % (int)src); 
-  
   status = H5TBmake_table( "Table Title", 
 			   tableLoc_.getLocId(),
 			   tableName_.c_str(), 
@@ -77,8 +77,11 @@ TSpikeTable::TSpikeTable(datasource_t src, H5::Group gloc) :
   
 }
 
-void TSpikeTable::append(const DataPacket_t * rdp)
+void TSpikeTable::append(const pDataPacket_t rdp)
 {
+  // For performance reasons we append the incoming data packets to
+  // an internal cache
+
   TSpike_t tspike = rawToTSpike(rdp);
   dataCache_.push_back(tspike); 
   if (dataCache_.size() == CACHESIZE -1)
@@ -90,6 +93,8 @@ void TSpikeTable::append(const DataPacket_t * rdp)
 
 void TSpikeTable::flush()
 {
+  // Flush all data to the table and clear the cache
+
   if (dataCache_.size() > 0) {
     
     H5TBappend_records(tableLoc_.getLocId(), tableName_.c_str(), 

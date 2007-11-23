@@ -1,0 +1,34 @@
+All data is saved by the recorder currently using the HDF5 file
+format. 
+
+A "file" is meant to represent a single recording session for a single
+animal.  Data is saved in recording periods called epochs. Within each
+epoch, data is organized by type, and then by name. 
+
+/epochName/
+   /tspikes
+   /waves
+   /events
+   /notes
+   /(other multimodal data)
+
+---------------
+tspikes (and waves)
+---------------
+
+Each entry in tspikes is a table consisting of tspike data, named
+according to a 'human-readable' name.
+
+for example, under tspikes:
+/hipp1
+ hipp2
+ ec4
+ pfc1
+
+There are attributes that help with data management here. 
+
+The right answer would seem to be store data by source and only "tag"
+it with meaningful names, since we only record each source to one
+destination.
+
+

@@ -1,6 +1,7 @@
 
 SRCDIR = ../src/
-CXXFLAGS=-I$(SRCDIR) -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_POSIX_SOURCE -UNDEBUG -I../ -g `pkg-config --cflags dbus-c++-1 glibmm-2.4 gtkmm-2.4 gdkmm-2.4 glibmm-2.4 somanetwork-1.0` -DBOOST_TEST_DYN_LINK
+CXXFLAGS=-I$(SRCDIR) -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_POSIX_SOURCE -UNDEBUG -I../ -g `pkg-config --cflags dbus-c++-1 glibmm-2.4 gtkmm-2.4 gdkmm-2.4 glibmm-2.4 somanetwork-1.0` -DBOOST_TEST_DYN_LINK -I/usr/local/include
+
 
 LDFLAGS=-lboost_unit_test_framework-gcc41-mt -lhdf5_cpp -lhdf5 -lboost_thread-gcc41-mt  -lboost_filesystem-gcc41-mt -lhdf5_hl `pkg-config --libs dbus-c++-1 gtkmm-2.4 gdkmm-2.4 glibmm-2.4 somanetwork-1.0` -DBOOST_TEST_DYN_LINK
 

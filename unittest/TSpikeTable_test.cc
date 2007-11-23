@@ -22,7 +22,7 @@ BOOST_AUTO_TEST_CASE(TSpikeTable_create)
   H5::Group grp = h5file->createGroup("testGroup");
   
   int SRC = 17; 
-  TSpikeTable tst(17, grp); 
+  TSpikeTable tst(17, "eeg1", grp); 
   h5file->flush(H5F_SCOPE_GLOBAL); 
   h5file->close(); 
   delete h5file; 
@@ -42,7 +42,7 @@ BOOST_AUTO_TEST_CASE(TSpikeTable_append)
   H5::Group grp = h5file->createGroup("testGroup");
   
   int SRC = 23; 
-  TSpikeTable tst(23, grp); 
+  TSpikeTable tst(23, "eeg2", grp); 
   int N = 1000; 
   
   
@@ -67,9 +67,9 @@ BOOST_AUTO_TEST_CASE(TSpikeTable_append)
 	}
       }
       
-      DataPacket_t * rdp = rawFromTSpike(ts); 
+      pDataPacket_t rdp(rawFromTSpike(ts)); 
       tst.append(rdp); 
-      delete rdp; 
+      
     }
 
   h5file->flush(H5F_SCOPE_GLOBAL); 

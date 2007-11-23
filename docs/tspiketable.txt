@@ -1,0 +1,6 @@
+The TSpikeTable is a table of tspike records, named after the target
+name. The attributes are:
+
+datasrc: the number of the data source corresponding to this entry.  
+
+

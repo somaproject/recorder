@@ -557,7 +557,7 @@ s,@AMTAR@,|#_!!_#|${SHELL} /home/jonas/soma/software/recorder/libs/dbus-c++/miss
 s,@install_sh@,|#_!!_#|/home/jonas/soma/software/recorder/libs/dbus-c++/install-sh,g
 s,@STRIP@,|#_!!_#|strip,g
 s,@INSTALL_STRIP_PROGRAM@,|#_!!_#|${SHELL} $(install_sh) -c -s,g
-s,@AWK@,|#_!!_#|mawk,g
+s,@AWK@,|#_!!_#|gawk,g
 s,@SET_MAKE@,|#_!!_#|,g
 s,@am__leading_dot@,|#_!!_#|.,g
 s,@build@,|#_!!_#|x86_64-unknown-linux-gnu,g
