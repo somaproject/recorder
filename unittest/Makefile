@@ -1,9 +1,9 @@
-
+CC=g++
 SRCDIR = ../src/
-CXXFLAGS=-I$(SRCDIR) -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_POSIX_SOURCE -UNDEBUG -I../ -g `pkg-config --cflags dbus-c++-1 glibmm-2.4 gtkmm-2.4 gdkmm-2.4 glibmm-2.4 somanetwork-1.0` -DBOOST_TEST_DYN_LINK -I/usr/local/include
+CXXFLAGS=-I$(SRCDIR) -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64 -D_POSIX_SOURCE -UNDEBUG -I../ -g `pkg-config --cflags dbus-c++-1 glibmm-2.4 gtkmm-2.4 gdkmm-2.4 glibmm-2.4 somanetwork-1.0`  -I/usr/local/include -I/usr/local/include/hdf5  -I/usr/local/include/boost-1_34_1/
 
 
-LDFLAGS=-lboost_unit_test_framework-gcc41-mt -lhdf5_cpp -lhdf5 -lboost_thread-gcc41-mt  -lboost_filesystem-gcc41-mt -lhdf5_hl `pkg-config --libs dbus-c++-1 gtkmm-2.4 gdkmm-2.4 glibmm-2.4 somanetwork-1.0` -DBOOST_TEST_DYN_LINK
+LDFLAGS=-lboost_unit_test_framework-gcc41-mt -lhdf5_cpp -lhdf5 -lboost_thread-gcc41-mt  -lboost_filesystem-gcc41-mt  -L/usr/local/lib -lhdf5_hl `pkg-config --libs dbus-c++-1 gtkmm-2.4 gdkmm-2.4 glibmm-2.4 somanetwork-1.0`
 
 all: runner
 
@@ -29,7 +29,7 @@ TSpikeTable_test.o: TSpikeTable_test.cc
 
 WaveTable_test.o: WaveTable_test.cc
 
-runner: runner.o  tspiketable.o TSpikeTable_test.o h5filerecorder.o wavetable.o WaveTable_test.o H5FileRecorder_create.o
+runner: runner.o  tspiketable.o wavetable.o h5filerecorder.o H5FileRecorder_create.o TSpikeTable_test.o WaveTable_test.o
 
 
 

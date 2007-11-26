@@ -18,7 +18,7 @@ def typecheck(t, name, type):
 def create_test():
     t = tables.openFile('TSpikeTable_create.h5')
     g = t.root.testGroup
-    t = t.root.testGroup.chan17
+    t = t.root.testGroup.hipp1
 
     assert isinstance(t.coldescrs['src'],
                        tables.description.UInt8Col)
@@ -41,7 +41,7 @@ def append_test():
 
     f = tables.openFile('TSpikeTable_append.h5')
     g = f.root.testGroup
-    table = g.chan23
+    table = g.hipp2
 
     N = 1000
 

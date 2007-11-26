@@ -15,9 +15,9 @@ const int CACHESIZE =100;
 class WaveTable : public DatasetIO
 {
  public:
-  WaveTable(datasource_t src, H5::Group gloc); 
+  WaveTable(datasource_t src, std::string name, H5::Group gloc); 
   ~WaveTable(); 
-  void append(const DataPacket_t *); 
+  void append(const pDataPacket_t ); 
   void flush();
   
  private:
@@ -27,6 +27,7 @@ class WaveTable : public DatasetIO
   std::vector<size_t> dstSizes_; 
   std::vector<size_t> dstOffsets_; 
   std::string tableName_; 
+
   //size_t fieldTypes[]; 
   
 }; 

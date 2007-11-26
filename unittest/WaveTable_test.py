@@ -18,7 +18,7 @@ def typecheck(t, name, type):
 def create_test():
     t = tables.openFile('WaveTable_create.h5')
     g = t.root.testGroup
-    t = t.root.testGroup.chan17
+    t = t.root.testGroup.eeg1
 
     
     assert isinstance(t.coldescrs['src'],
@@ -37,14 +37,14 @@ def append_test():
     
     f = tables.openFile('WaveTable_append.h5')
     g = f.root.testGroup
-    table = g.chan23
+    table = g.eeg2
 
     N = 1000
 
     for i in xrange(N):
         assert table[i]['src'] == 23 
         
-        assert table[i]['time'] == i * 0x0123456789ABC
+        assert table[i]['time'] == i * 0x0123456789AB
         assert table[i]['samprate'] == 0x789A
         assert table[i]['selchan'] == 0x1234
         assert table[i]['filterid'] == 0xAABB

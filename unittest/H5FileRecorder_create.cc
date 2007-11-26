@@ -1,11 +1,11 @@
 #include <boost/test/auto_unit_test.hpp>
-
-#include "boost/filesystem/operations.hpp" 
-#include "boost/filesystem/fstream.hpp"    
+#include <boost/filesystem/operations.hpp>
+#include <boost/filesystem/fstream.hpp>
+#include <boost/format.hpp>
 #include <iostream>                        
 #include "h5filerecorder.h"
 using namespace soma; 
-using  namespace boost;       
+using namespace boost;       
 using namespace boost::filesystem; 
 
 BOOST_AUTO_TEST_SUITE(H5FileRecorder); 
@@ -58,8 +58,10 @@ BOOST_AUTO_TEST_CASE(H5FileRecorder_createTables)
   int N = 32; 
   for (int i = 0; i < N; i++ ) 
     {
-      prec->enableDataRX(i, TSPIKE); 
-      prec->enableDataRX(i, WAVE); 
+      prec->enableDataRX(i, boost::str(boost::format("chan%02d") % i), 
+			 TSPIKE);
+      prec->enableDataRX(i, boost::str(boost::format("chan%02d") % i), 
+			 WAVE); 
     }
   
   delete prec; 

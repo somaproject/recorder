@@ -5,10 +5,11 @@
 
 #include "wavetable.h"
 
-WaveTable::WaveTable(datasource_t src, H5::Group gloc) :
+WaveTable::WaveTable(datasource_t src, std::string name, H5::Group gloc) :
   src_(src), 
   dataCache_(),
-  tableLoc_(gloc)
+  tableLoc_(gloc), 
+  tableName_(name)
 {
   // setup cache
   dataCache_.reserve(CACHESIZE); 
@@ -37,7 +38,7 @@ WaveTable::WaveTable(datasource_t src, H5::Group gloc) :
   herr_t     status;
 
   hsize_t wave_dims[1] = {WAVEBUF_LEN}; 
-  hid_t wt = H5Tarray_create(H5T_NATIVE_INT32, 1, wave_dims, NULL);  
+  hid_t wt = H5Tarray_create(H5T_NATIVE_INT32, 1, wave_dims);  
 
   const char * Wave_field_names[NFIELDS] = 
     { "src", "time", "samprate", "selchan", "filterid", "wave" }; 
@@ -50,7 +51,7 @@ WaveTable::WaveTable(datasource_t src, H5::Group gloc) :
   Wave_field_type[4] = H5T_NATIVE_UINT16; 
   Wave_field_type[5] = wt; 
 
-  tableName_ = str(boost::format("chan%d") % (int)src); 
+
   
   status = H5TBmake_table( "Table Title", 
 			   tableLoc_.getLocId(),
@@ -66,7 +67,7 @@ WaveTable::WaveTable(datasource_t src, H5::Group gloc) :
   
 }
 
-void WaveTable::append(const DataPacket_t * rdp)
+void WaveTable::append(const pDataPacket_t rdp)
 {
   Wave_t wave = rawToWave(rdp);
   dataCache_.push_back(wave); 

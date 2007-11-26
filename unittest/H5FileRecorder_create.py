@@ -23,8 +23,8 @@ def createTables_test():
     assert len(epoch.tspikes._v_children) == N
     assert len(epoch.waves._v_children) == N
     for i in range(N):
-        assert ("chan%d" % i ) in epoch.tspikes._v_children
-        assert ("chan%d" % i ) in epoch.waves._v_children
+        assert ("chan%02d" % i ) in epoch.tspikes._v_children
+        assert ("chan%02d" % i ) in epoch.waves._v_children
 
     # we should also check the data type here
     

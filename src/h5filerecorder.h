@@ -26,14 +26,15 @@ namespace soma
 	std::string getCurrentEpoch(); 
 	std::list<std::string> getAvailableEpochs(); 
 
-	void enableDataRX(datasource_t src, datatype_t typ); 
+	void enableDataRX(datasource_t src, std::string name, 
+			  datatype_t typ); 
 	void disableDataRX(datasource_t src, datatype_t typ); 
 
 	std::list<dpair_t> getDataRX(); 
 
 
-	void appendData(DataPacket_t * rdp); 
-	void appendEvent(EventPacket_t * ep); 
+	void appendData(pDataPacket_t rdp); 
+	void appendEvent(pEventPacket_t ep); 
 
       private:
 	std::string filename_; 

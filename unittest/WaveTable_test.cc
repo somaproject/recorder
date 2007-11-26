@@ -22,7 +22,7 @@ BOOST_AUTO_TEST_CASE(WaveTable_create)
   H5::Group grp = h5file->createGroup("testGroup");
   
   int SRC = 17; 
-  WaveTable tst(SRC, grp); 
+  WaveTable tst(SRC, "eeg1",  grp); 
   h5file->flush(H5F_SCOPE_GLOBAL); 
 
   h5file->close(); 
@@ -42,15 +42,18 @@ BOOST_AUTO_TEST_CASE(WaveTable_append)
   H5::Group grp = h5file->createGroup("testGroup");
   
   int SRC = 23; 
-  WaveTable*  tst = new WaveTable(23, grp); 
+  WaveTable*  tst = new WaveTable(23, "eeg2", grp); 
   int N = 1000; 
   
-  
-  for (int i = 0; i < N; i++)
+  uint64_t offsetval; 
+  offsetval = 0x01234567; 
+  offsetval = offsetval << 16; 
+  offsetval |= 0x89AB; 
+  for (uint64_t i = 0; i < N; i++)
     {
       Wave_t w; 
       w.src = SRC; 
-      w.time = i * 0x0123456789ABC; 
+      w.time = i * offsetval;
       w.samprate = 0x789A; 
       w.selchan = 0x1234; 
       w.filterid = 0xAABB; 
@@ -59,9 +62,9 @@ BOOST_AUTO_TEST_CASE(WaveTable_append)
 	w.wave[j] = i * 0xABCD + j*0x17; 
       }
       
-      DataPacket_t * rdp = rawFromWave(w); 
+      pDataPacket_t rdp = rawFromWave(w); 
       tst->append(rdp); 
-      delete rdp; 
+      rdp.reset(); 
 
 
     }

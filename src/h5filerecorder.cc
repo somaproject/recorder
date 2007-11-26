@@ -109,7 +109,7 @@ void H5FileRecorder::disableDataRX(datasource_t src, datatype_t typ)
   
 }
 
-void H5FileRecorder::appendData(DataPacket_t * rdp)
+void H5FileRecorder::appendData(pDataPacket_t rdp)
 {
   // make sure we really want this data
    datasource_t src = rdp->src; 
