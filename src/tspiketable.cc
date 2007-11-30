@@ -5,6 +5,7 @@
 
 #include "tspiketable.h"
 
+using namespace soma::recorder; 
 TSpikeTable::TSpikeTable(datasource_t src, std::string name, 
 			 H5::Group gloc) :
   src_(src), 
@@ -77,7 +78,7 @@ TSpikeTable::TSpikeTable(datasource_t src, std::string name,
   
 }
 
-void TSpikeTable::append(const pDataPacket_t rdp)
+void TSpikeTable::append(pDataPacket_t rdp)
 {
   // For performance reasons we append the incoming data packets to
   // an internal cache

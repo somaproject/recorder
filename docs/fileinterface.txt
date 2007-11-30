@@ -1,0 +1,69 @@
+The file interface should let us manipulate epochs and data sinks within those epochs. 
+It's important to note that: 
+  1. At no point should the File interface expose any HDF5-specific properties to the external
+  world. Even though we're designing this for HDF5 to start with, in the future
+  we could imagine wanting something else. 
+  2. The file interface has no concept of "recording" or "recording state". As far as 
+  its concerned, there's no lockout or anything like that. It's just a file IO. 
+
+Operations we'd want to be able to do: 
+
+Epoch related: 
+
+createEpoch
+deleteEpoch
+renameEpoch
+
+Should we have external "epoch" objects? That is, should createEpoch
+return a reference to a refcounted smartpointer object that represents
+an "epoch" and we can then manipulate? How would we then:
+
+1. rename epochs? Would an epochHandle survive after renaming? 
+2. what if it was just a handle, and didn't have any of its own
+iternal methods? 
+3. what about lifetime / lifecycle issues? for example: 
+   -  What if the epoch was deleted, and there was still an outstanding
+      handle? 
+   -  What if the file were closed? do all the file handles become
+      invalid? 
+
+At the same time, if "recording" is simply going to mean "start
+flushing data to epoch X", how/ where do we set recording session
+data? 
+
+
+::createFile()
+::openFile()
+
+and then 
+
+epoch_t file.createEpoch(name) : create a new epoch and return a handle to
+it
+file.deleteEpoch(name)
+file.deleteEpoch(EpochHandle)
+file.getAllEpochs() : return a list of epoch handles
+
+
+-------------------------------------------------------------------------
+Epoch interface
+
+epoch.rename(newName)
+epoch.getName()
+epoch.enableData(typ, src)
+epoch.disableData(typ, src)
+
+------- data information
+epoch.appendData(DataPacket_t)
+epoch.appendEvent(EventPacket_t)
+epoch.appendNote()
+epoch.getNotes()
+
+Where do we store the "oops, we fucked up recording" notes? like,
+dropped packets and whatnot? 
+epoch.stats ? 
+
+-- session IO 
+epoch.getSessions()
+epoch.addSession()
+
+

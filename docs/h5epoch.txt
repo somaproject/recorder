@@ -1,0 +1,9 @@
+The H5Epoch implements the Epoch Interface. 
+
+typedef std::hash_map< dpair_t, DatasetIO *> dispatchTable_t :
+   This maps from a datapair to a particular dispatcher
+
+typedef std::hash_map<name, dpair> namedSinkTable_t
+   This maps to a 
+  
+

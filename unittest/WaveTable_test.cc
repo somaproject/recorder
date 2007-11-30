@@ -15,6 +15,7 @@ BOOST_AUTO_TEST_SUITE(WaveTableTest);
 
 BOOST_AUTO_TEST_CASE(WaveTable_create)
 {
+
   // create a temp file
   H5::H5File::H5File * h5file 
     = new H5::H5File::H5File("WaveTable_create.h5", H5F_ACC_TRUNC); 
@@ -72,6 +73,7 @@ BOOST_AUTO_TEST_CASE(WaveTable_append)
   h5file->flush(H5F_SCOPE_GLOBAL); 
 
   h5file->close(); 
+  h5file->flush(H5F_SCOPE_GLOBAL); 
 
   delete h5file; 
 

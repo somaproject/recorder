@@ -3,22 +3,25 @@
 
 #include <vector>
 
-#include "H5Cpp.h"
-#include "hdf5_hl.h"
+#include <H5Cpp.h>
+#include <hdf5_hl.h>
 #include <somanetwork/tspike.h>
 #include "datasetio.h"
 
 using namespace H5;
 
-const int CACHESIZE =100; 
+namespace soma {
+  namespace recorder {
 
 class TSpikeTable : public DatasetIO
 {
+  static const int CACHESIZE =100; 
+
  public:
   TSpikeTable(datasource_t src, std::string name, 
 	      H5::Group gloc); 
   ~TSpikeTable(); 
-  void append(const pDataPacket_t); 
+  void append(pDataPacket_t); 
   void flush();
   
  private:
@@ -34,5 +37,8 @@ class TSpikeTable : public DatasetIO
   //size_t fieldTypes[]; 
   
 }; 
+ 
+  }}
+
 
 #endif // TSPIKETABLE_H

@@ -1,6 +1,8 @@
-#include "h5filerecorder.h"
 #include <iostream>
-#include "hdf5.h"
+#include <sys/time.h>
+#include <time.h>
+#include "h5filerecorder.h"
+#include <hdf5.h>
 #include "tspiketable.h"
 using namespace soma::recorder; 
 
@@ -10,7 +12,7 @@ H5FileRecorder::H5FileRecorder(const std::string  & filename) :
   h5file_(filename, H5F_ACC_TRUNC),
   epochGroup_()
 {
-  H5::Exception::dontPrint(); 
+  //H5::Exception::dontPrint(); 
 }
 
 H5FileRecorder::~H5FileRecorder()
@@ -22,8 +24,22 @@ H5FileRecorder::~H5FileRecorder()
 
 void H5FileRecorder::createEpoch(const std::string & epochName)
 {
-  h5file_.createGroup(epochName);
-  h5file_.flush(H5F_SCOPE_GLOBAL); 
+ 
+  H5::Group newGroup =  h5file_.createGroup(epochName);
+
+  H5::DataSpace attrspace; 
+  
+  H5::Attribute createtime = newGroup.createAttribute("createtime", 
+						      H5::PredType::NATIVE_LLONG,
+						      attrspace); 
+  
+  timeval tval; 
+  gettimeofday(&tval, NULL); 
+  long long secSinceEpoch = tval.tv_sec; 
+  
+  createtime.write(H5::PredType::NATIVE_LLONG, 
+		   &secSinceEpoch); 
+
 }
 
 void H5FileRecorder::switchEpoch(const std::string & epochName)
@@ -66,7 +82,6 @@ H5::Group H5FileRecorder::getTypeGroup(datatype_t typ)
   try 
     {
       hg =  epochGroup_.openGroup(typeName); 
-
     } 
   catch(H5::GroupIException & e){ 
     std::cout << "Creating group ..." << typeName << std::endl; 

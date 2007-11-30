@@ -5,6 +5,8 @@
 
 #include "wavetable.h"
 
+using namespace soma::recorder; 
+
 WaveTable::WaveTable(datasource_t src, std::string name, H5::Group gloc) :
   src_(src), 
   dataCache_(),
@@ -67,7 +69,7 @@ WaveTable::WaveTable(datasource_t src, std::string name, H5::Group gloc) :
   
 }
 
-void WaveTable::append(const pDataPacket_t rdp)
+void WaveTable::append(pDataPacket_t rdp)
 {
   Wave_t wave = rawToWave(rdp);
   dataCache_.push_back(wave); 

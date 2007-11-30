@@ -4,3 +4,7 @@ to take in event and data packets and save them to disk.
 What should we do when we receive a packet that's not for us? Throw an
 exception! We should never be asked to save data that we're not
 supposed to.
+
+How the heck do we handle epoch renaming? An open question. 
+
+startRecording(EpochName, etc. )

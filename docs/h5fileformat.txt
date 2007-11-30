@@ -10,7 +10,26 @@ epoch, data is organized by type, and then by name.
    /waves
    /events
    /notes
-   /(other multimodal data)
+   /(other multimodal data) [to be implemented?] 
+
+--------------------------------------------------------------------
+Epochs
+--------------------------------------------------------------------
+There are several guarantees with epochs: 
+  An epoch contains data from time T1 to time T2.
+  No other epoch will contain data from T1 to T2. 
+  The data may be continuous or it may have gaps in it. 
+
+Each epoch contains "sessions" which enumerate the continuous
+recording periods, containing: 
+   start timestamp
+   stop timestamp
+   start walltime
+   stop stop walltime
+
+each epoch also contains: 
+   createtime: the time it was created
+   
 
 --------------------------------------------------------------------
 tspikes (and waves)
@@ -49,7 +68,9 @@ notes
 -------------------------------------------------------------------
 
 These are per-epoch notes. Arbitrary textual data that hsa been added,
-with a timestamp/event stamp
+with a timestamp/event stamp. They are uniquely named, and have a
+create timestamp and an edit timestamp.
+
 
 -------------------------------------------------------------------
 

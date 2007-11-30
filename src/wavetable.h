@@ -10,14 +10,18 @@
 
 using namespace H5;
 
-const int CACHESIZE =100; 
+namespace soma {
+  namespace recorder {
+
 
 class WaveTable : public DatasetIO
 {
+  static const int CACHESIZE =100; 
+
  public:
   WaveTable(datasource_t src, std::string name, H5::Group gloc); 
   ~WaveTable(); 
-  void append(const pDataPacket_t ); 
+  void append(pDataPacket_t ); 
   void flush();
   
  private:
@@ -31,5 +35,7 @@ class WaveTable : public DatasetIO
   //size_t fieldTypes[]; 
   
 }; 
+  }}
+
 
 #endif // WAVETABLE_H
