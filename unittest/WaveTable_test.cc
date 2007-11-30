@@ -4,7 +4,6 @@
 #include "boost/filesystem/fstream.hpp"   
 #include <iostream>                        
 #include <fstream>
-#include "h5filerecorder.h"
 #include "wavetable.h"
 using namespace soma; 
 using  namespace boost;       
@@ -23,7 +22,7 @@ BOOST_AUTO_TEST_CASE(WaveTable_create)
   H5::Group grp = h5file->createGroup("testGroup");
   
   int SRC = 17; 
-  WaveTable tst(SRC, "eeg1",  grp); 
+  recorder::WaveTable tst(SRC, "eeg1",  grp); 
   h5file->flush(H5F_SCOPE_GLOBAL); 
 
   h5file->close(); 
@@ -43,7 +42,7 @@ BOOST_AUTO_TEST_CASE(WaveTable_append)
   H5::Group grp = h5file->createGroup("testGroup");
   
   int SRC = 23; 
-  WaveTable*  tst = new WaveTable(23, "eeg2", grp); 
+  recorder::WaveTable*  tst = new recorder::WaveTable(23, "eeg2", grp); 
   int N = 1000; 
   
   uint64_t offsetval; 

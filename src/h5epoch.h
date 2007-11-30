@@ -8,6 +8,9 @@
  
 #include "epochinterface.h"
 #include "datasetio.h"
+#include "eventtable.h"
+#include "notetable.h" 
+
 
 
 namespace soma {
@@ -19,9 +22,9 @@ namespace soma {
     class H5Epoch : public EpochInterface
       {
       public:
-	H5Epoch(H5::Group g); 
+	H5Epoch(H5::Group g); // how do we load? 
 	H5Epoch(H5::Group g, epochname_t name);  // is this constructor necessary?
-	
+	~H5Epoch(); 
 	//------------------------------------------------------
 	//  Epoch Interface
 	//------------------------------------------------------
@@ -42,11 +45,16 @@ namespace soma {
 	
 	void appendData(const pDataPacket_t); 
   
-	// event management (FIXME)
+	// event management
+	void appendEvent(const pEventPacket_t); 
 	
 	// Notes interface
-	void appendNote(std::string note) { };  
-	std::list<Notes> getNotes() { };  
+	void createNote(std::string name, std::string text); 
+	void setNote(std::string name, std::string text); 
+	Note_t getNote(std::string name); 
+	void delNote(std::string name); 
+	std::list<Note_t> getAllNotes(); 
+
   
 	// session interface; not entirely happy with this, will take more thought
 	std::list<Session> getSessions() { };  
@@ -58,11 +66,14 @@ namespace soma {
 	epochname_t name_; 
 	
 	H5::Group getTypeGroup(datatype_t typ); 
-	H5::Group getEventGroup(); 
 
 	dispatchTable_t dispatchTable_; 
 	namedSinkTable_t namedSinkTable_; 
+
+	pEventTable_t openEventTable(); 
 	
+	pEventTable_t pEventTable_; 
+
 	
       }; 
     

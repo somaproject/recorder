@@ -4,6 +4,7 @@
 #include <boost/format.hpp>
 #include <H5Cpp.h>
 #include "h5fileinterface.h"
+#include "h5epoch.h"
 
 using namespace soma::recorder; 
 pFileInterface_t H5FileInterface::openFile(filename_t name) {
@@ -63,6 +64,9 @@ H5FileInterface::~H5FileInterface() {
 pEpochInterface_t H5FileInterface::createEpoch(epochname_t name) 
 {
   
+  pEpochInterface_t pe(new H5Epoch(h5file_.openGroup("/"), name)); 
+  return pe; 
+
 }
 
 pEpochInterface_t H5FileInterface::getEpoch(epochname_t name) 

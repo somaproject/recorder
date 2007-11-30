@@ -9,7 +9,7 @@ recorder-glue.h: recorder-introspect.xml
 
 recorder.o: recorder-glue.h
 
-recorder: recordermain.o recorder.o tspiketable.o h5filerecorder.o 
+recorder: recordermain.o recorder.o tspiketable.o h5filerecorder.o h5epoch.o
 
 clean:
 	rm *.o

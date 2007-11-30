@@ -10,19 +10,17 @@ all: runner
 simpletest: simpletest.o
 
 
+H5FileInterface_create.o: h5fileinterface.o
 
+H5Epoch_test.o: h5epoch.o
+
+H5Epoch_appenddata.o: h5epoch.o
 
 h5fileinterface.o: $(SRCDIR)/h5fileinterface.cc
 	$(CXX) $(CXXFLAGS) -c $(SRCDIR)/h5fileinterface.cc
 
 h5epoch.o: $(SRCDIR)/h5epoch.cc
 	$(CXX) $(CXXFLAGS) -c $(SRCDIR)/h5epoch.cc
-
-H5FileInterface_create.o: h5fileinterface.o
-
-H5Epoch_test.o: h5epoch.o
-
-H5Epoch_appenddata.o: h5epoch.o
 
 tspiketable.o: $(SRCDIR)/tspiketable.cc
 	$(CXX) $(CXXFLAGS) -c $(SRCDIR)/tspiketable.cc
@@ -38,7 +36,19 @@ eventtable.o: $(SRCDIR)/eventtable.cc
 
 
 # eventtable.o EventTable_test.o 
-runner: runner.o  notetable.o NoteTable_test.o
+
+allrunner: allrunner.o \
+	h5fileinterface.o H5FileInterface_create.o  \
+	h5epoch.o H5Epoch_appenddata.o H5Epoch_test.o \
+	eventtable.o EventTable_test.o \
+	tspiketable.o TSpikeTable_test.o \
+	wavetable.o WaveTable_test.o \
+	notetable.o NoteTable_test.o
+
+
+runner: runner.o  h5fileinterface.o H5FileRecorder_testfile.o h5epoch.o wavetable.o notetable.o tspiketable.o eventtable.o
+
+
 
 
 

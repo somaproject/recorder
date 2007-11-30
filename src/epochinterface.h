@@ -6,8 +6,8 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/utility.hpp>
 #include <somanetwork/datapacket.h>
-#include "notes.h"
-
+#include <somanetwork/event.h>
+#include "note.h"
 
 namespace soma {
   namespace recorder {
@@ -28,7 +28,7 @@ namespace soma {
     class EpochInterface : boost::noncopyable
     {
       // abstract base class 
-      public: 
+    public: 
       virtual epochname_t getName() = 0; 
       
       // data sink management 
@@ -41,20 +41,21 @@ namespace soma {
       
       virtual void appendData(const pDataPacket_t) = 0;
       
-      // event management (FIXME)
+      // event management
+      virtual void appendEvent(const pEventPacket_t ) = 0;
       
       // Notes interface
-      virtual void createNote(std::string name, std::string note) = 0; 
-      virtual void setNote(std::string name, std::string notetxt) = 0; 
+      virtual void createNote(std::string name, std::string text) = 0; 
+      virtual void setNote(std::string name, std::string text) = 0; 
       virtual Note_t getNote(std::string name) = 0; 
       virtual void delNote(std::string name) = 0; 
-
       virtual std::list<Note_t> getAllNotes() = 0; 
       
       // session interface; not entirely happy with this, will take more thought
       virtual std::list<Session> getSessions() = 0; 
       virtual void addSession() = 0;   
       
+      virtual ~EpochInterface() {}; 
     };
     
     typedef boost::shared_ptr<EpochInterface>  pEpochInterface_t; 

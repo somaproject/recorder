@@ -12,7 +12,14 @@ H5Epoch::H5Epoch(H5::Group g, epochname_t name) :
   name_(name)
 {
 
- 
+  pEventTable_ = openEventTable(); 
+
+}
+
+H5Epoch::~H5Epoch()
+{
+
+
 }
 
 
@@ -151,23 +158,45 @@ void H5Epoch::appendData(const pDataPacket_t pkt)
   
 }
 
-H5::Group H5Epoch::getEventGroup()
+pEventTable_t H5Epoch::openEventTable()
 {
-  // return / create the event group
-
-  std::string eventGroupName("events");
-
-  H5::Group hg; 
-
-  try 
-    {
-      hg =  h5group_.openGroup(eventGroupName); 
-    } 
+  // either open or create the event table for this epoch
+  pEventTable_t et(new EventTable(h5group_)); 
   
-  catch(H5::GroupIException & e){ 
-    hg =  h5group_.createGroup(eventGroupName); 
-  }
-  
-  return hg; 
+  return et; 
+		   
 }
 
+void H5Epoch::appendEvent(const pEventPacket_t pep)
+{
+  pEventTable_->append(pep); 
+
+}
+
+void H5Epoch::createNote(std::string name, std::string text)
+{
+
+
+}
+
+void H5Epoch::setNote(std::string name, std::string text)
+{
+
+}
+
+Note_t H5Epoch::getNote(std::string name)
+{
+
+}
+ 
+void H5Epoch::delNote(std::string name)
+{
+
+
+}
+  
+std::list<Note_t> H5Epoch::getAllNotes()
+{
+
+
+}

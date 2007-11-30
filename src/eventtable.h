@@ -43,8 +43,11 @@ namespace soma {
 	//size_t fieldTypes[]; 
 	
       }; 
+    
+    typedef boost::shared_ptr<EventTable> pEventTable_t; 
+
   }
 }
 
 
-#endif // WAVETABLE_H
+#endif // EVENTTABLE_H
