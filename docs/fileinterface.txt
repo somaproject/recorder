@@ -1,10 +1,14 @@
 The file interface should let us manipulate epochs and data sinks within those epochs. 
 It's important to note that: 
-  1. At no point should the File interface expose any HDF5-specific properties to the external
-  world. Even though we're designing this for HDF5 to start with, in the future
-  we could imagine wanting something else. 
-  2. The file interface has no concept of "recording" or "recording state". As far as 
-  its concerned, there's no lockout or anything like that. It's just a file IO. 
+
+  1. At no point should the File interface expose any HDF5-specific
+  properties to the external world. Even though we're designing this
+  for HDF5 to start with, in the future we could imagine wanting
+  something else.
+  
+2. The file interface has no concept of "recording" or "recording
+  state". As far as its concerned, there's no lockout or anything like
+  that. It's just a file IO.
 
 Operations we'd want to be able to do: 
 
