@@ -51,8 +51,15 @@ def main():
     objpath =  iface.GetObject()
     remote_object = bus.get_object("com.example.SampleService",
                                    objpath)
+    try: 
+        print remote_object.hello("world")
+        remote_object.removeobject()
+        print remote_object.hello("world")
+        print whee
+        
+    except dbus.exceptions.DBusException:
+        pass
     
-    print remote_object.hello("world")
     
     if sys.argv[1:] == ['--exit-service']:
         iface.Exit()

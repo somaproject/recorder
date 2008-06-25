@@ -40,13 +40,17 @@ class DemoException(dbus.DBusException):
     _dbus_error_name = 'com.example.DemoException'
 
 class SillyObject(dbus.service.Object):
-    @dbus.service.method("com.example.Silly",
-                         in_signature = 's', out_signature = 's')
+    @dbus.service.method("com.example.Silly", in_signature = 's', out_signature = 's')
     def hello(self, msg):
         print "Server says hello", msg
         return "SillyObject:" + msg
+
     
-                      
+    @dbus.service.method("com.example.Silly")
+    def removeobject(self):
+        self.remove_from_connection()
+
+        
 class SomeObject(dbus.service.Object):
     
     @dbus.service.method("com.example.SampleInterface",

@@ -32,3 +32,16 @@ you can pause an epoch
 you can also switch to an epoch while recording, in which case
    
 
+Notes are metadata that are associated with epocs, and are represented
+by their own objects. 
+
+
+How do we support simultaneous editing? I'm not going to worry about
+it right now.
+
+So here's a question: we have an outstanding object. It goes
+away. What happens?
+
+
+where does the configuration information live? 
+
