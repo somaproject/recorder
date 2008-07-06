@@ -1,0 +1,34 @@
+Each gui element has an associated data element
+
+How do we handle the creation of a new epoch? 
+
+Each experiment has:
+   /info : experiment info  
+      /default: default settings, masks, etc. 
+      /notes
+      / configuration and setup data
+   /run0
+   /run1 
+   /sleep0
+   /sleep1
+
+
+What are the things we need to keep in sync? 
+
+native (remote) experiment and epoch objects
+local treeview for experiments, epochs
+local property sheets for experiments, epochs
+
+REMEMBER "OPEN EXPERIMENTS" is a REMOTE PROPERTY TOO
+
+One option: the gui only reflects the remote data. 
+
+Data set interface: 
+
+GetDataSets()
+Returns tuples: 
+ [ (0, [0, 2, 3], Name), 
+   (1, [1, 2], Name) ]
+
+SetDataState()
+
