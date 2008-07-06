@@ -11,6 +11,7 @@ from recorder import Recorder
 from treemodel import RecorderTreeModel
 import datatab
 import notesgui
+import status
 
 class EpochProperty(object):
     """
@@ -43,7 +44,16 @@ class EpochProperty(object):
                                           self.buttonAddNote,
                                           self.epoch.GetNotes,
                                           self.epoch.CreateNote)
-                                          
+        self.hasRecorded = False
+        
+    def on_notebookEpochProperty_switch_page(self, notebook, page, pagenum):
+        print "SWITCH PAGE", pagenum
+        if pagenum == 1:
+            if self.hasRecorded:
+                status.Message("Cannot modify data sources once you have recorded into an epoch")
+                
+
+    
 
     def populate(self):
         """
@@ -120,7 +130,9 @@ class EpochProperty(object):
         
     def on_toggleRecord_toggled(self, widget):
         if widget.get_active():
+            self.datatab.setEditable(False)
             self.epoch.StartRecording()
+            self.hasRecorded = True
         else:
             self.epoch.StopRecording()
 
@@ -178,8 +190,10 @@ class RecorderApp(object):
         # now connect the new-experiment and new-epoch widgets
         self.recorder.connect('experiment-create', self.experimentCreate)
         
-
+        
         self.propertyPanes = {}
+
+        
     def on_menuQuit_activate(self, widget):
         print "QUIT"
         gtk.main_quit()
@@ -203,8 +217,14 @@ class RecorderApp(object):
         self.propertyPanes[exp] = ep
         
     def epochCreate(self, recorder, epoch):
+        print "New epoch", epoch
         ep = EpochProperty(epoch)
         self.propertyPanes[epoch] = ep
+
+
+    def rowInserted(self, treemodel, path, iter):
+        selection = self.treeviewExperiments.get_selection()
+        selection.unselect_all()
         
     def setPropertyPane(self):
         box = self.wTree.get_widget("boxProperties")
@@ -213,6 +233,7 @@ class RecorderApp(object):
         except:
             pass
         # now put in the correct one,
+
         selection = self.treeviewExperiments.get_selection()
         (model, iter) = selection.get_selected()
         obj = model.get_value(iter, 0)
@@ -231,18 +252,22 @@ class RecorderApp(object):
         # pass
 
         self.treestore = RecorderTreeModel(self.recorder)
-                
+        self.treestore.connect('row-inserted', self.rowInserted)
         treeview = self.wTree.get_widget("treeviewExperiments")
         self.treeviewExperiments = treeview
+        self.treeviewExperiments.get_selection().set_mode(gtk.SELECTION_SINGLE)
         treeview.set_model(self.treestore)
         
         maincol = gtk.TreeViewColumn("Experiments and Epochs")
-
+        
         cell = gtk.CellRendererText()
         maincol.pack_start(cell, True)
         maincol.add_attribute(cell, "text", 1)
+        maincol.add_attribute(cell, "editable", 2)
 
         treeview.append_column(maincol)
+
+        #self.treestore.connect('epoch-created', self.treeModelEpochCreated)
         
     def on_menuNewExperiment_activate(self, widget):
         """
@@ -270,7 +295,8 @@ class RecorderApp(object):
             print "Name already exists" 
             pass
         dialog.hide()
-
+        self.treeviewExperiments.expand_all()
+        
     def on_menuitemAddEpoch_activate(self, widget):
         print "Adding Epoch"
         # get the current experiment
@@ -279,8 +305,8 @@ class RecorderApp(object):
         expt = model.get_value(iter, 0)
         epoch = expt.CreateEpoch("Hello")
         
-        
-        
+        self.treeviewExperiments.expand_all()
+                
     def updateExperiment(self, pos):
         """
         We have our internal list of experiments, and

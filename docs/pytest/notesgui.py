@@ -101,8 +101,15 @@ class NotesGUI(object):
         
         for (ts, time, title, text) in notes:
             expander = gtk.Expander()
+            hbox = gtk.HBox()
+            
             label = gtk.Label(title)
-            expander.set_label_widget(label)
+            hbox.pack_start(label)
+            hbox.pack_start(gtk.Label("Time: %s" % time))
+            hbox.pack_start(gtk.Label("Timestamp: %s" % ts))
+            
+                            
+            expander.set_label_widget(hbox)
             window = gtk.ScrolledWindow()
             window.props.hscrollbar_policy=gtk.POLICY_NEVER
             window.props.vscrollbar_policy=gtk.POLICY_AUTOMATIC

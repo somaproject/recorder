@@ -22,6 +22,7 @@ class DataTab(object):
         
         self.liststore = gtk.ListStore(*self.__coltypes__)
         self.treeview.set_model(self.liststore)
+
         
         # create the columns
         for i in range(len(self.__cols__)):
@@ -42,15 +43,29 @@ class DataTab(object):
                 cell.props.editable = True
                 if i == self.__namecol__:
                     cell.connect('edited', self.source_edited)
-
+                    col.props.expand = True
+                else:
+                    col.props.expand = False
+                col.props.resizable = True
                 col.pack_start(cell, True)
                 col.add_attribute(cell, "text", i)
                 col.add_attribute(cell, "text", i)
-
+            
             self.treeview.append_column(col)
 
+        self.treeview.append_column(gtk.TreeViewColumn())
+
         self.updateModel()
+
+    def setEditable(self, isEditable):
+        # sets the editable state
         
+        for col in self.treeview.get_columns():
+            # pass
+            for cell in col.get_cell_renderers():
+                cell.props.sensitive = isEditable
+            
+            
     def source_edited(self, cell, path, value):
         print "edited", cell, path, value
         pos = 2
@@ -118,7 +133,7 @@ class ExperimentDataTab(DataTab):
                 cells.append(cell)
                 if i == self.__namecol__:
                     cell.connect('edited', self.source_edited)
-
+                    col.props.expand = True
                 col.pack_start(cell, True)
                 col.add_attribute(cell, "text", i)
                 col.add_attribute(cell, "text", i)

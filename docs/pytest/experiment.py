@@ -5,7 +5,10 @@ import gobject
 class Experiment(gobject.GObject):
     __gsignals__ = { 'epoch-create': (gobject.SIGNAL_RUN_FIRST,
                                       gobject.TYPE_NONE,
-                                      (gobject.TYPE_OBJECT,)) }
+                                      (gobject.TYPE_OBJECT,)),
+                     'state-change': (gobject.SIGNAL_RUN_FIRST,
+                                      gobject.TYPE_NONE,
+                                      (gobject.TYPE_BOOLEAN,))}
     
     def __init__(self, recorder, name):
         self.recorder = recorder
@@ -22,6 +25,8 @@ class Experiment(gobject.GObject):
 
         self.properties = {"user" : "jonas",
                            "create" : "2008-01-01 22:33"}
+
+        self.isRecording = False
         
     def GetFileProperties(self):
         return self.properties
@@ -33,7 +38,7 @@ class Experiment(gobject.GObject):
         if name in self.epochs:
             raise "Epoch name already exists"
         
-        e = Epoch(name)
+        e = Epoch(self, name)
         self.epochsOrdered.append(e)
         self.epochs[name] = e
         self.emit("epoch-create", e)
@@ -46,7 +51,11 @@ class Experiment(gobject.GObject):
         self.epochs.erase(e)
         self.epochsOrdered.remove(e)
         
-        
+    def setRecording(self, isRecording):
+        self.state = isRecording
+        self.emit("state-change", self.state)
+
+    
     def epochListUpdated():
         pass
     

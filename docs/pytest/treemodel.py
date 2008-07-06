@@ -5,6 +5,7 @@ import gtk
 from  experiment import Experiment
 from epoch import Epoch
 from recorder import Recorder
+import gobject
 
 class RecorderTreeModel(gtk.GenericTreeModel):
     """
@@ -14,8 +15,8 @@ class RecorderTreeModel(gtk.GenericTreeModel):
     
     """
     
-    column_types = (object, str,)
-    column_names = ['reference', 'Name']
+    column_types = (object, str, bool)
+    column_names = ['reference', 'Name', 'isEpoch']
 
     def __init__(self, recorder):
         gtk.GenericTreeModel.__init__(self)
@@ -37,7 +38,7 @@ class RecorderTreeModel(gtk.GenericTreeModel):
         path = self.on_get_path(expr)
         iter = self.create_tree_iter(expr)
         self.row_has_child_toggled(path, iter)
-
+        
     def experimentUpdated(self, expr, val):
         path = self.on_get_path(expr)
         iter = self.create_tree_iter(expr)
@@ -48,7 +49,18 @@ class RecorderTreeModel(gtk.GenericTreeModel):
         Takes in a gtktreeiter and returns the underlying contained object
         
         """
-
+    def objectToIter(self, object):
+        """
+        """
+        iter = self.create_tree_iter(object)
+        return iter
+        
+    def objectToPath(self, object):
+        """
+        """
+        iter = self.objectToIter(object)
+        return self.get_path(iter)
+        
         
     def on_get_flags(self):
         return 0
@@ -88,6 +100,13 @@ class RecorderTreeModel(gtk.GenericTreeModel):
             return rowref
         if column == 1:
             return rowref.name
+        if column == 2:
+            if isinstance(rowref, Epoch):
+                return True
+            else:
+                return False
+            
+                
             
     def on_iter_next(self, rowref):
         if rowref == None:

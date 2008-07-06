@@ -18,9 +18,10 @@ class Epoch(gobject.GObject):
     The individual epoch 
 
     """
-    def __init__(self, name):
+    def __init__(self, parent, name):
         gobject.GObject.__init__(self)
         self.name = name
+        self.parent = parent
         self.timer_id = gobject.timeout_add(500, self.updateClock)
         self.ts = 0
         self.sessions = []
@@ -34,6 +35,7 @@ class Epoch(gobject.GObject):
         
         self.notes = []
 
+        
     def CreateNote(self, title, text):
         """
 
@@ -108,6 +110,18 @@ class Epoch(gobject.GObject):
         print "Epoch", self.name, "starting recording"
         self.sessions.append(Session(self.ts, time.time()))
         self.recording = True
+        self.parent.setRecording(True)
+
+    def StopRecording(self):
+        """
+        Stop the recording
+        """
+        print "Epoch", self.name, "stopping recording"
+        self.recording = False
+        if self.sessionSignalCallback != None:
+            self.sessionSignalCallback()
+
+        self.parent.setRecording(False)
         
     def updateClock(self):
         self.ts += 25000
@@ -121,18 +135,6 @@ class Epoch(gobject.GObject):
             
         return True
 
-    
-        
-    def StopRecording(self):
-        """
-        Stop the recording
-        """
-        print "Epoch", self.name, "stopping recording"
-        self.recording = False
-        if self.sessionSignalCallback != None:
-            self.sessionSignalCallback()
-
-        
     def PauseRecording(self):
         """
         Pause the recording
