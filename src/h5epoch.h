@@ -6,7 +6,7 @@
 #include <boost/ptr_container/ptr_map.hpp>
 #include <H5Cpp.h>
  
-#include "epochinterface.h"
+#include "epoch.h"
 #include "datasetio.h"
 #include "eventtable.h"
 #include "notetable.h" 
@@ -15,11 +15,12 @@
 
 namespace soma {
   namespace recorder {
+
     typedef boost::ptr_map<dpair_t, DatasetIO> dispatchTable_t; 
     typedef std::map<dpair_t, std::string> namedSinkTable_t; 
     
     
-    class H5Epoch : public EpochInterface
+    class H5Epoch : public Epoch
       {
       public:
 	H5Epoch(H5::Group g); // how do we load? 

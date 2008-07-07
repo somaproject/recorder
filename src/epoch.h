@@ -23,7 +23,6 @@ namespace soma {
     
     typedef std::pair< datasource_t, datatype_t> dpair_t; 
     
-    
     class Epoch : boost::noncopyable
     {
       // abstract base class 
@@ -34,7 +33,7 @@ namespace soma {
       
       void startRecording(); 
       void stopRecording(); 
-
+      
       // data sink management 
       virtual void setDataSinkName(datasource_t src, string name); 
       virtual void enableDataSink(datasource_t src, 

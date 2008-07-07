@@ -6,6 +6,7 @@
 #include <list>
 #include <boost/shared_ptr.hpp>
 #include <boost/utility.hpp>
+#include <somanetwork/network.h>
 #include <somanetwork/datapacket.h>
 #include <somanetwork/event.h>
 #include "note.h"
@@ -18,8 +19,7 @@ namespace soma
     
 
   public:
-    Experiment(); 
-
+    
     // exposed methods
     std::map<string, string> getFileProperties(); 
 
@@ -34,17 +34,18 @@ namespace soma
     std::vector<pNote_t> getNotes(); 
     
     // default data sink manipulation
-    void setDefaultDataState(char src, bool isAvailable, 
+    void setDefaultDataState(datasource_t src, bool isAvailable, 
 			     bool isEnabled, string name); 
-
+    
     void getDefaultDataState(); 
-
     // how to get data state? 
     
     void close(); 
     
     
   private:
+    Experiment(std::string somaip); 
+    Network network_; 
     std::vector<pEpoch_t> epochs_; 
     
     void startRecording(pEpoch_t targetEpoch); 
