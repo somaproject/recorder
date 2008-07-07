@@ -32,6 +32,7 @@ def create_test():
     typecheck(t, "filterid", tables.description.UInt16Col);
     assert t.coldescrs["wave"].shape == (128,)
     
+    assert t.attrs.src == 17
     
 def append_test():
     

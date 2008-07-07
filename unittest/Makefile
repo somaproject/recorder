@@ -46,7 +46,7 @@ allrunner: allrunner.o \
 	notetable.o NoteTable_test.o
 
 
-runner: runner.o  h5fileinterface.o H5FileRecorder_testfile.o h5epoch.o wavetable.o notetable.o tspiketable.o eventtable.o
+runner: runner.o  wavetable.o WaveTable_test.o
 
 
 

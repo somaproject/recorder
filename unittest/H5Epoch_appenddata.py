@@ -27,7 +27,22 @@ def appenddata1_test():
     assert len(hipp1) == 100 
     assert len(hipp4) == 200
 
+def notecheck_test():
+    
+    f = tables.openFile('H5Epoch_notetest_diskcheck.h5')
+    
+    g = f.root.testGroup
+    table = g.TestEpoch.notes
+
+    assert len(table) == 3
+    assert table[2]['name'] == 'test2'
+    
+    
+
+
 if __name__ == "__main__":
     if sys.argv[1] == "appenddata1":
         appenddata1_test()
+    elif sys.argv[1] == "notecheck":
+        notecheck_test()
         

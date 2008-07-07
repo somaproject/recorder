@@ -20,7 +20,7 @@ namespace  soma {
 	
 	virtual pEpochInterface_t createEpoch(epochname_t name) = 0; 
 	virtual pEpochInterface_t getEpoch(epochname_t name) = 0; 
-	virtual std::list<EpochInterface> getAllEpochs() = 0; 
+	virtual std::list<pEpochInterface_t> getAllEpochs() = 0; 
 	
       }; 
     

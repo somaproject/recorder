@@ -13,6 +13,7 @@ H5Epoch::H5Epoch(H5::Group g, epochname_t name) :
 {
 
   pEventTable_ = openEventTable(); 
+  pNoteTable_ = openNoteTable(); 
 
 }
 
@@ -167,6 +168,16 @@ pEventTable_t H5Epoch::openEventTable()
 		   
 }
 
+pNoteTable_t H5Epoch::openNoteTable()
+{
+  // either open or create the note table for this epoch
+  // FIXME! Open? maybe? 
+  pNoteTable_t nt(new NoteTable(h5group_)); 
+  
+  return nt; 
+		   
+}
+
 void H5Epoch::appendEvent(const pEventPacket_t pep)
 {
   pEventTable_->append(pep); 
@@ -175,28 +186,32 @@ void H5Epoch::appendEvent(const pEventPacket_t pep)
 
 void H5Epoch::createNote(std::string name, std::string text)
 {
-
+  pNoteTable_->createNote(name, text); 
 
 }
 
 void H5Epoch::setNote(std::string name, std::string text)
 {
+  pNoteTable_->setNote(name, text); 
 
 }
 
 Note_t H5Epoch::getNote(std::string name)
 {
+  return pNoteTable_->getNote(name); 
 
 }
  
-void H5Epoch::delNote(std::string name)
+void H5Epoch::deleteNote(std::string name)
 {
 
+  pNoteTable_->deleteNote(name); 
 
 }
   
 std::list<Note_t> H5Epoch::getAllNotes()
 {
 
+  return pNoteTable_->getAllNotes(); 
 
 }

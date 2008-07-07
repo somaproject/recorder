@@ -76,6 +76,9 @@ TSpikeTable::TSpikeTable(datasource_t src, std::string name,
 			   100, NULL, 
 			   false, NULL  );
   
+  
+  setSourceInFile(src_); 
+
 }
 
 void TSpikeTable::append(pDataPacket_t rdp)
@@ -92,6 +95,23 @@ void TSpikeTable::append(pDataPacket_t rdp)
 
 }
 
+void TSpikeTable::setSourceInFile(datasource_t src)
+{
+  
+  H5::DataSpace attrspace; 
+  
+  // set source attribute
+
+  H5::DataSet::DataSet ds = tableLoc_.openDataSet(tableName_); 
+
+  H5::Attribute source = ds.createAttribute("src", 
+					    H5::PredType::NATIVE_INT,
+					    attrspace); 
+  int isrc = src; 
+  source.write(H5::PredType::NATIVE_INT, &isrc);   
+
+
+}
 void TSpikeTable::flush()
 {
   // Flush all data to the table and clear the cache

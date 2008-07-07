@@ -75,7 +75,7 @@ pEpochInterface_t H5FileInterface::getEpoch(epochname_t name)
 
 }
 
-std::list<EpochInterface> H5FileInterface::getAllEpochs() 
+std::list<pEpochInterface_t> H5FileInterface::getAllEpochs() 
 {
 
 

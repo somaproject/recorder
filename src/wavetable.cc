@@ -66,7 +66,9 @@ WaveTable::WaveTable(datasource_t src, std::string name, H5::Group gloc) :
 			   Wave_field_type,
 			   100, NULL, 
 			   false, NULL  );
-  
+
+  setSourceInFile(src_); 
+
 }
 
 void WaveTable::append(pDataPacket_t rdp)
@@ -77,6 +79,23 @@ void WaveTable::append(pDataPacket_t rdp)
     {
       flush(); 
     }
+
+}
+void WaveTable::setSourceInFile(datasource_t src)
+{
+  
+  H5::DataSpace attrspace; 
+  
+  // set source attribute
+
+  H5::DataSet::DataSet ds = tableLoc_.openDataSet(tableName_); 
+
+  H5::Attribute source = ds.createAttribute("src", 
+					    H5::PredType::NATIVE_INT,
+					    attrspace); 
+  int isrc = src; 
+  source.write(H5::PredType::NATIVE_INT, &isrc);   
+
 
 }
 

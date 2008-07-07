@@ -98,3 +98,120 @@ BOOST_AUTO_TEST_CASE(H5Epoch_appenddata1)
 
 
 BOOST_AUTO_TEST_SUITE_END(); 
+
+BOOST_AUTO_TEST_SUITE(H5Epoch_notetest); 
+
+BOOST_AUTO_TEST_CASE(H5Epoch_notetest_apitest)
+{
+  // Test the note create / remove / etc. interfaces
+
+  // create a temp file
+  H5::H5File::H5File * h5file 
+    = new H5::H5File::H5File("H5Epoch_notetest_apitest.h5", H5F_ACC_TRUNC); 
+
+  H5::Group grp = h5file->createGroup("testGroup");
+  
+  recorder::H5Epoch epoch(grp, "TestEpoch"); 
+  h5file->flush(H5F_SCOPE_GLOBAL); 
+
+  epoch.createNote("test1", "This is our test note 1"); 
+  epoch.createNote("test2", "This is our test note 2"); 
+
+  BOOST_CHECK_THROW(epoch.createNote("test1", "This is our test note 1"), 
+		    std::runtime_error); 
+
+  // ----------------------------------------------------------
+  // check if we throw an error when we try to write too long of a note
+  // ----------------------------------------------------------
+  std::string lname = ""; 
+  for (int i = 0; i < NAMELEN + 1; i++) {
+    lname += "a"; 
+  }; 
+  BOOST_CHECK_THROW(epoch.createNote(lname, "Too long of a name"), 
+		    std::runtime_error); 
+  
+  // ----------------------------------------------------------
+  // check if we can read notes
+  // ----------------------------------------------------------
+  
+  Note_t notecheck = epoch.getNote("test2"); 
+  BOOST_CHECK_EQUAL(notecheck.text, "This is our test note 2"); 
+
+  notecheck = epoch.getNote("test1"); 
+  BOOST_CHECK_EQUAL(notecheck.text, "This is our test note 1"); 
+  
+  // ----------------------------------------------------------
+  // check if we can write notes
+  // ----------------------------------------------------------
+  epoch.setNote("test2", "I am not a cylon!"); 
+  notecheck = epoch.getNote("test2"); 
+  BOOST_CHECK_EQUAL(notecheck.text, "I am not a cylon!"); 
+  
+  // ----------------------------------------------------------
+  // check if we can delete notes
+  // ----------------------------------------------------------
+  epoch.deleteNote("test2");
+  BOOST_CHECK_THROW(epoch.getNote("test2"), std::runtime_error); 
+  
+  // ----------------------------------------------------------
+  // check if we can get all the notes
+  // ----------------------------------------------------------
+  epoch.createNote("Test3", "Still not a cylon."); 
+  std::list<Note_t> notes = epoch.getAllNotes();
+  BOOST_CHECK_EQUAL(notes.size(), 2); 
+
+  h5file->close(); 
+  delete h5file; 
+
+//   int retval = system("python NoteTable_test.py create");
+//  BOOST_CHECK_EQUAL(retval , 0); 
+
+}
+
+
+BOOST_AUTO_TEST_CASE(H5Epoch_notetest_diskcheck)
+{
+  // Test the note create / remove / etc. interfaces
+
+  // create a temp file
+  H5::H5File::H5File * h5file 
+    = new H5::H5File::H5File("H5Epoch_notetest_diskcheck.h5", H5F_ACC_TRUNC); 
+
+  H5::Group grp = h5file->createGroup("testGroup");
+  
+  recorder::H5Epoch * epoch = new recorder::H5Epoch(grp, "TestEpoch"); 
+  h5file->flush(H5F_SCOPE_GLOBAL); 
+
+  epoch->createNote("test1", "This is our test note 1"); 
+  epoch->createNote("test2", "This is our test note 2"); 
+
+  // the third note tests the edge cases
+  std::string longname = "";
+  for (int i = 0; i < NAMELEN; i++) {
+    char c = 65 + (i % 26); 
+    longname += c; 
+  }
+
+  std::string longtext = "";
+  for (int i = 0; i < NOTELEN; i++) {
+    char c = 65 + (i % 26); 
+    longtext += c; 
+  }
+  epoch->createNote(longname, longtext); 
+
+  // ----------------------------------------------------------
+  // write to disk by deleting
+  // ----------------------------------------------------------
+  delete epoch; 
+  h5file->flush(H5F_SCOPE_GLOBAL); 
+
+  h5file->close(); 
+  delete h5file; 
+
+  int retval = system("python H5Epoch_appenddata.py notecheck");
+  BOOST_CHECK_EQUAL(retval , 0); 
+
+  
+
+}
+BOOST_AUTO_TEST_SUITE_END(); 

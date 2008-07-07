@@ -48,7 +48,7 @@ namespace soma {
       virtual void createNote(std::string name, std::string text) = 0; 
       virtual void setNote(std::string name, std::string text) = 0; 
       virtual Note_t getNote(std::string name) = 0; 
-      virtual void delNote(std::string name) = 0; 
+      virtual void deleteNote(std::string name) = 0; 
       virtual std::list<Note_t> getAllNotes() = 0; 
       
       // session interface; not entirely happy with this, will take more thought

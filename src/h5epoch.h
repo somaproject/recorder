@@ -53,7 +53,7 @@ namespace soma {
 	void createNote(std::string name, std::string text); 
 	void setNote(std::string name, std::string text); 
 	Note_t getNote(std::string name); 
-	void delNote(std::string name); 
+	void deleteNote(std::string name); 
 	std::list<Note_t> getAllNotes(); 
 
   
@@ -71,11 +71,12 @@ namespace soma {
 	dispatchTable_t dispatchTable_; 
 	namedSinkTable_t namedSinkTable_; 
 
-	pEventTable_t openEventTable(); 
-	
 	pEventTable_t pEventTable_; 
+	pEventTable_t openEventTable(); 
 
-	
+	pNoteTable_t pNoteTable_; 
+	pNoteTable_t openNoteTable(); 
+
       }; 
     
   }

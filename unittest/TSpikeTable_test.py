@@ -36,6 +36,9 @@ def create_test():
         typecheck(t, "%s/wave" % chan,
                   tables.description.Int32Col)
         assert t.coldescrs["%s/wave" % chan].shape == (32,)
+
+    # check the attribute is correctly written
+    assert t.attrs.src == 17
     
 def append_test():
 

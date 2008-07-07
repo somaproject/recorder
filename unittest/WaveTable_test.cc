@@ -72,7 +72,6 @@ BOOST_AUTO_TEST_CASE(WaveTable_append)
   h5file->flush(H5F_SCOPE_GLOBAL); 
 
   h5file->close(); 
-  h5file->flush(H5F_SCOPE_GLOBAL); 
 
   delete h5file; 
 

@@ -17,7 +17,7 @@ namespace soma {
       // implement the FileInterface
       pEpochInterface_t createEpoch(epochname_t name); 
       pEpochInterface_t getEpoch(epochname_t name); 
-      std::list<EpochInterface> getAllEpochs(); 
+      std::list<pEpochInterface_t> getAllEpochs(); 
       
       ~H5FileInterface(); 
       

@@ -32,6 +32,9 @@ namespace soma {
 	std::vector<size_t> dstSizes_; 
 	std::vector<size_t> dstOffsets_; 
 	std::string tableName_; 
+	void setSourceInFile(datasource_t src); 
+	datasource_t getSourceFromFile(); 
+
 	//void addNote(std::string str); 
 	//std::list<std::string> getNotes(); 
 	
