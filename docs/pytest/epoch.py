@@ -18,6 +18,11 @@ class Epoch(gobject.GObject):
     The individual epoch 
 
     """
+    
+    __gsignals__ = { 'renamed': (gobject.SIGNAL_RUN_FIRST,
+                                     gobject.TYPE_NONE,
+                                     (gobject.TYPE_STRING,))}
+
     def __init__(self, parent, name):
         gobject.GObject.__init__(self)
         self.name = name
@@ -29,12 +34,21 @@ class Epoch(gobject.GObject):
 
         self.sessionSignalCallback = None
 
-        self.datasources = []
+        self.datasinks = set()
+        self.datasinknames = {}
+        
         for i in xrange(64):
-           self.datasources.append((i, [], "SOURCE%2.2d" % i))
+           self.datasinknames[i] = "Source%0.2d" % i 
         
         self.notes = []
 
+    def GetName(self):
+        return self.name
+    
+    def setName(self, name):
+        self.name = name
+        self.emit("renamed", name)
+        
         
     def CreateNote(self, title, text):
         """
@@ -62,27 +76,41 @@ class Epoch(gobject.GObject):
 
         """
 
-    def SetDataState(self, src, enabled, name):
+    def EnableDataSink(self, src, typ):
         """
         src is the src #
-        enabled is a list of the types that are enabled
-        name is the name
-        
+        type is the type
         """
-        new = (src, enabled, name)
-        self.datasources[src] = new
-        
-        
-        print "SetDataState", new
 
-    def GetDataStates(self):
+        self.datasinks.append(src, typ)
+        
+        
+    def DisableDataSink(self, src, typ):
         """
-        Returns ALL OF THE DATA Configuration
+        """
+        self.datasinks.remove(src, typ)
+        
 
-         [ (0, [0, 2, 3], Name), 
-         (1, [1, 2], Name) ]
+    def GetDataSinks(self):
         """
-        return self.datasources
+        Returns a list of string tuples
+        """
+        return list(self.datasinks)
+
+    def SetDataName(self, src, name):
+        """
+
+        """
+        self.datasinknames[src] = name
+
+
+    def GetDataName(self, src):
+        """
+
+        """
+        return self.datasinknames[src]
+    
+        
     
     def AddEventRXMask(self, enableEvent, cmdlist):
         """

@@ -33,10 +33,9 @@ class EpochProperty(object):
         self.epoch.sessionSignalCallback = self.updateSessions
         
 
-        self.datatab = datatab.EpochDataTab(self.wTree.get_widget("treeviewDataSources"), 
-                                       self.epoch.GetDataStates,
-                                       self.epoch.SetDataState)
-
+        self.datatab = datatab.EpochDataTab(self.wTree.get_widget("treeviewDataSources"),
+                                            self.epoch)
+        
         self.buttonAddNote = self.wTree.get_widget("buttonAddNote")
         self.vboxNotes = self.wTree.get_widget('vboxExperimentNotes')
 
@@ -44,6 +43,8 @@ class EpochProperty(object):
                                           self.buttonAddNote,
                                           self.epoch.GetNotes,
                                           self.epoch.CreateNote)
+        self.epoch.connect("renamed", self.nameChanged)
+        
         self.hasRecorded = False
         
     def on_notebookEpochProperty_switch_page(self, notebook, page, pagenum):
@@ -53,7 +54,12 @@ class EpochProperty(object):
                 status.Message("Cannot modify data sources once you have recorded into an epoch")
                 
 
-    
+    def nameChanged(self, widget, newname):
+        name = self.epoch.GetName()
+        label = self.wTree.get_widget("labelEpochName")
+        label.set_label("<big><big><big><big>%s</big></big></big></big>" % name)
+        
+        
 
     def populate(self):
         """
@@ -151,9 +157,6 @@ class ExperimentProperty(object):
         
         self.prop = self.wTree.get_widget('notebookExperimentProperty')
 
-        self.datatab = datatab.ExperimentDataTab(self.wTree.get_widget("treeviewDataSources"), 
-                                       self.experiment.GetDataStates,
-                                       self.experiment.SetDataState)
         
         #self.updateNotes()
         self.experimentLabel = self.wTree.get_widget("labelExperimentFilename")
@@ -264,10 +267,17 @@ class RecorderApp(object):
         maincol.pack_start(cell, True)
         maincol.add_attribute(cell, "text", 1)
         maincol.add_attribute(cell, "editable", 2)
+        cell.connect('edited', self.renameEpoch)
 
         treeview.append_column(maincol)
 
         #self.treestore.connect('epoch-created', self.treeModelEpochCreated)
+
+    def renameEpoch(self, widget, path, value):
+        COL = 1
+        iter = self.treestore.get_iter(path)
+        self.treestore.set_value(iter, COL, value)
+        
         
     def on_menuNewExperiment_activate(self, widget):
         """

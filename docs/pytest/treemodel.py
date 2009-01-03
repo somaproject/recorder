@@ -22,7 +22,7 @@ class RecorderTreeModel(gtk.GenericTreeModel):
         gtk.GenericTreeModel.__init__(self)
         self.recorder = recorder
         self.experiments = recorder.ListOpenExperiments()
-        self.recorder.connect('experiment-create', self.recorderExperimentCreate)
+        self.recorder.connect('experimentavailable', self.recorderExperimentCreate)
         
     def recorderExperimentCreate(self, recorder, experiment):
         self.experiments = recorder.ListOpenExperiments()
@@ -34,12 +34,22 @@ class RecorderTreeModel(gtk.GenericTreeModel):
         
         return self.row_inserted(path, iter)
 
-    def experimentEpochCreate(self, expr, val):
+    def experimentEpochCreate(self, expr, epoch):
+        print "experimentEpochCreate", expr, epoch
         path = self.on_get_path(expr)
         iter = self.create_tree_iter(expr)
         self.row_has_child_toggled(path, iter)
+        epoch.connect("renamed", self.epochRefresh, path)
         
-    def experimentUpdated(self, expr, val):
+    def epochRefresh(self, expr, epoch, path):
+        """
+        how many properties of the epoch should we update at this point?
+        
+        """
+        self.row_changed(path, self.get_iter(path))
+        
+        
+    def experimentUpdated(self, expr, val, path):
         path = self.on_get_path(expr)
         iter = self.create_tree_iter(expr)
         self.row_has_child_toggled(path, iter)
@@ -49,6 +59,10 @@ class RecorderTreeModel(gtk.GenericTreeModel):
         Takes in a gtktreeiter and returns the underlying contained object
         
         """
+    def set(self, iter, col, value):
+        print iter, col, value
+
+    
     def objectToIter(self, object):
         """
         """
@@ -160,6 +174,16 @@ class RecorderTreeModel(gtk.GenericTreeModel):
         else:
             return self.experiments[path[0]]
 
+    def set_value(self, iter, col, val):
+        path = self.get_path(iter)
+        
+        if len(path) > 1:
+            e = self.experiments[path[0]]
+            e.RenameEpoch(e.epochsOrdered[path[1]], val)
+        
+            
+            
+    
 def addexperiment(self, recorder):
 
     recorder.CreateExperiment("test experiment")

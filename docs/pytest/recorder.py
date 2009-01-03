@@ -3,7 +3,7 @@ import gobject
 from experiment import Experiment
 
 class Recorder(gobject.GObject):
-    __gsignals__ = { 'experiment-create': (gobject.SIGNAL_RUN_FIRST,
+    __gsignals__ = { 'experimentavailable': (gobject.SIGNAL_RUN_FIRST,
                                            gobject.TYPE_NONE,
                                            (gobject.TYPE_OBJECT,)) }
     
@@ -34,14 +34,6 @@ class Recorder(gobject.GObject):
         
         e = Experiment(self, str(name))
         self.experiments[name] = e
-        self.emit('experiment-create', e)
+        self.emit('experimentavailable', e)
         return e
 
-    
-    def CloseExperiment(self, name):
-        """
-        A non-exported method telling the recorder to remove the
-        experiment from its list. 
-        """
-
-        self.experiments.pop(name)

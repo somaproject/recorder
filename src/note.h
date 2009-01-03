@@ -5,8 +5,10 @@
 
 namespace soma {
   namespace recorder {
-
+    typedef int notehandle_t;   // per-table note handle
+    
     struct Note_t {
+      notehandle_t handle; 
       // name
       std::string name; 
       // create time
@@ -18,7 +20,8 @@ namespace soma {
       
       // actual text
       std::string text; 
-      
+      std::vector<std::string> tags; 
+
     }; 
   }
 }

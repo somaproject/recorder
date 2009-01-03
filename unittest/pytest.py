@@ -1,8 +1,7 @@
-#!/usr/bin/python
-from tables import * 
-# Open a file in "w"rite mode
-h5file = openFile('test.h5')
+import tables
 
-print h5file
 
-#print h5file.root.test1.tspikes.chan0._v_children
+#h5file = tables.openFile("H5ExperimentRecording_stats.h5")
+#print h5file.root.Rose.TSpike.Sink0
+h5file = tables.openFile("H5ExperimentRecording_sessiontest.h5")
+print h5file.root.Rose._v_attrs.sessions

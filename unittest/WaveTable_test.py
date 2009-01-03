@@ -27,9 +27,10 @@ def create_test():
     assert isinstance(t.coldescrs['time'],
                        tables.description.UInt64Col)
 
-    typecheck(t, "samprate", tables.description.UInt16Col);
+    typecheck(t, "sampratenum", tables.description.UInt16Col);
+    typecheck(t, "samprateden", tables.description.UInt16Col);
     typecheck(t, "selchan", tables.description.UInt16Col);
-    typecheck(t, "filterid", tables.description.UInt16Col);
+    typecheck(t, "filterid", tables.description.UInt32Col);
     assert t.coldescrs["wave"].shape == (128,)
     
     assert t.attrs.src == 17
@@ -46,9 +47,10 @@ def append_test():
         assert table[i]['src'] == 23 
         
         assert table[i]['time'] == i * 0x0123456789AB
-        assert table[i]['samprate'] == 0x789A
+        assert table[i]['sampratenum'] == 0x789A
+        assert table[i]['samprateden'] == 0x1122
         assert table[i]['selchan'] == 0x1234
-        assert table[i]['filterid'] == 0xAABB
+        assert table[i]['filterid'] == 0xAABBCCD
         for j in range(128):
             assert table[i]['wave'][j] == i * 0xABCD + j*0x17
         

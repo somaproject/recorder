@@ -4,46 +4,23 @@
 #include <somanetwork/datapacket.h>
 
 #include "tspiketable.h"
+#include "h5helper.h"
 
 using namespace soma::recorder; 
-TSpikeTable::TSpikeTable(datasource_t src, std::string name, 
-			 H5::Group gloc) :
-  src_(src), 
-  dataCache_(),
-  tableLoc_(gloc), 
-  tableName_(name)
+
+
+pTSpikeTable_t TSpikeTable::create(H5::Group containingGroup, std::string name, 
+				   datasource_t src)
 {
-  // setup cache
-  dataCache_.reserve(CACHESIZE); 
 
-  // construct the table
+  pTSpikeTable_t ts(new TSpikeTable(name, containingGroup)); 
 
-  const int NFIELDS = 6; 
-  size_t TSpike_dst_size =  sizeof( TSpike_t );
-  
-  dstOffsets_.push_back(HOFFSET(TSpike_t, src)); 
-  dstOffsets_.push_back(HOFFSET(TSpike_t, time)); 
-  dstOffsets_.push_back(HOFFSET(TSpike_t, x)); 
-  dstOffsets_.push_back(HOFFSET(TSpike_t, y)); 
-  dstOffsets_.push_back(HOFFSET(TSpike_t, a)); 
-  dstOffsets_.push_back(HOFFSET(TSpike_t, b)); 
-
-
-  TSpike_t tests; 
-  dstSizes_.push_back(sizeof( tests.src)); 
-  dstSizes_.push_back(sizeof( tests.time)); 
-  dstSizes_.push_back(sizeof( tests.x)); 
-  dstSizes_.push_back(sizeof( tests.y)); 
-  dstSizes_.push_back(sizeof( tests.a)); 
-  dstSizes_.push_back(sizeof( tests.b)); 
-
-  
   hsize_t wave_dims[1] = {TSPIKEWAVE_LEN}; 
   hid_t wt = H5Tarray_create(H5T_NATIVE_INT32, 1, wave_dims);  
 
   hid_t TSpikeWave_type = H5Tcreate(H5T_COMPOUND, sizeof(TSpikeWave_t)); 
   H5Tinsert(TSpikeWave_type, "filtid", 
-	    HOFFSET(TSpikeWave_t, filtid), H5T_NATIVE_UINT8); 
+	    HOFFSET(TSpikeWave_t, filtid), H5T_NATIVE_UINT32); 
   H5Tinsert(TSpikeWave_type, "valid", 
 	    HOFFSET(TSpikeWave_t, valid), H5T_NATIVE_UINT8); 
   H5Tinsert(TSpikeWave_type, "threshold", 
@@ -64,24 +41,82 @@ TSpikeTable::TSpikeTable(datasource_t src, std::string name,
 
   herr_t     status;
 
+  size_t TSpike_dst_size =  sizeof( TSpike_t );
+
   status = H5TBmake_table( "Table Title", 
-			   tableLoc_.getLocId(),
-			   tableName_.c_str(), 
+			   ts->tableLoc_.getLocId(),
+			   ts->tableName_.c_str(), 
 			   NFIELDS, 
 			   0, 
 			   TSpike_dst_size, 
 			   TSpike_field_names, 
-			   &dstOffsets_[0], 
+			   &(ts->dstOffsets_[0]), 
 			   TSpike_field_type,
 			   100, NULL, 
 			   false, NULL  );
   
   
-  setSourceInFile(src_); 
-
+  // get hid_t 
+  ts->selfDataSet_ = ts->tableLoc_.openDataSet(ts->tableName_); 
+  ts->src_ = src; 
+  setSourceAttribute(ts->selfDataSet_, src); 
+  
+  return ts; 
+  
 }
 
-void TSpikeTable::append(pDataPacket_t rdp)
+pTSpikeTable_t TSpikeTable::open(H5::Group containingGroup, std::string name)
+{
+  
+  pTSpikeTable_t ts(new TSpikeTable(name, containingGroup)); 
+  
+  // get object
+  
+  // configure dataset object
+  ts->selfDataSet_ = ts->tableLoc_.openDataSet(ts->tableName_); 
+  ts->src_ = getSourceAttribute(ts->selfDataSet_); 
+
+  return ts; 
+  
+}
+
+
+TSpikeTable::TSpikeTable(std::string name, 
+			 H5::Group containingGroup) :
+  dataCache_(),
+  tableLoc_(containingGroup), 
+  tableName_(name)
+{
+  // setup cache
+  dataCache_.reserve(CACHESIZE); 
+  setupDataTypes(); 
+}
+
+
+void TSpikeTable::setupDataTypes()
+{
+
+  // construct the table
+
+  dstOffsets_.push_back(HOFFSET(TSpike_t, src)); 
+  dstOffsets_.push_back(HOFFSET(TSpike_t, time)); 
+  dstOffsets_.push_back(HOFFSET(TSpike_t, x)); 
+  dstOffsets_.push_back(HOFFSET(TSpike_t, y)); 
+  dstOffsets_.push_back(HOFFSET(TSpike_t, a)); 
+  dstOffsets_.push_back(HOFFSET(TSpike_t, b)); 
+
+
+  TSpike_t tests; 
+  dstSizes_.push_back(sizeof( tests.src)); 
+  dstSizes_.push_back(sizeof( tests.time)); 
+  dstSizes_.push_back(sizeof( tests.x)); 
+  dstSizes_.push_back(sizeof( tests.y)); 
+  dstSizes_.push_back(sizeof( tests.a)); 
+  dstSizes_.push_back(sizeof( tests.b)); 
+
+
+}
+void TSpikeTable::append(const pDataPacket_t rdp)
 {
   // For performance reasons we append the incoming data packets to
   // an internal cache
@@ -95,23 +130,47 @@ void TSpikeTable::append(pDataPacket_t rdp)
 
 }
 
-void TSpikeTable::setSourceInFile(datasource_t src)
+void TSpikeTable::updateName()
 {
-  
+  /*
+    reload our name from the dataset by reexamining the path. 
+    
+
+  */
+  std::string path =  h5helper::getPath(selfDataSet_); 
+  std::string name = h5helper::extractName(path); 
+  tableName_ = name; 
+
+}
+
+void TSpikeTable::setSourceAttribute(H5::DataSet ds, datasource_t src)
+{
+  // Static function that sets the source
+
+
   H5::DataSpace attrspace; 
-  
+
   // set source attribute
-
-  H5::DataSet::DataSet ds = tableLoc_.openDataSet(tableName_); 
-
   H5::Attribute source = ds.createAttribute("src", 
 					    H5::PredType::NATIVE_INT,
 					    attrspace); 
   int isrc = src; 
   source.write(H5::PredType::NATIVE_INT, &isrc);   
 
-
 }
+
+datasource_t TSpikeTable::getSourceAttribute(H5::DataSet ds) 
+{
+
+  // set source attribute
+  H5::Attribute source = ds.openAttribute("src"); 
+  
+  int isrc; 
+  source.read(H5::PredType::NATIVE_INT, &isrc);   
+
+  return isrc; 
+}
+
 void TSpikeTable::flush()
 {
   // Flush all data to the table and clear the cache
@@ -131,4 +190,39 @@ void TSpikeTable::flush()
 TSpikeTable::~TSpikeTable()
 {
   flush(); 
+}
+
+
+
+std::string TSpikeTable::getPath()
+{
+  /*
+    Return the full path of our dataset
+
+
+  */
+  return h5helper::getPath(selfDataSet_); 
+  
+}
+
+void TSpikeTable::appendStats(const SinkStats & stats)
+{
+  /*  
+    Append another set of Sink Statistics to the current set
+    of attributes
+  */
+
+  
+  sinkStatsCache_.push_back(stats); 
+  
+  
+  h5helper::writeStatsAttribute(selfDataSet_, sinkStatsCache_); 
+  
+  
+}
+
+std::vector<SinkStats> TSpikeTable::getStats()
+{
+  return sinkStatsCache_; 
+  
 }

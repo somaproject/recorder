@@ -4,5 +4,4 @@
 #include <boost/test/auto_unit_test.hpp>
 #include <H5Cpp.h>
 
-
-
+//enable full debugging

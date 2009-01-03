@@ -5,12 +5,9 @@ A "file" is meant to represent a single recording session for a single
 animal.  Data is saved in recording periods called epochs. Within each
 epoch, data is organized by type, and then by name. 
 
-/epochName/
-   /tspikes
-   /waves
-   /events
-   /notes
-   /(other multimodal data) [to be implemented?] 
+We originally had a "default" epoch, but now it seems to make more sense to 
+just copy old epochs
+
 
 --------------------------------------------------------------------
 Epochs
@@ -19,6 +16,13 @@ There are several guarantees with epochs:
   An epoch contains data from time T1 to time T2.
   No other epoch will contain data from T1 to T2. 
   The data may be continuous or it may have gaps in it. 
+  
+/epochName/
+   /tspikes
+   /waves
+   /events
+   /notes
+   /(other multimodal data) [to be implemented?] 
 
 Each epoch contains "sessions" which enumerate the continuous
 recording periods, containing: 
@@ -27,8 +31,10 @@ recording periods, containing:
    start walltime
    stop stop walltime
 
-each epoch also contains: 
+each epoch also contains the following attributes
    createtime: the time it was created
+   sessions data
+   
    
 
 --------------------------------------------------------------------

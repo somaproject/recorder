@@ -44,6 +44,14 @@ class Experiment(gobject.GObject):
         self.emit("epoch-create", e)
         return e
 
+    def RenameEpoch(self, epoch, name):
+        for k, v in self.epochs.iteritems():
+            if v == epoch:
+                del self.epochs[k]
+                epoch.setName(name)
+                self.epochs[name] = epoch
+                break
+
     def deleteEpoch(self, name):
         if name not in self.epochs:
             raise "Epoch name not found"
@@ -82,24 +90,3 @@ class Experiment(gobject.GObject):
         """
 
         """
-
-    def SetDataState(self, src, available, enabled, name):
-        """
-        src is the src #
-        enabled is a list of the types that are enabled
-        name is the name
-        
-        """
-        new = (src, available, enabled, name)
-        self.datasources[src] = new
-        print "Experiment::SetDataState", new
-        
-    def GetDataStates(self):
-        """
-        Returns ALL OF THE DATA Configuration
-
-         [ (0, available, [0, 2, 3], Name), 
-         (1, available, [1, 2], Name) ]
-        """
-        return self.datasources
-    

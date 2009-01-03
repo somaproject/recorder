@@ -18,7 +18,7 @@ def typecheck(t, name, type):
 def create_test():
     t = tables.openFile('EventTable_create.h5')
     g = t.root.testGroup
-    setable = t.root.testGroup.events
+    setable = t.root.testGroup.Events
 
     
     typecheck(setable, "seq", tables.description.UInt32Col);
@@ -32,7 +32,7 @@ def append_test():
     
     f = tables.openFile('EventTable_append.h5')
     g = f.root.testGroup
-    setable = g.events
+    setable = g.Events
 
     N = 1000
     emod = 17
