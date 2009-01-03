@@ -1,0 +1,7 @@
+Each unit test module is named for the object (in a case-sensitive
+manner) that it is testing. If there are too many tests to reasonably manage
+in a test set, an additional file can be created with a descriptive suffix. I.e.
+to test FooObject, create FooObject.cc in this directory. If you
+want to test lots of FooObject stuff, you might create FooObject_bar.cc
+
+

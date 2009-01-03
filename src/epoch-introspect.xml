@@ -1,0 +1,87 @@
+<?xml version="1.0" ?>
+<node name="/soma/recording/Epoch">
+  <interface name="soma.recording.Epoch">
+
+    <method name="GetName">
+      <arg type="s" name="name" direction="out"/>
+    </method>
+
+    <method name="StartRecording">
+    </method>
+
+    <method name="StopRecording">
+    </method>
+
+    <method name="GetRecordingState">
+      <arg type="b" name="isRecording" direction="out"/>
+    </method>
+
+    <method name="EnableDataSink">
+      <arg type="i" name="src" direction="in"/>
+      <arg type="i" name="typ" direction="in"/>
+    </method>
+    
+    <method name="DisableDataSink">
+      <arg type="i" name="src" direction="in"/>
+      <arg type="i" name="typ" direction="in"/>
+    </method>
+
+    <method name="GetDataSinks">
+      <arg type="as" name="result" direction="out"/>
+    </method>
+
+    <method name="GetDataSink">
+      <arg type="i" name="src" direction="in"/>
+      <arg type="ai" name="result" direction="out"/>
+    </method>
+
+    <method name="SetDataName">
+      <arg type="i" name="src" direction="in"/>
+      <arg type="s" name="name" direction = "in"/>
+    </method>
+
+    <method name="GetDataName">
+      <arg type="i" name="src" direction="in"/>
+      <arg type="s" name="name" direction="out"/>
+    </method>
+
+    <signal name="sinkchange">
+      <arg name="sinksrc" type="i"/>
+    </signal>
+    
+    <method name="GetSinkSessionStatistics">
+      <arg type="i" name="src" direction="in"/>
+      <arg type="i" name="typ" direction="in"/>
+      <arg type="i" name="session" direction="in"/>
+      <arg type="a{ss}" name="stats" direction="out"/>
+    </method>
+
+    <method name="GetSessions">
+      <arg type="aai" name="sessions" direction="out"/>
+    </method>
+
+    <method name="AddEventRXMask">
+      <arg type="i" name="src" direction="in"/>
+      <arg type="ai" name="cmdlist" direction="in"/>
+    </method>
+      
+    <method name="GetEventRXMask">
+      <arg type="i" name="src" direction="in"/>
+      <arg type="ai" name="cmdlist" direction="out"/>
+    </method>
+
+    <method name="RemoveEventRXMask">
+      <arg type="i" name="src" direction="in"/>
+      <arg type="ai" name="cmdlist" direction="in"/>
+    </method>
+    <!-- signal the recording state change for this epoch  -->
+
+    <signal name="recordingstate">
+      <arg name="isRecording" type="b"/>
+    </signal>
+    
+
+  </interface>
+  
+  
+</node>

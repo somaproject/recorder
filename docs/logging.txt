@@ -1,0 +1,10 @@
+Log hierarchy
+
+soma.recorder.recorder
+soma.recorder.experiment
+
+soma.recorder.recorder.dbus
+soma.recorder.experiment.dbus
+
+http://developers.sun.com/solaris/articles/logging.html
+

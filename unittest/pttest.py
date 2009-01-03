@@ -1,0 +1,7 @@
+import tables
+
+
+h5file = tables.openFile("H5ExperimentRecording_stats.h5")
+
+
+#h5file.root.Rose.TSpike.Sink0

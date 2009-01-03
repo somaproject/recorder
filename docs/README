@@ -1,0 +1,20 @@
+Documentation overview:
+
+Overall Architecture
+Design goals
+
+File format and organization
+   Notes
+   Experiments
+     Notes
+   Epochs
+     Datsets
+       TSpike
+       Wave 
+     Events
+
+Implementation
+   Recorder Main 
+   
+
+DBusInterface

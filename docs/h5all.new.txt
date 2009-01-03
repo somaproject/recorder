@@ -1,0 +1,15 @@
+Generic idea for our on-disk objects:: 
+
+
+Pretty much everything has static (named) "open" and "create" constructors. 
+
+Our design discipline is "an object is not 'complete' until it fully 
+reflects the state of the on-disk object" and thus we cannot call member
+functions until things are up-and-atom. 
+
+The "open" methods will be appropritately recursive. 
+
+The open methods can manipulate internal object state -- remember, the
+object is not yet "complete", it is in the process of being constructed!
+
+

@@ -1,0 +1,77 @@
+<?xml version="1.0" ?>
+<node name="/soma/recording/Experiment">
+  <interface name="soma.recording.Experiment">
+    <method name="GetFileProperties">
+      <arg type="a{ss}" name="props" direction="out"/>
+    </method>
+    
+    <method name="GetName">
+      <arg type="s" name="name" direction="out"/>
+    </method>
+
+    <method name="GetEpochs">
+      <arg type="ao" name="epochs" direction="out"/>
+    </method>
+
+    <method name="CreateEpoch">
+      <arg type="s" name="name" direction="in"/>
+      <arg type="o" name="epoch" direction="out"/>
+    </method>
+
+    <method name="RenameEpoch">
+      <arg type="o" name="epoch" direction="in"/>
+
+      <arg type="s" name="newname" direction="in"/>
+    </method>
+
+    <!-- FIXME : Implement DeleteEpoch  -->
+
+    <method name="GetEpoch">
+      <arg type="s" name="name" direction="in"/>
+      <arg type="o" name="epoch" direction="out"/>
+    </method>
+
+    <signal name="epochcreate">
+      <arg name="objpath" type="o"/>
+    </signal>
+
+    <method name="Close">
+    </method>
+
+  </interface>
+  
+  <interface name="soma.recording.Notes">
+
+    <method name="CreateNote">
+      <arg type="i" name="notehandle" direction="out"/>
+    </method>
+
+    <method name="GetNote">
+      <arg type="i" name="notehandle" direction="in"/>
+      <arg type="s" name="name" direction="out"/>
+      <arg type="t" name="createtime" direction="out"/>
+      <arg type="t" name="createts" direction="out"/>
+      <arg type="t" name="edittime" direction="out"/>
+      <arg type="t" name="editts" direction="out"/>
+      <arg type="as" name="tags" direction="out"/>
+    </method>
+
+    <method name="SetNote">
+      <arg type="i" name="notehandle" direction="in"/>
+      <arg type="s" name="name" direction="in"/>
+      <arg type="s" name="notetext" direction="in"/>
+      <arg type="as" name="tags" direction="in"/>
+    </method>
+
+    <method name="DeleteNote">
+      <arg type="i" name="nodehandle" direction="in"/>
+    </method>
+
+    <method name="GetNotes">
+      <arg type="ai" name="nodehandles" direction="out"/> 
+    </method>
+
+  </interface>
+    
+
+</node>

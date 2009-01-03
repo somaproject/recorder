@@ -1,0 +1,11 @@
+Source: soma-recorder
+Section: Soma Software
+Priority: extra
+Maintainer: Stuart Layton <slayton@mit.edu>
+Build-Depends: debhelper (>= 5), libsomanetwork, liblog4cpp5-dev, dbus-c++ (>=0.5)
+Standards-Version: 3.7.2
+
+Package: soma-recorder
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, 
+Description: Soma 4 channel spike vizualizatin software

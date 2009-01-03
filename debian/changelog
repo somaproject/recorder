@@ -1,0 +1,6 @@
+soma-recorder (1.0-1ubuntu1) stable; urgency=low
+
+  * Initial release (Closes: #nnnn)  <nnnn is the bug number of your ITP>
+
+ -- Stuart Layton <slayton@mit.edu>  Mon, 11 Aug 2008 15:54:47 -0500
+
