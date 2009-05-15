@@ -98,7 +98,7 @@ void DBusRecorder::CreateExperiment( const ::std::string& name )
 			 << boost::str(runstr) << "'";   
   
 
-  int result = system(boost::str(runstr).c_str()); 
+  int result = std::system(boost::str(runstr).c_str()); 
   logdbus_.debugStream() << "command done"; 
 
   if (result != 0) {

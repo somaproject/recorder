@@ -11,6 +11,8 @@
   
 */
 
+using namespace somanetwork; 
+
 namespace soma {
   namespace recorder {
     class EventMaskSet {

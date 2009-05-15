@@ -313,22 +313,20 @@ void H5Experiment::stopRecording() {
   
 }
 
-std::map<dpair_t, SinkStats> H5Experiment::convertStats(std::vector<DataReceiverStats> stats)
+std::map<dpair_t, SinkStats> H5Experiment::convertStats(const std::vector<DataReceiverStats> & stats)
 {
   
   std::map<dpair_t, SinkStats> results; 
-  std::vector<DataReceiverStats>::iterator s = stats.begin(); 
+  std::vector<DataReceiverStats>::const_iterator s = stats.begin(); 
   for (; s != stats.end(); s++) {
     dpair_t key = std::make_pair((unsigned char)s->source, charToDatatype(s->type)); 
     
     SinkStats ss; 
-    ss.pktCount = s->pktCount; 
-    ss.latestSeq = s->latestSeq; 
-    ss.dupeCount = s->dupeCount; 
-    ss.pendingCount = s->pendingCount; 
-    ss.missingPacketCount = s->missingPacketCount; 
-    ss.reTxRxCount = s->reTxRxCount; 
-    ss.outOfOrderCount = s->outOfOrderCount; 
+    ss.pktCount = s->seqprotostats.rxPacketCount; 
+    ss.latestSeq = s->seqprotostats.currentSequenceID; 
+    ss.dupeCount = s->seqprotostats.dupeCount; 
+    ss.missingPacketCount = s->seqprotostats.lostCount; 
+    ss.reTxRxCount = s->seqprotostats.retxReqCount;  
     
     
     results[key] = ss; 

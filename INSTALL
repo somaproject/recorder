@@ -1,0 +1,12 @@
+To install you will need: 
+
+dbus-c++
+
+http://freedesktop.org/wiki/Software/dbus-c%2B%2B
+
+git clone git://anongit.freedesktop.org/git/dbus/dbus-c++/
+Remember to configure with --enable-glib
+
+log4cpp
+
+aptitude install liblog4cpp5-dev

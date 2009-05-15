@@ -10,6 +10,7 @@
 
 using namespace H5;
 
+using namespace somanetwork; 
 namespace soma {
   namespace recorder {
     

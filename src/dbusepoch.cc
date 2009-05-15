@@ -65,7 +65,7 @@ void DBUSEpoch::EnableDataSink( const int32_t& src, const int32_t& typ )
 
     pEpoch_->enableDataSink(src, (datatype_t)typ); 
     sinkchange(src); 
-  } catch (exception & e) {
+  } catch (std::exception & e) {
     
     throw DBus::Error("soma.Epoch", "cannot modify data sink when recording or once recorded" ); 
 
@@ -78,7 +78,7 @@ void DBUSEpoch::DisableDataSink( const int32_t& src, const int32_t& typ )
   try {
     pEpoch_->disableDataSink(src, (datatype_t)typ); 
     sinkchange(src); 
-  } catch (exception & e) {
+  } catch (std::exception & e) {
     throw DBus::Error("soma.Epoch", "cannot modify data sink when recording or once recorded" ); 
 
   }
@@ -126,7 +126,7 @@ void DBUSEpoch::SetDataName( const int32_t& src, const ::string& name )
     pEpoch_->setDataName(src, name); 
     sinkchange(src); 
 
-  } catch (exception & e) {
+  } catch (std::exception & e) {
     throw DBus::Error("soma.Epoch", "cannot modify data sink name when recording or once recorded" ); 
 
   }

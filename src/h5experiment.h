@@ -104,7 +104,7 @@ namespace soma {
       int getCurrentTime(); 
       pNoteTable_t pNoteTable_; 
       static std::map<dpair_t, SinkStats> 
-      convertStats(std::vector<DataReceiverStats> stats); 
+      convertStats(const std::vector<DataReceiverStats> & stats); 
 
       // Network callbacks
       bool dataRXCallback(Glib::IOCondition io_condition); 
