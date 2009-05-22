@@ -35,6 +35,7 @@ int main(int argc, char * argv[])
     ("help", "produce help message")
     ("create-file", po::value<string>(), "name of experiment file to create")
     ("open-file", po::value<string>(), "name of experiment file to open")
+    ("dbus", po::value<string>(), "DBUS bus address to connect to")
     ("soma-ip", po::value<string>(), "The IP of the soma hardware")
     ("request-dbus-name", po::value<string>(), "Request the target dbus name for debugging")
     ("no-register",  "register with primary recorder (soma.Recorder) on DBus")
@@ -103,16 +104,22 @@ int main(int argc, char * argv[])
   DBus::default_dispatcher = &dispatcher;
   dispatcher.attach(NULL); 
   
-  // FIXME get the right bus! 
-  DBus::Connection conn = DBus::Connection::SessionBus();
+  if (!vm.count("dbus")) {
+    logrecorder.fatal("Need to specify dbus bus to connect to"); 
+    return -1; 
+  }
+  
+  //DBus::Connection conn = DBus::Connection::SessionBus(); 
+  DBus::Connection conn = 
+    DBus::Connection::Connection(vm["dbus"].as<string>().c_str(), false);
+  
+  conn.register_bus(); 
 
   if (vm.count("request-dbus-name")) {
     std::string dbusname = vm["request-dbus-name"].as<string>(); 
     conn.request_name(dbusname.c_str()); 
     logdbus.infoStream() << "requesting dbus name" << dbusname; 
   }
-
-  
 
   if (! vm.count("no-daemon")) {
     pid_t pid = fork(); 
@@ -150,7 +157,7 @@ int main(int argc, char * argv[])
     
   }
   
-
   mainloop->run(); 
+
   
 }

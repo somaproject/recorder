@@ -7,7 +7,6 @@
 #define __dbusxx__dbusexperimentadaptor_h__ADAPTOR_MARSHAL_H
 
 #include <dbus-c++/dbus.h>
-
 namespace soma {
 namespace recording {
 
@@ -148,7 +147,7 @@ private:
         return reply;
     }
     ::DBus::Message _GetName_stub(const ::DBus::CallMessage &call)
-    {
+  {
         ::DBus::MessageIter ri = call.reader();
 
         std::string argout1 = GetName();

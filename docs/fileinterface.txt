@@ -1,5 +1,5 @@
-The file interface should let us manipulate epochs and data sinks within those epochs. 
-It's important to note that: 
+The file interface should let us manipulate epochs and data sinks
+within those epochs.  It's important to note that:
 
   1. At no point should the File interface expose any HDF5-specific
   properties to the external world. Even though we're designing this

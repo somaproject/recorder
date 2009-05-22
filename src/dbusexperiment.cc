@@ -121,7 +121,6 @@ void DBUSExperiment::Close()
 
 std::string  DBUSExperiment::GetName()
 {
-  
   return pExperiment_->getName(); 
 }
 

@@ -31,8 +31,6 @@ pH5Epoch_t H5Epoch::create(pH5ExperimentWeak_t parent,
   pH5Epoch->pEventTable_ = EventTable::create(epochGroup); 
   
   pH5Epoch->pNoteTable_ = NoteTable::create(epochGroup); 
-  
-
 
   return pH5Epoch; 
 
