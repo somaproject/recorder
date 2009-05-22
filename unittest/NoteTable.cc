@@ -30,7 +30,7 @@ BOOST_AUTO_TEST_CASE(NoteTable_create)
   h5file->close(); 
   delete h5file; 
 
-  int retval = system("python NoteTable_test.py create");
+  int retval = std::system("python NoteTable_test.py create");
   BOOST_CHECK_EQUAL(retval , 0); 
 
 }
@@ -98,7 +98,7 @@ BOOST_AUTO_TEST_CASE(NoteTable_apitest)
   h5file->close(); 
   delete h5file; 
 
-//   int retval = system("python NoteTable_test.py create");
+//   int retval = std::system("python NoteTable_test.py create");
 //  BOOST_CHECK_EQUAL(retval , 0); 
 
 }
@@ -143,7 +143,7 @@ BOOST_AUTO_TEST_CASE(NoteTable_apitest)
 //   h5file->close(); 
 //   delete h5file; 
 
-//   int retval = system("python NoteTable_test.py diskcheck");
+//   int retval = std::system("python NoteTable_test.py diskcheck");
 //   BOOST_CHECK_EQUAL(retval , 0); 
 
   

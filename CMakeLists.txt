@@ -18,5 +18,8 @@ pkg_check_modules(EXPDEPS REQUIRED
   log4cpp>=1.0
 )
 
+include_directories(src)
+
 ENABLE_TESTING()
 add_subdirectory(src)
+add_subdirectory(unittest)
