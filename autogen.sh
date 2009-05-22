@@ -1,3 +1,0 @@
-autoreconf --install
-
-./configure $@
