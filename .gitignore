@@ -41,3 +41,14 @@ missing
 ltmain.sh
 src/fakenetwork.loT
 */semantic.cache
+
+#Cmake crap
+CMakeFiles/
+*.a
+CMakeCache.txt
+/CTestTestfile.cmake
+/cmake_install.cmake
+/src/soma-recorder
+/src/soma-experiment
+/src/cmake_install.cmake
+/src/CTestTestfile.cmake
