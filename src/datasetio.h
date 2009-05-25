@@ -8,10 +8,10 @@
 #include <boost/utility.hpp>
 #include "sinkstats.h" 
 
-using namespace somanetwork; 
 
 namespace soma {
   namespace recorder {
+    using namespace somanetwork; 
 
     class DatasetIO : boost::noncopyable
     {

@@ -24,7 +24,7 @@ namespace soma {
     public:
       DBUSExperiment(DBus::Connection & connection, 
 		       Glib::RefPtr<Glib::MainLoop> ml, 
-		     std::string filename, std::string somaIP, 
+		     std::string filename, pNetworkInterface_t pn, 
 		     bool create); 
       
       std::map< std::string, std::string > GetFileProperties(  );

@@ -136,6 +136,20 @@ NoteTable_test/fast:
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/NoteTable_test.dir/build.make unittest/CMakeFiles/NoteTable_test.dir/build
 .PHONY : NoteTable_test/fast
 
+# Convenience name for target.
+unittest/CMakeFiles/TSpikeTable_test.dir/rule:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 unittest/CMakeFiles/TSpikeTable_test.dir/rule
+.PHONY : unittest/CMakeFiles/TSpikeTable_test.dir/rule
+
+# Convenience name for target.
+TSpikeTable_test: unittest/CMakeFiles/TSpikeTable_test.dir/rule
+.PHONY : TSpikeTable_test
+
+# fast build rule for target.
+TSpikeTable_test/fast:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/TSpikeTable_test.dir/build.make unittest/CMakeFiles/TSpikeTable_test.dir/build
+.PHONY : TSpikeTable_test/fast
+
 H5FileCreate.o: H5FileCreate.cc.o
 .PHONY : H5FileCreate.o
 
@@ -184,6 +198,30 @@ NoteTable.cc.s:
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/NoteTable_test.dir/build.make unittest/CMakeFiles/NoteTable_test.dir/NoteTable.cc.s
 .PHONY : NoteTable.cc.s
 
+TSpikeTable_test.o: TSpikeTable_test.cc.o
+.PHONY : TSpikeTable_test.o
+
+# target to build an object file
+TSpikeTable_test.cc.o:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/TSpikeTable_test.dir/build.make unittest/CMakeFiles/TSpikeTable_test.dir/TSpikeTable_test.cc.o
+.PHONY : TSpikeTable_test.cc.o
+
+TSpikeTable_test.i: TSpikeTable_test.cc.i
+.PHONY : TSpikeTable_test.i
+
+# target to preprocess a source file
+TSpikeTable_test.cc.i:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/TSpikeTable_test.dir/build.make unittest/CMakeFiles/TSpikeTable_test.dir/TSpikeTable_test.cc.i
+.PHONY : TSpikeTable_test.cc.i
+
+TSpikeTable_test.s: TSpikeTable_test.cc.s
+.PHONY : TSpikeTable_test.s
+
+# target to generate assembly for a file
+TSpikeTable_test.cc.s:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/TSpikeTable_test.dir/build.make unittest/CMakeFiles/TSpikeTable_test.dir/TSpikeTable_test.cc.s
+.PHONY : TSpikeTable_test.cc.s
+
 runner.o: runner.cc.o
 .PHONY : runner.o
 
@@ -191,6 +229,7 @@ runner.o: runner.cc.o
 runner.cc.o:
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5FileCreate_test.dir/build.make unittest/CMakeFiles/H5FileCreate_test.dir/runner.cc.o
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/NoteTable_test.dir/build.make unittest/CMakeFiles/NoteTable_test.dir/runner.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/TSpikeTable_test.dir/build.make unittest/CMakeFiles/TSpikeTable_test.dir/runner.cc.o
 .PHONY : runner.cc.o
 
 runner.i: runner.cc.i
@@ -200,6 +239,7 @@ runner.i: runner.cc.i
 runner.cc.i:
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5FileCreate_test.dir/build.make unittest/CMakeFiles/H5FileCreate_test.dir/runner.cc.i
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/NoteTable_test.dir/build.make unittest/CMakeFiles/NoteTable_test.dir/runner.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/TSpikeTable_test.dir/build.make unittest/CMakeFiles/TSpikeTable_test.dir/runner.cc.i
 .PHONY : runner.cc.i
 
 runner.s: runner.cc.s
@@ -209,6 +249,7 @@ runner.s: runner.cc.s
 runner.cc.s:
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5FileCreate_test.dir/build.make unittest/CMakeFiles/H5FileCreate_test.dir/runner.cc.s
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/NoteTable_test.dir/build.make unittest/CMakeFiles/NoteTable_test.dir/runner.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/TSpikeTable_test.dir/build.make unittest/CMakeFiles/TSpikeTable_test.dir/runner.cc.s
 .PHONY : runner.cc.s
 
 # Help Target
@@ -219,6 +260,7 @@ help:
 	@echo "... depend"
 	@echo "... H5FileCreate_test"
 	@echo "... NoteTable_test"
+	@echo "... TSpikeTable_test"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... test"
@@ -228,6 +270,9 @@ help:
 	@echo "... NoteTable.o"
 	@echo "... NoteTable.i"
 	@echo "... NoteTable.s"
+	@echo "... TSpikeTable_test.o"
+	@echo "... TSpikeTable_test.i"
+	@echo "... TSpikeTable_test.s"
 	@echo "... runner.o"
 	@echo "... runner.i"
 	@echo "... runner.s"

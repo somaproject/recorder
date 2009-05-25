@@ -6,34 +6,51 @@ import dbus
 import dbus.bus
 import time
 import tables
+import socket
 
 dbusDaemon = None
 
 soma_experiment_binary = "../../src/soma-experiment"
-soma_ip = "127.0.0.1"
 
 def setup():
     global dbusDaemon
     dbusDaemon = dbusserver.LocalDBUSDaemon(dbusserver.tcpconfig)
     dbusDaemon.run()
 
-def start_experiment():
-    global dbusDaemon
+def start_experiment(dbusDaemon):
+    """
+    Run the experiment independently in a temporary directory
+
+    Use the domain socket interface so we can test-send socket
+    data
+
+    """
     
     tfdir  = tempfile.mkdtemp()
     filename = tfdir + "/test.h5"
+
+    # now we have to create the test sockets
+    
+    sock_dataretx = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
+    sock_dataretx.bind("%s/dataretx" % tfdir)
+    
+    sock_eventretx = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
+    sock_eventretx.bind("%s/eventretx" % tfdir)
+    
+    sock_eventtx = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
+    sock_eventtx.bind("%s/eventtx" % tfdir)
+    
     args = [soma_experiment_binary,
                              "--create-file=%s" % filename,
-                             "--soma-ip=%s" % soma_ip,
+                             "--domain-socket-dir=%s" % tfdir,
                              "--request-dbus-name=%s" % "soma.recording.Experiment",
                              "--dbus=%s" % dbusDaemon.address,
                              "--no-register",
                              "--no-daemon"]
-    print args
     
     proc = subprocess.Popen(args)
     time.sleep(1) # FIXME : Race condition
-    return proc, filename
+    return proc, filename, tfdir
     
 def test_launch():
     """
@@ -42,18 +59,7 @@ def test_launch():
     """
     
     global dbusDaemon
-    
-    tfdir  = tempfile.mkdtemp()
-    filename = tfdir + "/test.h5"
-    args = [soma_experiment_binary,
-                             "--create-file=%s" % filename,
-                             "--soma-ip=%s" % soma_ip,
-                             "--request-dbus-name=%s" % "soma.recording.Experiment",
-                             "--dbus=%s" % dbusDaemon.address,
-                             "--no-register",
-                             "--no-daemon"]
-    
-    proc = subprocess.Popen(args)
+    proc, filename, sockdir = start_experiment(dbusDaemon)
 
     # now check that the device lives on the bus
     dbus_test_bus = dbus.bus.BusConnection(dbusDaemon.address)
@@ -75,7 +81,7 @@ def test_file_create():
     
     global dbusDaemon
 
-    proc, filename = start_experiment()
+    proc, filename, sockdir = start_experiment(dbusDaemon)
     
     # now check that the device lives on the bus
     dbus_test_bus = dbus.bus.BusConnection(dbusDaemon.address)

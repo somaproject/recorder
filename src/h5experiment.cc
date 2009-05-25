@@ -338,7 +338,6 @@ std::map<dpair_t, SinkStats> H5Experiment::convertStats(const std::vector<DataRe
 void H5Experiment::dispatchData(pDataPacket_t dp)
 {
   logexperiment_.debug("data packet received"); 
-
   if (isRecording_) {
     currentTargetEpoch_->appendData(dp); 
   }

@@ -14,10 +14,10 @@
 
 #include "sinkstats.h"
 
-using namespace somanetwork; 
 
 namespace soma {
   namespace recorder {
+    using namespace somanetwork; 
     
     using namespace std;     
     

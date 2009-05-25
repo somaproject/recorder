@@ -9,6 +9,7 @@
 
 #include <dbus-c++/dbus.h>
 #include <dbus-c++/glib-integration.h>
+#include <somanetwork/network.h>
 
 
 #include "dbusexperiment.h"
@@ -19,7 +20,7 @@
 
 using namespace soma; 
 using namespace boost;       
-using namespace boost::filesystem; 
+namespace bf =  boost::filesystem; 
 using namespace std; 
 namespace po = boost::program_options;
 
@@ -40,6 +41,7 @@ int main(int argc, char * argv[])
     ("request-dbus-name", po::value<string>(), "Request the target dbus name for debugging")
     ("no-register",  "register with primary recorder (soma.Recorder) on DBus")
     ("no-daemon", "do not fork as a dameon, but remain attached to the console")
+    ("domain-socket-dir", po::value<string>(), "Domain socket directory to use for testing; overrides soma IP")
     ;
   
 
@@ -85,15 +87,28 @@ int main(int argc, char * argv[])
   } else {
     logrecorder.infoStream() << "open file: " << filename; 
   }    
+  
+  somanetwork::pNetworkInterface_t network; 
+  
+  if (vm.count("soma-ip")) {
+    std::string somaip = vm["soma-ip"].as<string>();     
+    logrecorder.infoStream() << "Using IP network to talk to soma"; 
+    logrecorder.infoStream() << "soma hardware IP: " << somaip; 
+    network = somanetwork::Network::createINet(somaip);
 
-  std::string somaip; 
-  if (!vm.count("soma-ip")) {
-    logrecorder.fatal("soma-ip was not specified, no way to get data"); 
+  } else if (vm.count("domain-socket-dir")) {
+    bf::path domainsockdir(vm["domain-socket-dir"].as<string>()); 
+
+    logrecorder.infoStream() << "Using domain sockets to talk to local process"; 
+    logrecorder.infoStream() << "domain socket dir: " << domainsockdir; 
+    network = somanetwork::Network::createDomain(domainsockdir); 
+
+  } else {
+    logrecorder.fatal("soma-ip not specified, domain-socket-dir not specified; no way to get data"); 
     return -1; 
   }
-  somaip = vm["soma-ip"].as<string>(); 
 
-  logrecorder.infoStream() << "soma hardware IP: " << somaip; 
+
 
   // by default, we try and discover and use the link-local soma bus
 
@@ -137,7 +152,8 @@ int main(int argc, char * argv[])
   mainloop = Glib::MainLoop::create(); 
 
   soma::recorder::DBUSExperiment server(conn, mainloop, 
-					filename, somaip, create); 
+					filename, network, create); 
+
   logdbus.infoStream() << "running with path=" << server.path(); 
 
 

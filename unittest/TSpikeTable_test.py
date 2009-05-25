@@ -9,6 +9,7 @@ The first argument is the name of the test to run
 
 import tables
 import sys
+from nose.tools import * 
 
 def typecheck(t, name, type):
     assert isinstance(t.coldescrs[name], type)
@@ -47,19 +48,21 @@ def append_test():
     table = g.hipp2
 
     N = 1000
-
+    data = table.read()
     # we need to make this part of the tests work with pytables
-##    for i in xrange(N):
-##         assert table[i]['src'] == 23 
+    for i, d in enumerate(data):
+        assert d['src'] == 23 
         
-##         assert table[i]['time'] == i
-##         for j in range(len(chans)):
-##             assert table[i][chans[j]]['filtid']  == i * 5 + j 
-##             assert table[i][chans[j]]['valid'] == 1
-##             assert table[i][chans[j]]['threshold'] == i * 0x1234 + j*0xAB
+        assert d['time'] == i
+        chans = ['x', 'y', 'a', 'b']
+        
+        for j in range(len(chans)):
+            assert_equal(d[chans[j]]['filtid'],  i * 5 + j)
+            assert d[chans[j]]['valid'] == 1
+            assert d[chans[j]]['threshold'] == i * 0x1234 + j*0xAB
             
-##             for k in range(32):
-##                 assert table[i][chans[j]]['wave'][k] == i + j + k 
+            for k in range(32):
+                assert d[chans[j]]['wave'][k] == i + j + k 
                 
     
     

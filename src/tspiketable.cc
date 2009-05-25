@@ -19,10 +19,10 @@ pTSpikeTable_t TSpikeTable::create(H5::Group containingGroup, std::string name,
   hid_t wt = H5Tarray_create(H5T_NATIVE_INT32, 1, wave_dims);  
 
   hid_t TSpikeWave_type = H5Tcreate(H5T_COMPOUND, sizeof(TSpikeWave_t)); 
-  H5Tinsert(TSpikeWave_type, "filtid", 
-	    HOFFSET(TSpikeWave_t, filtid), H5T_NATIVE_UINT32); 
   H5Tinsert(TSpikeWave_type, "valid", 
 	    HOFFSET(TSpikeWave_t, valid), H5T_NATIVE_UINT8); 
+  H5Tinsert(TSpikeWave_type, "filtid", 
+	    HOFFSET(TSpikeWave_t, filtid), H5T_NATIVE_UINT32); 
   H5Tinsert(TSpikeWave_type, "threshold", 
 	    HOFFSET(TSpikeWave_t, threshold), H5T_NATIVE_INT32); 
   H5Tinsert(TSpikeWave_type, "wave", 
@@ -98,12 +98,12 @@ void TSpikeTable::setupDataTypes()
 
   // construct the table
 
-  dstOffsets_.push_back(HOFFSET(TSpike_t, src)); 
-  dstOffsets_.push_back(HOFFSET(TSpike_t, time)); 
-  dstOffsets_.push_back(HOFFSET(TSpike_t, x)); 
-  dstOffsets_.push_back(HOFFSET(TSpike_t, y)); 
-  dstOffsets_.push_back(HOFFSET(TSpike_t, a)); 
-  dstOffsets_.push_back(HOFFSET(TSpike_t, b)); 
+  dstOffsets_.push_back(HOFFSET(struct TSpike_t, src)); 
+  dstOffsets_.push_back(HOFFSET(struct TSpike_t, time)); 
+  dstOffsets_.push_back(HOFFSET(struct TSpike_t, x)); 
+  dstOffsets_.push_back(HOFFSET(struct TSpike_t, y)); 
+  dstOffsets_.push_back(HOFFSET(struct TSpike_t, a)); 
+  dstOffsets_.push_back(HOFFSET(struct TSpike_t, b)); 
 
 
   TSpike_t tests; 
@@ -113,7 +113,6 @@ void TSpikeTable::setupDataTypes()
   dstSizes_.push_back(sizeof( tests.y)); 
   dstSizes_.push_back(sizeof( tests.a)); 
   dstSizes_.push_back(sizeof( tests.b)); 
-
 
 }
 void TSpikeTable::append(const pDataPacket_t rdp)
@@ -176,7 +175,6 @@ void TSpikeTable::flush()
   // Flush all data to the table and clear the cache
 
   if (dataCache_.size() > 0) {
-    
     H5TBappend_records(tableLoc_.getLocId(), tableName_.c_str(), 
 		       dataCache_.size(), 
 		       sizeof(TSpike_t), 

@@ -2,10 +2,12 @@
 #include <boost/test/auto_unit_test.hpp>
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/fstream.hpp>
+
 #include <iostream>                        
 #include <fstream>
 
 #include "tspiketable.h"
+
 using namespace soma; 
 
 using  namespace boost;       
@@ -22,19 +24,21 @@ BOOST_AUTO_TEST_CASE(TSpikeTable_create)
   H5::Group grp = h5file->createGroup("testGroup");
   
   int SRC = 17; 
-  recorder::TSpikeTable tst(17, "hipp1", grp); 
+  recorder::pTSpikeTable_t tst = recorder::TSpikeTable::create(grp,  "hipp1", SRC); 
   h5file->flush(H5F_SCOPE_GLOBAL); 
   h5file->close(); 
   delete h5file; 
   
   
-  int retval = system("python TSpikeTable_test.py create");
+  int retval = std::system("python TSpikeTable_test.py create");
   BOOST_CHECK_EQUAL(retval , 0); 
-
+  
 }
 
 BOOST_AUTO_TEST_CASE(TSpikeTable_append)
 {
+  using namespace somanetwork; 
+
   // create a temp file
   H5::H5File::H5File * h5file =
     new H5::H5File::H5File("TSpikeTable_append.h5", H5F_ACC_TRUNC);
@@ -42,7 +46,7 @@ BOOST_AUTO_TEST_CASE(TSpikeTable_append)
   H5::Group grp = h5file->createGroup("testGroup");
   
   int SRC = 23; 
-  recorder::TSpikeTable tst(23, "hipp2", grp); 
+  recorder::pTSpikeTable_t tst = recorder::TSpikeTable::create(grp, "hipp2", SRC); 
   int N = 1000; 
   
   
@@ -68,9 +72,10 @@ BOOST_AUTO_TEST_CASE(TSpikeTable_append)
       }
       
       pDataPacket_t rdp(rawFromTSpike(ts)); 
-      tst.append(rdp); 
+      tst->append(rdp); 
       
     }
+  tst->flush(); 
 
   h5file->flush(H5F_SCOPE_GLOBAL); 
   h5file->close(); 
@@ -79,7 +84,7 @@ BOOST_AUTO_TEST_CASE(TSpikeTable_append)
   // verify the table
   
 
-  int retval = system("python TSpikeTable_test.py append");
+  int retval = std::system("python TSpikeTable_test.py append");
   BOOST_CHECK_EQUAL(retval , 0); 
 
 }

@@ -8,11 +8,12 @@ using namespace soma::recorder;
 
 
 DBUSExperiment::DBUSExperiment(DBus::Connection & connection, 
-			        Glib::RefPtr<Glib::MainLoop> ml, 
-			       std::string filename, std::string somaIP, 
+			       Glib::RefPtr<Glib::MainLoop> ml, 
+			       std::string filename, 
+			       pNetworkInterface_t network, 
 			       bool create=true) 
   : DBus::ObjectAdaptor(connection, "/soma/recording/experiment"), 
-    pNetwork_(new Network(somaIP)), 
+    pNetwork_(network), 
     glibmainloop_(ml), 
     connection_(connection), 
     nextEpochDBusID_(0),
@@ -23,7 +24,6 @@ DBUSExperiment::DBUSExperiment(DBus::Connection & connection,
     pExperiment_ = H5Experiment::create(pNetwork_, filename); 
   } else {
     pExperiment_ = H5Experiment::open(pNetwork_, filename); 
-
   }
   
   // now get all of the epochs that might exist with the file, and

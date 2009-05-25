@@ -11,10 +11,11 @@
   
 */
 
-using namespace somanetwork; 
 
 namespace soma {
   namespace recorder {
+    using namespace somanetwork; 
+
     class EventMaskSet {
       
     public:

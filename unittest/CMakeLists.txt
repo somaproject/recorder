@@ -12,9 +12,15 @@ add_executable(NoteTable_test
   NoteTable.cc
 )
 
+add_executable(TSpikeTable_test
+  runner.cc
+  TSpikeTable_test.cc
+)
+
 set(testlist 
   H5FileCreate_test
-  NoteTable_test)
+  NoteTable_test
+  TSpikeTable_test )
 
 foreach(testname ${testlist})
   

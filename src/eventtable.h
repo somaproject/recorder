@@ -10,10 +10,10 @@
 
 using namespace H5;
 
-using namespace somanetwork; 
 namespace soma {
   namespace recorder {
     
+    using namespace somanetwork;     
     struct SeqEvent_t { 
       // sequence number + event; for later debugging and dropped
       // packet detection
