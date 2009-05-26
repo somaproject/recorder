@@ -21,8 +21,8 @@ def appenddata1_test():
     g = f.root.myEpoch
 
     # check that we created the groups correctly
-    hipp1 = g.tspikes.hipp1
-    hipp4 = g.waves.hipp4
+    hipp1 = g.TSpike.hipp1
+    hipp4 = g.Wave.hipp4
     
     assert len(hipp1) == 100 
     assert len(hipp4) == 200

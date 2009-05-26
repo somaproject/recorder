@@ -1,0 +1,7 @@
+Soma Recorder 
+===========================
+
+The Soma Recorder is a DBus-enabled server which saves soma network
+data to disk in HDF5 format. 
+
+For build instructions see INSTALL. 

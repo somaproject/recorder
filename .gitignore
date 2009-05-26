@@ -52,3 +52,17 @@ CMakeCache.txt
 /src/soma-experiment
 /src/cmake_install.cmake
 /src/CTestTestfile.cmake
+/Testing/Temporary/LastTest.log
+/unittest/CTestTestfile.cmake
+
+*.h5
+/unittest/EventMaskSet_test
+/unittest/EventTable_test
+/unittest/H5Epoch_test
+/unittest/H5Experiment_test
+/unittest/H5FileCreate_test
+/unittest/NoteTable_test
+/unittest/TSpikeTable_test
+/unittest/Testing/Temporary/LastTest.log
+/unittest/WaveTable_test
+/unittest/cmake_install.cmake

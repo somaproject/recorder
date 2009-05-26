@@ -1,12 +1,46 @@
+Requirements
+=================================
 To install you will need: 
 
 dbus-c++
-
+-----------
 http://freedesktop.org/wiki/Software/dbus-c%2B%2B
 
 git clone git://anongit.freedesktop.org/git/dbus/dbus-c++/
+
+However, the existing freedesktop version has issues, so you'll want 
+the Soma fork: 
+
+http://github.com/somaproject/dbus-c--/tree/master
 Remember to configure with --enable-glib
 
+
+
 log4cpp
+------------
+now included with ubuntu!
 
 aptitude install liblog4cpp5-dev
+
+hdf5
+------------
+http://www.hdfgroup.org/HDF5/
+
+
+Building 
+==================================
+The build system uses CMake. To build, do the following: 
+
+cmake /path/to/build/location   (this can be just .) 
+
+make
+sudo make install
+
+Testing
+=================================
+To run the unit tests, type
+
+make test
+
+Note that the unit tests require that you have PyTables, the python
+HDF5 library, installed. 

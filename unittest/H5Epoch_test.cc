@@ -2,196 +2,146 @@
 #include <boost/filesystem/operations.hpp>
 #include <boost/filesystem/fstream.hpp>
 #include <boost/format.hpp>
-#include <iostream>                        
-#include <H5Cpp.h>
+#include <iostream>   
+#include <somanetwork/fakenetwork.h>
+#include <set>
+#include "experiment.h"                     
+#include "epoch.h"                     
+#include "h5epoch.h"                     
+#include "h5experiment.h"
 
-#include "epochinterface.h"
-#include "h5epoch.h"
+#include "datasetio.h"
 
-using namespace soma;
-using namespace soma::recorder; 
+using namespace soma; 
 using namespace boost;       
 using namespace boost::filesystem; 
 
-BOOST_AUTO_TEST_SUITE(H5Epoch_test); 
+BOOST_AUTO_TEST_SUITE(H5Epoch); 
 
-struct dataSinkTestSet
+BOOST_AUTO_TEST_CASE(H5EpochCreate )
 {
-  datasource_t src; 
-  datatype_t typ; 
-  std::string name; 
-  bool deleted; 
-}; 
-
-dataSinkTestSet dataSinkTestSetCreate (datasource_t src, datatype_t typ, 
-				       std::string name,
-				       bool deleted){
-
-  dataSinkTestSet d1; 
-  d1.src = src; 
-  d1.typ = typ; 
-  d1.name = name; 
-  d1.deleted = deleted; 
-  return d1; 
-}
-
-std::list<dataSinkTestSet> generateDataSinkSets()
-{
-  /// a generic set of data sinks to work with later
-  std::list<dataSinkTestSet> sets; 
-  sets.push_back(dataSinkTestSetCreate(0,  TSPIKE, "hipp1",    false)); 
-  sets.push_back(dataSinkTestSetCreate(1,  TSPIKE, "hipp2",    false)); 
-  sets.push_back(dataSinkTestSetCreate(5,  TSPIKE, "hipp3",    true)); 
-  sets.push_back(dataSinkTestSetCreate(12, TSPIKE, "hipp4",    false)); 
-  sets.push_back(dataSinkTestSetCreate(0,  WAVE,   "hipcont1", false)); 
-  sets.push_back(dataSinkTestSetCreate(20, WAVE,   "hipcont2", false)); 
-  sets.push_back(dataSinkTestSetCreate(7,  WAVE, "ec1", true)); 
-  sets.push_back(dataSinkTestSetCreate(9,  WAVE, "ec2", true)); 
-  sets.push_back(dataSinkTestSetCreate(10, WAVE, "ec3", false)); 
-  return sets; 
-
-}
-
-BOOST_AUTO_TEST_CASE(H5Epoch_create)
-{
-  // can we create a simple epoch
-  std::string filename("H5Epoch_test_create.h5"); 
-
-  H5::H5File h5File(filename, H5F_ACC_TRUNC); 
-  std::string epochName = "myEpoch"; 
-
-  H5::Group group =  h5File.createGroup(epochName);
+  // Test if file creation works; 
   
+  std::string filename = "H5Epoch_create.h5"; 
+  filesystem::remove_all(filename); 
+
+  // separate block to get delete called on object
+  pNetworkInterface_t pfn(new FakeNetwork()); 
+
+  recorder::pExperiment_t pExp =
+    recorder::H5Experiment::create(pfn, filename); 
   
-  recorder::pEpochInterface_t ei(new recorder::H5Epoch(group, epochName)); 
+  recorder::pEpoch_t epoch  = pExp->createEpoch("Silly"); 
   
-  BOOST_CHECK_EQUAL(ei->getName(), epochName); 
-  
-}
+  BOOST_CHECK_EQUAL(epoch->getName(), "Silly"); 
 
-
-BOOST_AUTO_TEST_CASE(H5Epoch_datasink_enableerrorcheck)
-{
-  // enable a single data sink and then try and reenable it and 
-  // make sure we generate exceptions correctly
-
-
-  std::string filename("H5Epoch_datasink_enablecheck.h5"); 
-
-  H5::H5File h5File(filename, H5F_ACC_TRUNC); 
-  std::string epochName = "myEpoch"; 
-
-  H5::Group group =  h5File.createGroup(epochName);
-  
-  recorder::pEpochInterface_t ei(new recorder::H5Epoch(group, epochName)); 
-  
-  ei->enableDataSink(17, TSPIKE, "testsink"); 
-
-  // try and enable same thing
-  BOOST_CHECK_THROW(ei->enableDataSink(17, TSPIKE, "testsink"), 
+  BOOST_CHECK_THROW(pExp->createEpoch("Silly"), 
 		    std::runtime_error); 
-
-  // try with an already-used name
-  BOOST_CHECK_THROW(ei->enableDataSink(18, TSPIKE, "testsink"), 
-		    std::runtime_error); 
-
-  ei->enableDataSink(17, WAVE, "testsink");  // should be okay, different type
   
-
 }
 
 
-BOOST_AUTO_TEST_CASE(H5Epoch_datasink)
+
+BOOST_AUTO_TEST_CASE(H5EpochDataEnable)
 {
-  // we enable and disable a bunch of data sources and then 
-  // check to see that we've enabled / disabled the correct ones
-
-  // CREATE FILE
-
-  std::string filename("H5Epoch_test_create.h5"); 
-
-  H5::H5File h5File(filename, H5F_ACC_TRUNC); 
-  std::string epochName = "myEpoch"; 
-
-  H5::Group group =  h5File.createGroup(epochName);
-  
-  recorder::pEpochInterface_t ei(new recorder::H5Epoch(group, epochName)); 
-  
-  std::list<dataSinkTestSet> sets = generateDataSinkSets(); 
-
-  // create 
-  for (std::list<dataSinkTestSet>::iterator s = sets.begin(); 
-       s != sets.end(); ++s)
-    {
-      ei->enableDataSink(s->src, s->typ, s->name); 
-    }
-
-
-  // disable the ones we've set deleted to true for
-  for (std::list<dataSinkTestSet>::iterator s = sets.begin(); 
-       s != sets.end(); ++s)
-    {
-      if (s->deleted) {
-	ei->disableDataSink(s->src, s->typ); 
-      }
-    }
-  
-  // now verify via name and properties
-    for (std::list<dataSinkTestSet>::iterator s = sets.begin(); 
-       s != sets.end(); ++s)
-    {
-      // is the name correct? 
-      if (not s->deleted) {
-	BOOST_CHECK_EQUAL(ei->getDataSinkName(s->src, s->typ), s->name); 
-      }
-      
-    }
+  /*
+    If we enable data sources, do we create the correct groups? 
     
+    We create a file and then check if we have proper children. 
+
+  */
+  
+  std::string filename = "H5Epoch_dataenable.h5"; 
+  filesystem::remove_all(filename); 
+
+  // separate block to get delete called on object
+  pNetworkInterface_t pfn(new FakeNetwork()); 
+
+  recorder::pExperiment_t pExp =
+    recorder::H5Experiment::create(pfn, filename); 
+  
+  recorder::pEpoch_t epoch  = pExp->createEpoch("Silly"); 
+  
+  epoch->enableDataSink(0, TSPIKE); 
+  epoch->enableDataSink(7, TSPIKE); 
+  epoch->enableDataSink(9, TSPIKE); 
+  epoch->enableDataSink(3, TSPIKE); 
+  epoch->disableDataSink(9, TSPIKE); 
+  epoch->disableDataSink(3, TSPIKE); 
+  pExp->close(); 
+    
+  // Now read the file, check
+  H5::H5File newfile; 
+  newfile.openFile(filename, H5F_ACC_RDWR); 
+  H5::Group g = newfile.openGroup("/Silly/TSpike"); 
+  BOOST_CHECK_EQUAL(g.getNumObjs(), 2); 
+  
 }
 
-BOOST_AUTO_TEST_CASE(H5Epoch_datasink_getall)
+BOOST_AUTO_TEST_CASE(H5EpochDatagetSets)
 {
-  // we enable and disable a bunch of data sources and then 
-  // check to see if we can get them all 
+  /*
+    If we enable data sources, check if we get the correct sets out
 
-  // CREATE FILE
-
-  std::string filename("H5Epoch_test_datasinkall.h5"); 
-
-  H5::H5File h5File(filename, H5F_ACC_TRUNC); 
-  std::string epochName = "myEpoch"; 
-
-  H5::Group group =  h5File.createGroup(epochName);
+  */
   
-  recorder::pEpochInterface_t ei(new recorder::H5Epoch(group, epochName)); 
+  std::string filename = "H5Epoch_datatypesets.h5"; 
+  filesystem::remove_all(filename); 
+
+  // separate block to get delete called on object
+  pNetworkInterface_t pfn(new FakeNetwork()); 
+
+  recorder::pExperiment_t pExp =
+    recorder::H5Experiment::create(pfn, filename); 
   
-  std::list<dataSinkTestSet> sets = generateDataSinkSets(); 
-
-  // create 
-  for (std::list<dataSinkTestSet>::iterator s = sets.begin(); 
-       s != sets.end(); ++s)
-    {
-      ei->enableDataSink( s->src, s->typ, s->name); 
-    }
-
-
-  std::list<dpair_t> sinks = ei->getAllDataSinks(); 
+  recorder::pEpoch_t epoch  = pExp->createEpoch("Silly"); 
   
-  
-  // disable the ones we've set deleted to true for
-  for (std::list<dataSinkTestSet>::iterator s = sets.begin(); 
-       s != sets.end(); ++s)
-    {
-      dpair_t d(s->src, s->typ); 
-      std::list<dpair_t>::iterator iter = std::find(sinks.begin(), 
-						    sinks.end(), d); 
+  epoch->enableDataSink(0, TSPIKE); 
+  epoch->enableDataSink(7, TSPIKE); 
+  epoch->enableDataSink(9, TSPIKE); 
+  epoch->disableDataSink(7, TSPIKE); 
 
-      BOOST_CHECK(iter != sinks.end()); 
-    }
+  std::set<recorder::dpair_t> sets = epoch->getDataSinks(); 
+  BOOST_CHECK_EQUAL(sets.size(), 2); 
   
 }
 
 
+BOOST_AUTO_TEST_CASE(H5Epoch_rename)
+{
+  /*
+    Can we rename sources
 
+  */
+  
+  std::string filename = "H5Epoch_rename.h5"; 
+  filesystem::remove_all(filename); 
+
+  // separate block to get delete called on object
+  pNetworkInterface_t pfn(new FakeNetwork()); 
+
+  recorder::pExperiment_t pExp =
+    recorder::H5Experiment::create(pfn, filename); 
+  
+  recorder::pEpoch_t epoch  = pExp->createEpoch("Silly"); 
+  
+  epoch->enableDataSink(0, TSPIKE); 
+  epoch->setDataName(0, "HelloWorld0"); 
+  BOOST_CHECK_EQUAL(epoch->getDataName(0), "HelloWorld0"); 
+
+  epoch->enableDataSink(7, TSPIKE); 
+  epoch->enableDataSink(7, WAVE); 
+  epoch->setDataName(7, "HelloWorld7"); 
+  epoch->setDataName(7, "GoodbyeWorld7"); 
+  BOOST_CHECK_EQUAL(epoch->getDataName(7), "GoodbyeWorld7"); 
+
+  pExp->close(); 
+  
+  // now try and read it! 
+  
+  int retval = std::system("python H5Epoch_test.py rename");
+  BOOST_CHECK_EQUAL(retval , 0); 
+
+}
+		     
 BOOST_AUTO_TEST_SUITE_END(); 
-

@@ -109,6 +109,62 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
+unittest/CMakeFiles/EventMaskSet_test.dir/rule:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 unittest/CMakeFiles/EventMaskSet_test.dir/rule
+.PHONY : unittest/CMakeFiles/EventMaskSet_test.dir/rule
+
+# Convenience name for target.
+EventMaskSet_test: unittest/CMakeFiles/EventMaskSet_test.dir/rule
+.PHONY : EventMaskSet_test
+
+# fast build rule for target.
+EventMaskSet_test/fast:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/EventMaskSet_test.dir/build.make unittest/CMakeFiles/EventMaskSet_test.dir/build
+.PHONY : EventMaskSet_test/fast
+
+# Convenience name for target.
+unittest/CMakeFiles/EventTable_test.dir/rule:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 unittest/CMakeFiles/EventTable_test.dir/rule
+.PHONY : unittest/CMakeFiles/EventTable_test.dir/rule
+
+# Convenience name for target.
+EventTable_test: unittest/CMakeFiles/EventTable_test.dir/rule
+.PHONY : EventTable_test
+
+# fast build rule for target.
+EventTable_test/fast:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/EventTable_test.dir/build.make unittest/CMakeFiles/EventTable_test.dir/build
+.PHONY : EventTable_test/fast
+
+# Convenience name for target.
+unittest/CMakeFiles/H5Epoch_test.dir/rule:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 unittest/CMakeFiles/H5Epoch_test.dir/rule
+.PHONY : unittest/CMakeFiles/H5Epoch_test.dir/rule
+
+# Convenience name for target.
+H5Epoch_test: unittest/CMakeFiles/H5Epoch_test.dir/rule
+.PHONY : H5Epoch_test
+
+# fast build rule for target.
+H5Epoch_test/fast:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5Epoch_test.dir/build.make unittest/CMakeFiles/H5Epoch_test.dir/build
+.PHONY : H5Epoch_test/fast
+
+# Convenience name for target.
+unittest/CMakeFiles/H5Experiment_test.dir/rule:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 unittest/CMakeFiles/H5Experiment_test.dir/rule
+.PHONY : unittest/CMakeFiles/H5Experiment_test.dir/rule
+
+# Convenience name for target.
+H5Experiment_test: unittest/CMakeFiles/H5Experiment_test.dir/rule
+.PHONY : H5Experiment_test
+
+# fast build rule for target.
+H5Experiment_test/fast:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5Experiment_test.dir/build.make unittest/CMakeFiles/H5Experiment_test.dir/build
+.PHONY : H5Experiment_test/fast
+
+# Convenience name for target.
 unittest/CMakeFiles/H5FileCreate_test.dir/rule:
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 unittest/CMakeFiles/H5FileCreate_test.dir/rule
 .PHONY : unittest/CMakeFiles/H5FileCreate_test.dir/rule
@@ -150,6 +206,164 @@ TSpikeTable_test/fast:
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/TSpikeTable_test.dir/build.make unittest/CMakeFiles/TSpikeTable_test.dir/build
 .PHONY : TSpikeTable_test/fast
 
+# Convenience name for target.
+unittest/CMakeFiles/WaveTable_test.dir/rule:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 unittest/CMakeFiles/WaveTable_test.dir/rule
+.PHONY : unittest/CMakeFiles/WaveTable_test.dir/rule
+
+# Convenience name for target.
+WaveTable_test: unittest/CMakeFiles/WaveTable_test.dir/rule
+.PHONY : WaveTable_test
+
+# fast build rule for target.
+WaveTable_test/fast:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/WaveTable_test.dir/build.make unittest/CMakeFiles/WaveTable_test.dir/build
+.PHONY : WaveTable_test/fast
+
+EventMaskSet_test.o: EventMaskSet_test.cc.o
+.PHONY : EventMaskSet_test.o
+
+# target to build an object file
+EventMaskSet_test.cc.o:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/EventMaskSet_test.dir/build.make unittest/CMakeFiles/EventMaskSet_test.dir/EventMaskSet_test.cc.o
+.PHONY : EventMaskSet_test.cc.o
+
+EventMaskSet_test.i: EventMaskSet_test.cc.i
+.PHONY : EventMaskSet_test.i
+
+# target to preprocess a source file
+EventMaskSet_test.cc.i:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/EventMaskSet_test.dir/build.make unittest/CMakeFiles/EventMaskSet_test.dir/EventMaskSet_test.cc.i
+.PHONY : EventMaskSet_test.cc.i
+
+EventMaskSet_test.s: EventMaskSet_test.cc.s
+.PHONY : EventMaskSet_test.s
+
+# target to generate assembly for a file
+EventMaskSet_test.cc.s:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/EventMaskSet_test.dir/build.make unittest/CMakeFiles/EventMaskSet_test.dir/EventMaskSet_test.cc.s
+.PHONY : EventMaskSet_test.cc.s
+
+EventTable_test.o: EventTable_test.cc.o
+.PHONY : EventTable_test.o
+
+# target to build an object file
+EventTable_test.cc.o:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/EventTable_test.dir/build.make unittest/CMakeFiles/EventTable_test.dir/EventTable_test.cc.o
+.PHONY : EventTable_test.cc.o
+
+EventTable_test.i: EventTable_test.cc.i
+.PHONY : EventTable_test.i
+
+# target to preprocess a source file
+EventTable_test.cc.i:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/EventTable_test.dir/build.make unittest/CMakeFiles/EventTable_test.dir/EventTable_test.cc.i
+.PHONY : EventTable_test.cc.i
+
+EventTable_test.s: EventTable_test.cc.s
+.PHONY : EventTable_test.s
+
+# target to generate assembly for a file
+EventTable_test.cc.s:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/EventTable_test.dir/build.make unittest/CMakeFiles/EventTable_test.dir/EventTable_test.cc.s
+.PHONY : EventTable_test.cc.s
+
+H5Epoch_appenddata.o: H5Epoch_appenddata.cc.o
+.PHONY : H5Epoch_appenddata.o
+
+# target to build an object file
+H5Epoch_appenddata.cc.o:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5Epoch_test.dir/build.make unittest/CMakeFiles/H5Epoch_test.dir/H5Epoch_appenddata.cc.o
+.PHONY : H5Epoch_appenddata.cc.o
+
+H5Epoch_appenddata.i: H5Epoch_appenddata.cc.i
+.PHONY : H5Epoch_appenddata.i
+
+# target to preprocess a source file
+H5Epoch_appenddata.cc.i:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5Epoch_test.dir/build.make unittest/CMakeFiles/H5Epoch_test.dir/H5Epoch_appenddata.cc.i
+.PHONY : H5Epoch_appenddata.cc.i
+
+H5Epoch_appenddata.s: H5Epoch_appenddata.cc.s
+.PHONY : H5Epoch_appenddata.s
+
+# target to generate assembly for a file
+H5Epoch_appenddata.cc.s:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5Epoch_test.dir/build.make unittest/CMakeFiles/H5Epoch_test.dir/H5Epoch_appenddata.cc.s
+.PHONY : H5Epoch_appenddata.cc.s
+
+H5Epoch_test.o: H5Epoch_test.cc.o
+.PHONY : H5Epoch_test.o
+
+# target to build an object file
+H5Epoch_test.cc.o:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5Epoch_test.dir/build.make unittest/CMakeFiles/H5Epoch_test.dir/H5Epoch_test.cc.o
+.PHONY : H5Epoch_test.cc.o
+
+H5Epoch_test.i: H5Epoch_test.cc.i
+.PHONY : H5Epoch_test.i
+
+# target to preprocess a source file
+H5Epoch_test.cc.i:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5Epoch_test.dir/build.make unittest/CMakeFiles/H5Epoch_test.dir/H5Epoch_test.cc.i
+.PHONY : H5Epoch_test.cc.i
+
+H5Epoch_test.s: H5Epoch_test.cc.s
+.PHONY : H5Epoch_test.s
+
+# target to generate assembly for a file
+H5Epoch_test.cc.s:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5Epoch_test.dir/build.make unittest/CMakeFiles/H5Epoch_test.dir/H5Epoch_test.cc.s
+.PHONY : H5Epoch_test.cc.s
+
+H5Experiment.o: H5Experiment.cc.o
+.PHONY : H5Experiment.o
+
+# target to build an object file
+H5Experiment.cc.o:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5Experiment_test.dir/build.make unittest/CMakeFiles/H5Experiment_test.dir/H5Experiment.cc.o
+.PHONY : H5Experiment.cc.o
+
+H5Experiment.i: H5Experiment.cc.i
+.PHONY : H5Experiment.i
+
+# target to preprocess a source file
+H5Experiment.cc.i:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5Experiment_test.dir/build.make unittest/CMakeFiles/H5Experiment_test.dir/H5Experiment.cc.i
+.PHONY : H5Experiment.cc.i
+
+H5Experiment.s: H5Experiment.cc.s
+.PHONY : H5Experiment.s
+
+# target to generate assembly for a file
+H5Experiment.cc.s:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5Experiment_test.dir/build.make unittest/CMakeFiles/H5Experiment_test.dir/H5Experiment.cc.s
+.PHONY : H5Experiment.cc.s
+
+H5Experiment_recording.o: H5Experiment_recording.cc.o
+.PHONY : H5Experiment_recording.o
+
+# target to build an object file
+H5Experiment_recording.cc.o:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5Experiment_test.dir/build.make unittest/CMakeFiles/H5Experiment_test.dir/H5Experiment_recording.cc.o
+.PHONY : H5Experiment_recording.cc.o
+
+H5Experiment_recording.i: H5Experiment_recording.cc.i
+.PHONY : H5Experiment_recording.i
+
+# target to preprocess a source file
+H5Experiment_recording.cc.i:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5Experiment_test.dir/build.make unittest/CMakeFiles/H5Experiment_test.dir/H5Experiment_recording.cc.i
+.PHONY : H5Experiment_recording.cc.i
+
+H5Experiment_recording.s: H5Experiment_recording.cc.s
+.PHONY : H5Experiment_recording.s
+
+# target to generate assembly for a file
+H5Experiment_recording.cc.s:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5Experiment_test.dir/build.make unittest/CMakeFiles/H5Experiment_test.dir/H5Experiment_recording.cc.s
+.PHONY : H5Experiment_recording.cc.s
+
 H5FileCreate.o: H5FileCreate.cc.o
 .PHONY : H5FileCreate.o
 
@@ -174,29 +388,29 @@ H5FileCreate.cc.s:
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5FileCreate_test.dir/build.make unittest/CMakeFiles/H5FileCreate_test.dir/H5FileCreate.cc.s
 .PHONY : H5FileCreate.cc.s
 
-NoteTable.o: NoteTable.cc.o
-.PHONY : NoteTable.o
+NoteTable_test.o: NoteTable_test.cc.o
+.PHONY : NoteTable_test.o
 
 # target to build an object file
-NoteTable.cc.o:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/NoteTable_test.dir/build.make unittest/CMakeFiles/NoteTable_test.dir/NoteTable.cc.o
-.PHONY : NoteTable.cc.o
+NoteTable_test.cc.o:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/NoteTable_test.dir/build.make unittest/CMakeFiles/NoteTable_test.dir/NoteTable_test.cc.o
+.PHONY : NoteTable_test.cc.o
 
-NoteTable.i: NoteTable.cc.i
-.PHONY : NoteTable.i
+NoteTable_test.i: NoteTable_test.cc.i
+.PHONY : NoteTable_test.i
 
 # target to preprocess a source file
-NoteTable.cc.i:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/NoteTable_test.dir/build.make unittest/CMakeFiles/NoteTable_test.dir/NoteTable.cc.i
-.PHONY : NoteTable.cc.i
+NoteTable_test.cc.i:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/NoteTable_test.dir/build.make unittest/CMakeFiles/NoteTable_test.dir/NoteTable_test.cc.i
+.PHONY : NoteTable_test.cc.i
 
-NoteTable.s: NoteTable.cc.s
-.PHONY : NoteTable.s
+NoteTable_test.s: NoteTable_test.cc.s
+.PHONY : NoteTable_test.s
 
 # target to generate assembly for a file
-NoteTable.cc.s:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/NoteTable_test.dir/build.make unittest/CMakeFiles/NoteTable_test.dir/NoteTable.cc.s
-.PHONY : NoteTable.cc.s
+NoteTable_test.cc.s:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/NoteTable_test.dir/build.make unittest/CMakeFiles/NoteTable_test.dir/NoteTable_test.cc.s
+.PHONY : NoteTable_test.cc.s
 
 TSpikeTable_test.o: TSpikeTable_test.cc.o
 .PHONY : TSpikeTable_test.o
@@ -222,14 +436,43 @@ TSpikeTable_test.cc.s:
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/TSpikeTable_test.dir/build.make unittest/CMakeFiles/TSpikeTable_test.dir/TSpikeTable_test.cc.s
 .PHONY : TSpikeTable_test.cc.s
 
+WaveTable_test.o: WaveTable_test.cc.o
+.PHONY : WaveTable_test.o
+
+# target to build an object file
+WaveTable_test.cc.o:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/WaveTable_test.dir/build.make unittest/CMakeFiles/WaveTable_test.dir/WaveTable_test.cc.o
+.PHONY : WaveTable_test.cc.o
+
+WaveTable_test.i: WaveTable_test.cc.i
+.PHONY : WaveTable_test.i
+
+# target to preprocess a source file
+WaveTable_test.cc.i:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/WaveTable_test.dir/build.make unittest/CMakeFiles/WaveTable_test.dir/WaveTable_test.cc.i
+.PHONY : WaveTable_test.cc.i
+
+WaveTable_test.s: WaveTable_test.cc.s
+.PHONY : WaveTable_test.s
+
+# target to generate assembly for a file
+WaveTable_test.cc.s:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/WaveTable_test.dir/build.make unittest/CMakeFiles/WaveTable_test.dir/WaveTable_test.cc.s
+.PHONY : WaveTable_test.cc.s
+
 runner.o: runner.cc.o
 .PHONY : runner.o
 
 # target to build an object file
 runner.cc.o:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/EventMaskSet_test.dir/build.make unittest/CMakeFiles/EventMaskSet_test.dir/runner.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/EventTable_test.dir/build.make unittest/CMakeFiles/EventTable_test.dir/runner.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5Epoch_test.dir/build.make unittest/CMakeFiles/H5Epoch_test.dir/runner.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5Experiment_test.dir/build.make unittest/CMakeFiles/H5Experiment_test.dir/runner.cc.o
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5FileCreate_test.dir/build.make unittest/CMakeFiles/H5FileCreate_test.dir/runner.cc.o
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/NoteTable_test.dir/build.make unittest/CMakeFiles/NoteTable_test.dir/runner.cc.o
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/TSpikeTable_test.dir/build.make unittest/CMakeFiles/TSpikeTable_test.dir/runner.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/WaveTable_test.dir/build.make unittest/CMakeFiles/WaveTable_test.dir/runner.cc.o
 .PHONY : runner.cc.o
 
 runner.i: runner.cc.i
@@ -237,9 +480,14 @@ runner.i: runner.cc.i
 
 # target to preprocess a source file
 runner.cc.i:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/EventMaskSet_test.dir/build.make unittest/CMakeFiles/EventMaskSet_test.dir/runner.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/EventTable_test.dir/build.make unittest/CMakeFiles/EventTable_test.dir/runner.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5Epoch_test.dir/build.make unittest/CMakeFiles/H5Epoch_test.dir/runner.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5Experiment_test.dir/build.make unittest/CMakeFiles/H5Experiment_test.dir/runner.cc.i
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5FileCreate_test.dir/build.make unittest/CMakeFiles/H5FileCreate_test.dir/runner.cc.i
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/NoteTable_test.dir/build.make unittest/CMakeFiles/NoteTable_test.dir/runner.cc.i
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/TSpikeTable_test.dir/build.make unittest/CMakeFiles/TSpikeTable_test.dir/runner.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/WaveTable_test.dir/build.make unittest/CMakeFiles/WaveTable_test.dir/runner.cc.i
 .PHONY : runner.cc.i
 
 runner.s: runner.cc.s
@@ -247,9 +495,14 @@ runner.s: runner.cc.s
 
 # target to generate assembly for a file
 runner.cc.s:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/EventMaskSet_test.dir/build.make unittest/CMakeFiles/EventMaskSet_test.dir/runner.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/EventTable_test.dir/build.make unittest/CMakeFiles/EventTable_test.dir/runner.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5Epoch_test.dir/build.make unittest/CMakeFiles/H5Epoch_test.dir/runner.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5Experiment_test.dir/build.make unittest/CMakeFiles/H5Experiment_test.dir/runner.cc.s
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/H5FileCreate_test.dir/build.make unittest/CMakeFiles/H5FileCreate_test.dir/runner.cc.s
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/NoteTable_test.dir/build.make unittest/CMakeFiles/NoteTable_test.dir/runner.cc.s
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/TSpikeTable_test.dir/build.make unittest/CMakeFiles/TSpikeTable_test.dir/runner.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f unittest/CMakeFiles/WaveTable_test.dir/build.make unittest/CMakeFiles/WaveTable_test.dir/runner.cc.s
 .PHONY : runner.cc.s
 
 # Help Target
@@ -258,21 +511,47 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
+	@echo "... EventMaskSet_test"
+	@echo "... EventTable_test"
+	@echo "... H5Epoch_test"
+	@echo "... H5Experiment_test"
 	@echo "... H5FileCreate_test"
 	@echo "... NoteTable_test"
 	@echo "... TSpikeTable_test"
+	@echo "... WaveTable_test"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... EventMaskSet_test.o"
+	@echo "... EventMaskSet_test.i"
+	@echo "... EventMaskSet_test.s"
+	@echo "... EventTable_test.o"
+	@echo "... EventTable_test.i"
+	@echo "... EventTable_test.s"
+	@echo "... H5Epoch_appenddata.o"
+	@echo "... H5Epoch_appenddata.i"
+	@echo "... H5Epoch_appenddata.s"
+	@echo "... H5Epoch_test.o"
+	@echo "... H5Epoch_test.i"
+	@echo "... H5Epoch_test.s"
+	@echo "... H5Experiment.o"
+	@echo "... H5Experiment.i"
+	@echo "... H5Experiment.s"
+	@echo "... H5Experiment_recording.o"
+	@echo "... H5Experiment_recording.i"
+	@echo "... H5Experiment_recording.s"
 	@echo "... H5FileCreate.o"
 	@echo "... H5FileCreate.i"
 	@echo "... H5FileCreate.s"
-	@echo "... NoteTable.o"
-	@echo "... NoteTable.i"
-	@echo "... NoteTable.s"
+	@echo "... NoteTable_test.o"
+	@echo "... NoteTable_test.i"
+	@echo "... NoteTable_test.s"
 	@echo "... TSpikeTable_test.o"
 	@echo "... TSpikeTable_test.i"
 	@echo "... TSpikeTable_test.s"
+	@echo "... WaveTable_test.o"
+	@echo "... WaveTable_test.i"
+	@echo "... WaveTable_test.s"
 	@echo "... runner.o"
 	@echo "... runner.i"
 	@echo "... runner.s"

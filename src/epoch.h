@@ -63,10 +63,10 @@ namespace soma {
       // data sink management 
       
       // data appending
-//       virtual void appendData(const pDataPacket_t) =0;
+      virtual void appendData(const pDataPacket_t) =0;
       
-//       // event management
-//       virtual void appendEvent(const pEventPacket_t ) =0;
+      // event management
+      virtual void appendEvent(const pEventPacket_t ) =0;
       
 
       // session interface; not entirely happy with this, will take more thought
