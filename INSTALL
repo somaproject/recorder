@@ -15,17 +15,17 @@ http://github.com/somaproject/dbus-c--/tree/master
 Remember to configure with --enable-glib
 
 
-
 log4cpp
 ------------
 now included with ubuntu!
 
 aptitude install liblog4cpp5-dev
 
-hdf5
+hdf5 1.8.x 
 ------------
-http://www.hdfgroup.org/HDF5/
-
+http://www.hdfgroup.org/HDF5/ . HDF5 1.8 provides enough improvements
+that upgrading is worth it. Sadly, for many this will require building
+from source. 
 
 Building 
 ==================================

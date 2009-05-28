@@ -2,6 +2,21 @@ Soma Recorder
 ===========================
 
 The Soma Recorder is a DBus-enabled server which saves soma network
-data to disk in HDF5 format. 
+data to disk in HDF5 format. The recorder consists of two programs: 
+
+soma-recorder-manager : the primary server
+soma-recorder-experiment : the per-experiment server
 
 For build instructions see INSTALL. 
+
+Source organization
+-----------------------
+benchmarks   : benchmarks to test HDF5 file writing
+CMake        : custom CMake files for building
+docs         : design documents
+experiment   : source for soma-recorder-experiment
+manager      : source for soma-recorder-manager
+soma         : python library for soma-recorder-manager
+tools        : utility programs for managing the recorder applications
+test / unittest : tests for the recorder program. 
+

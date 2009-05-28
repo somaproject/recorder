@@ -18,9 +18,9 @@ pkg_check_modules(EXPDEPS REQUIRED
   log4cpp>=1.0
 )
 
-include_directories(src)
+include_directories(experiment)
 
 ENABLE_TESTING()
-add_subdirectory(src)
+add_subdirectory(experiment)
 add_subdirectory(unittest)
 add_subdirectory(benchmarks)

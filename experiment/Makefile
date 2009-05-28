@@ -79,14 +79,14 @@ test/fast: test
 
 # The main all target
 all: cmake_check_build_system
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(CMAKE_COMMAND) -E cmake_progress_start /home/jonas/soma/gitmigrate/software/recorder/CMakeFiles /home/jonas/soma/gitmigrate/software/recorder/src/CMakeFiles/progress.make
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 src/all
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(CMAKE_COMMAND) -E cmake_progress_start /home/jonas/soma/gitmigrate/software/recorder/CMakeFiles /home/jonas/soma/gitmigrate/software/recorder/experiment/CMakeFiles/progress.make
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 experiment/all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/jonas/soma/gitmigrate/software/recorder/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
 clean:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 src/clean
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 experiment/clean
 .PHONY : clean
 
 # The main clean target
@@ -95,12 +95,12 @@ clean/fast: clean
 
 # Prepare targets for installation.
 preinstall: all
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 experiment/preinstall
 .PHONY : preinstall
 
 # Prepare targets for installation.
 preinstall/fast:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 src/preinstall
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 experiment/preinstall
 .PHONY : preinstall/fast
 
 # clear depends
@@ -109,31 +109,31 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-src/CMakeFiles/experiment_core.dir/rule:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/experiment_core.dir/rule
-.PHONY : src/CMakeFiles/experiment_core.dir/rule
+experiment/CMakeFiles/experiment_core.dir/rule:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 experiment/CMakeFiles/experiment_core.dir/rule
+.PHONY : experiment/CMakeFiles/experiment_core.dir/rule
 
 # Convenience name for target.
-experiment_core: src/CMakeFiles/experiment_core.dir/rule
+experiment_core: experiment/CMakeFiles/experiment_core.dir/rule
 .PHONY : experiment_core
 
 # fast build rule for target.
 experiment_core/fast:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/build
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/build
 .PHONY : experiment_core/fast
 
 # Convenience name for target.
-src/CMakeFiles/soma-experiment.dir/rule:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 src/CMakeFiles/soma-experiment.dir/rule
-.PHONY : src/CMakeFiles/soma-experiment.dir/rule
+experiment/CMakeFiles/soma-experiment.dir/rule:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 experiment/CMakeFiles/soma-experiment.dir/rule
+.PHONY : experiment/CMakeFiles/soma-experiment.dir/rule
 
 # Convenience name for target.
-soma-experiment: src/CMakeFiles/soma-experiment.dir/rule
+soma-experiment: experiment/CMakeFiles/soma-experiment.dir/rule
 .PHONY : soma-experiment
 
 # fast build rule for target.
 soma-experiment/fast:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/soma-experiment.dir/build.make src/CMakeFiles/soma-experiment.dir/build
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/build
 .PHONY : soma-experiment/fast
 
 dbusepoch.o: dbusepoch.cc.o
@@ -141,7 +141,7 @@ dbusepoch.o: dbusepoch.cc.o
 
 # target to build an object file
 dbusepoch.cc.o:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/soma-experiment.dir/build.make src/CMakeFiles/soma-experiment.dir/dbusepoch.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/dbusepoch.cc.o
 .PHONY : dbusepoch.cc.o
 
 dbusepoch.i: dbusepoch.cc.i
@@ -149,7 +149,7 @@ dbusepoch.i: dbusepoch.cc.i
 
 # target to preprocess a source file
 dbusepoch.cc.i:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/soma-experiment.dir/build.make src/CMakeFiles/soma-experiment.dir/dbusepoch.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/dbusepoch.cc.i
 .PHONY : dbusepoch.cc.i
 
 dbusepoch.s: dbusepoch.cc.s
@@ -157,7 +157,7 @@ dbusepoch.s: dbusepoch.cc.s
 
 # target to generate assembly for a file
 dbusepoch.cc.s:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/soma-experiment.dir/build.make src/CMakeFiles/soma-experiment.dir/dbusepoch.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/dbusepoch.cc.s
 .PHONY : dbusepoch.cc.s
 
 dbusexperiment.o: dbusexperiment.cc.o
@@ -165,7 +165,7 @@ dbusexperiment.o: dbusexperiment.cc.o
 
 # target to build an object file
 dbusexperiment.cc.o:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/soma-experiment.dir/build.make src/CMakeFiles/soma-experiment.dir/dbusexperiment.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/dbusexperiment.cc.o
 .PHONY : dbusexperiment.cc.o
 
 dbusexperiment.i: dbusexperiment.cc.i
@@ -173,7 +173,7 @@ dbusexperiment.i: dbusexperiment.cc.i
 
 # target to preprocess a source file
 dbusexperiment.cc.i:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/soma-experiment.dir/build.make src/CMakeFiles/soma-experiment.dir/dbusexperiment.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/dbusexperiment.cc.i
 .PHONY : dbusexperiment.cc.i
 
 dbusexperiment.s: dbusexperiment.cc.s
@@ -181,7 +181,7 @@ dbusexperiment.s: dbusexperiment.cc.s
 
 # target to generate assembly for a file
 dbusexperiment.cc.s:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/soma-experiment.dir/build.make src/CMakeFiles/soma-experiment.dir/dbusexperiment.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/dbusexperiment.cc.s
 .PHONY : dbusexperiment.cc.s
 
 dbusrecordermanager.o: dbusrecordermanager.cc.o
@@ -189,7 +189,7 @@ dbusrecordermanager.o: dbusrecordermanager.cc.o
 
 # target to build an object file
 dbusrecordermanager.cc.o:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/soma-experiment.dir/build.make src/CMakeFiles/soma-experiment.dir/dbusrecordermanager.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/dbusrecordermanager.cc.o
 .PHONY : dbusrecordermanager.cc.o
 
 dbusrecordermanager.i: dbusrecordermanager.cc.i
@@ -197,7 +197,7 @@ dbusrecordermanager.i: dbusrecordermanager.cc.i
 
 # target to preprocess a source file
 dbusrecordermanager.cc.i:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/soma-experiment.dir/build.make src/CMakeFiles/soma-experiment.dir/dbusrecordermanager.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/dbusrecordermanager.cc.i
 .PHONY : dbusrecordermanager.cc.i
 
 dbusrecordermanager.s: dbusrecordermanager.cc.s
@@ -205,7 +205,7 @@ dbusrecordermanager.s: dbusrecordermanager.cc.s
 
 # target to generate assembly for a file
 dbusrecordermanager.cc.s:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/soma-experiment.dir/build.make src/CMakeFiles/soma-experiment.dir/dbusrecordermanager.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/dbusrecordermanager.cc.s
 .PHONY : dbusrecordermanager.cc.s
 
 eventmaskset.o: eventmaskset.cc.o
@@ -213,7 +213,7 @@ eventmaskset.o: eventmaskset.cc.o
 
 # target to build an object file
 eventmaskset.cc.o:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/eventmaskset.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/eventmaskset.cc.o
 .PHONY : eventmaskset.cc.o
 
 eventmaskset.i: eventmaskset.cc.i
@@ -221,7 +221,7 @@ eventmaskset.i: eventmaskset.cc.i
 
 # target to preprocess a source file
 eventmaskset.cc.i:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/eventmaskset.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/eventmaskset.cc.i
 .PHONY : eventmaskset.cc.i
 
 eventmaskset.s: eventmaskset.cc.s
@@ -229,7 +229,7 @@ eventmaskset.s: eventmaskset.cc.s
 
 # target to generate assembly for a file
 eventmaskset.cc.s:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/eventmaskset.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/eventmaskset.cc.s
 .PHONY : eventmaskset.cc.s
 
 eventtable.o: eventtable.cc.o
@@ -237,7 +237,7 @@ eventtable.o: eventtable.cc.o
 
 # target to build an object file
 eventtable.cc.o:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/eventtable.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/eventtable.cc.o
 .PHONY : eventtable.cc.o
 
 eventtable.i: eventtable.cc.i
@@ -245,7 +245,7 @@ eventtable.i: eventtable.cc.i
 
 # target to preprocess a source file
 eventtable.cc.i:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/eventtable.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/eventtable.cc.i
 .PHONY : eventtable.cc.i
 
 eventtable.s: eventtable.cc.s
@@ -253,7 +253,7 @@ eventtable.s: eventtable.cc.s
 
 # target to generate assembly for a file
 eventtable.cc.s:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/eventtable.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/eventtable.cc.s
 .PHONY : eventtable.cc.s
 
 experimentmain.o: experimentmain.cc.o
@@ -261,7 +261,7 @@ experimentmain.o: experimentmain.cc.o
 
 # target to build an object file
 experimentmain.cc.o:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/soma-experiment.dir/build.make src/CMakeFiles/soma-experiment.dir/experimentmain.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/experimentmain.cc.o
 .PHONY : experimentmain.cc.o
 
 experimentmain.i: experimentmain.cc.i
@@ -269,7 +269,7 @@ experimentmain.i: experimentmain.cc.i
 
 # target to preprocess a source file
 experimentmain.cc.i:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/soma-experiment.dir/build.make src/CMakeFiles/soma-experiment.dir/experimentmain.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/experimentmain.cc.i
 .PHONY : experimentmain.cc.i
 
 experimentmain.s: experimentmain.cc.s
@@ -277,7 +277,7 @@ experimentmain.s: experimentmain.cc.s
 
 # target to generate assembly for a file
 experimentmain.cc.s:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/soma-experiment.dir/build.make src/CMakeFiles/soma-experiment.dir/experimentmain.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/experimentmain.cc.s
 .PHONY : experimentmain.cc.s
 
 h5epoch.o: h5epoch.cc.o
@@ -285,7 +285,7 @@ h5epoch.o: h5epoch.cc.o
 
 # target to build an object file
 h5epoch.cc.o:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/h5epoch.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/h5epoch.cc.o
 .PHONY : h5epoch.cc.o
 
 h5epoch.i: h5epoch.cc.i
@@ -293,7 +293,7 @@ h5epoch.i: h5epoch.cc.i
 
 # target to preprocess a source file
 h5epoch.cc.i:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/h5epoch.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/h5epoch.cc.i
 .PHONY : h5epoch.cc.i
 
 h5epoch.s: h5epoch.cc.s
@@ -301,7 +301,7 @@ h5epoch.s: h5epoch.cc.s
 
 # target to generate assembly for a file
 h5epoch.cc.s:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/h5epoch.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/h5epoch.cc.s
 .PHONY : h5epoch.cc.s
 
 h5experiment.o: h5experiment.cc.o
@@ -309,7 +309,7 @@ h5experiment.o: h5experiment.cc.o
 
 # target to build an object file
 h5experiment.cc.o:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/h5experiment.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/h5experiment.cc.o
 .PHONY : h5experiment.cc.o
 
 h5experiment.i: h5experiment.cc.i
@@ -317,7 +317,7 @@ h5experiment.i: h5experiment.cc.i
 
 # target to preprocess a source file
 h5experiment.cc.i:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/h5experiment.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/h5experiment.cc.i
 .PHONY : h5experiment.cc.i
 
 h5experiment.s: h5experiment.cc.s
@@ -325,7 +325,7 @@ h5experiment.s: h5experiment.cc.s
 
 # target to generate assembly for a file
 h5experiment.cc.s:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/h5experiment.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/h5experiment.cc.s
 .PHONY : h5experiment.cc.s
 
 logging.o: logging.cc.o
@@ -333,7 +333,7 @@ logging.o: logging.cc.o
 
 # target to build an object file
 logging.cc.o:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/logging.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/logging.cc.o
 .PHONY : logging.cc.o
 
 logging.i: logging.cc.i
@@ -341,7 +341,7 @@ logging.i: logging.cc.i
 
 # target to preprocess a source file
 logging.cc.i:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/logging.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/logging.cc.i
 .PHONY : logging.cc.i
 
 logging.s: logging.cc.s
@@ -349,7 +349,7 @@ logging.s: logging.cc.s
 
 # target to generate assembly for a file
 logging.cc.s:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/logging.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/logging.cc.s
 .PHONY : logging.cc.s
 
 notetable.o: notetable.cc.o
@@ -357,7 +357,7 @@ notetable.o: notetable.cc.o
 
 # target to build an object file
 notetable.cc.o:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/notetable.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/notetable.cc.o
 .PHONY : notetable.cc.o
 
 notetable.i: notetable.cc.i
@@ -365,7 +365,7 @@ notetable.i: notetable.cc.i
 
 # target to preprocess a source file
 notetable.cc.i:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/notetable.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/notetable.cc.i
 .PHONY : notetable.cc.i
 
 notetable.s: notetable.cc.s
@@ -373,7 +373,7 @@ notetable.s: notetable.cc.s
 
 # target to generate assembly for a file
 notetable.cc.s:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/notetable.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/notetable.cc.s
 .PHONY : notetable.cc.s
 
 tspiketable.o: tspiketable.cc.o
@@ -381,7 +381,7 @@ tspiketable.o: tspiketable.cc.o
 
 # target to build an object file
 tspiketable.cc.o:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/tspiketable.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/tspiketable.cc.o
 .PHONY : tspiketable.cc.o
 
 tspiketable.i: tspiketable.cc.i
@@ -389,7 +389,7 @@ tspiketable.i: tspiketable.cc.i
 
 # target to preprocess a source file
 tspiketable.cc.i:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/tspiketable.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/tspiketable.cc.i
 .PHONY : tspiketable.cc.i
 
 tspiketable.s: tspiketable.cc.s
@@ -397,7 +397,7 @@ tspiketable.s: tspiketable.cc.s
 
 # target to generate assembly for a file
 tspiketable.cc.s:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/tspiketable.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/tspiketable.cc.s
 .PHONY : tspiketable.cc.s
 
 wavetable.o: wavetable.cc.o
@@ -405,7 +405,7 @@ wavetable.o: wavetable.cc.o
 
 # target to build an object file
 wavetable.cc.o:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/wavetable.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/wavetable.cc.o
 .PHONY : wavetable.cc.o
 
 wavetable.i: wavetable.cc.i
@@ -413,7 +413,7 @@ wavetable.i: wavetable.cc.i
 
 # target to preprocess a source file
 wavetable.cc.i:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/wavetable.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/wavetable.cc.i
 .PHONY : wavetable.cc.i
 
 wavetable.s: wavetable.cc.s
@@ -421,7 +421,7 @@ wavetable.s: wavetable.cc.s
 
 # target to generate assembly for a file
 wavetable.cc.s:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f src/CMakeFiles/experiment_core.dir/build.make src/CMakeFiles/experiment_core.dir/wavetable.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/experiment_core.dir/build.make experiment/CMakeFiles/experiment_core.dir/wavetable.cc.s
 .PHONY : wavetable.cc.s
 
 # Help Target
