@@ -42,7 +42,7 @@ class LocalDBUSDaemon(object):
     def close(self):
         self.configfid.close()
         self.process.terminate()
-    
+        self.process.kill()
 
 if __name__ == "__main__":
     ld = LocalDBUSDaemon(tcpconfig)

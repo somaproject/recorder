@@ -160,20 +160,23 @@ int main(int argc, char * argv[])
   // Must do DBUS stuff AFTER fork so that recorder can respond
 
   soma::recorder::DBusRecorderManager * precorder; 
+  precorder = new soma::recorder::DBusRecorderManager(conn, "/manager", 
+						      "soma.recording.Manager"); 
+
   // now optionally register
   if (vm.count("no-register")) {
     // do not register
     logdbus.warnStream() << "not registering experiment with DBus"; 
   } else {
-    precorder = new soma::recorder::DBusRecorderManager(conn, "/soma/recording/recorder", 
-							"soma.recording.Recorder"); 
-    precorder->RegisterExperiment(filename, conn.unique_name()); 
+    precorder->Register(filename); 
     logdbus.infoStream() << "dbus registered with " 
-			 << filename  << conn.unique_name(); 
-    
+			 << filename << ","  << conn.unique_name(); 
   }
   
   mainloop->run(); 
 
+  if (!vm.count("no-register")) {
+    precorder->Unregister(); 
+  }
   
 }

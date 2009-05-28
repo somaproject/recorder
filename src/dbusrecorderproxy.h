@@ -11,17 +11,20 @@
 namespace soma {
 namespace recording {
 
-class Recorder
+class Manager_proxy
  : public ::DBus::InterfaceProxy
 {
 public:
 
-    Recorder()
-    : ::DBus::InterfaceProxy("soma.recording.Recorder")
+    Manager_proxy()
+    : ::DBus::InterfaceProxy("soma.recording.Manager")
     {
-        connect_signal(Recorder, experimentavailable, _experimentavailable_stub);
+        connect_signal(Manager_proxy, experimentavailable, _experimentavailable_stub);
     }
 
+public:
+
+    /* properties exported by this interface */
 public:
 
     /* methods exported by this interface,
@@ -107,39 +110,38 @@ private:
 namespace soma {
 namespace recording {
 
-class ExperimentManager
+class ExperimentRegistry_proxy
  : public ::DBus::InterfaceProxy
 {
 public:
 
-    ExperimentManager()
-    : ::DBus::InterfaceProxy("soma.recording.ExperimentManager")
+    ExperimentRegistry_proxy()
+    : ::DBus::InterfaceProxy("soma.recording.ExperimentRegistry")
     {
     }
 
+public:
+
+    /* properties exported by this interface */
 public:
 
     /* methods exported by this interface,
      * this functions will invoke the corresponding methods on the remote objects
      */
-    void RegisterExperiment(const std::string& filename, const std::string& dbusconn)
+    void Register(const std::string& filename)
     {
         ::DBus::CallMessage call;
         ::DBus::MessageIter wi = call.writer();
 
         wi << filename;
-        wi << dbusconn;
-        call.member("RegisterExperiment");
+        call.member("Register");
         ::DBus::Message ret = invoke_method(call);
     }
 
-    void UnregisterExperiment(const std::string& dbusconn)
+    void Unregister()
     {
         ::DBus::CallMessage call;
-        ::DBus::MessageIter wi = call.writer();
-
-        wi << dbusconn;
-        call.member("UnregisterExperiment");
+        call.member("Unregister");
         ::DBus::Message ret = invoke_method(call);
     }
 

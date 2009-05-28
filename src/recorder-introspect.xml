@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <node name="/soma/recording/Recorder">
 
-  <interface name="soma.recording.Recorder">
+  <interface name="soma.recording.Manager">
 
     <method name="ListOpenExperiments">
       <arg type="as" name="results" direction="out"/>
@@ -29,13 +29,11 @@
 
   </interface>
 
-  <interface name="soma.recording.ExperimentManager">
-    <method name = "RegisterExperiment">
+  <interface name="soma.recording.ExperimentRegistry">
+    <method name = "Register">
       <arg type="s" name="filename" direction="in"/>
-      <arg type="s" name="dbusconn" direction="in"/>
     </method> 
-    <method name = "UnregisterExperiment">
-      <arg type="s" name="dbusconn" direction="in"/>
+    <method name = "Unregister">
     </method> 
   </interface>
 

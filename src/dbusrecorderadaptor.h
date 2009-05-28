@@ -11,19 +11,19 @@
 namespace soma {
 namespace recording {
 
-class Recorder
+class Manager_adaptor
 : public ::DBus::InterfaceAdaptor
 {
 public:
 
-    Recorder()
-    : ::DBus::InterfaceAdaptor("soma.recording.Recorder")
+    Manager_adaptor()
+    : ::DBus::InterfaceAdaptor("soma.recording.Manager")
     {
-        register_method(Recorder, ListOpenExperiments, _ListOpenExperiments_stub);
-        register_method(Recorder, ListAvailableExperiments, _ListAvailableExperiments_stub);
-        register_method(Recorder, OpenExperiment, _OpenExperiment_stub);
-        register_method(Recorder, CreateExperiment, _CreateExperiment_stub);
-        register_method(Recorder, GetStatistics, _GetStatistics_stub);
+        register_method(Manager_adaptor, ListOpenExperiments, _ListOpenExperiments_stub);
+        register_method(Manager_adaptor, ListAvailableExperiments, _ListAvailableExperiments_stub);
+        register_method(Manager_adaptor, OpenExperiment, _OpenExperiment_stub);
+        register_method(Manager_adaptor, CreateExperiment, _CreateExperiment_stub);
+        register_method(Manager_adaptor, GetStatistics, _GetStatistics_stub);
     }
 
     ::DBus::IntrospectedInterface *const introspect() const 
@@ -58,7 +58,7 @@ public:
             { "objconn", "s", false },
             { 0, 0, 0 }
         };
-        static ::DBus::IntrospectedMethod Recorder_methods[] = 
+        static ::DBus::IntrospectedMethod Manager_adaptor_methods[] = 
         {
             { "ListOpenExperiments", ListOpenExperiments_args },
             { "ListAvailableExperiments", ListAvailableExperiments_args },
@@ -67,23 +67,23 @@ public:
             { "GetStatistics", GetStatistics_args },
             { 0, 0 }
         };
-        static ::DBus::IntrospectedMethod Recorder_signals[] = 
+        static ::DBus::IntrospectedMethod Manager_adaptor_signals[] = 
         {
             { "experimentavailable", experimentavailable_args },
             { 0, 0 }
         };
-        static ::DBus::IntrospectedProperty Recorder_properties[] = 
+        static ::DBus::IntrospectedProperty Manager_adaptor_properties[] = 
         {
             { 0, 0, 0, 0 }
         };
-        static ::DBus::IntrospectedInterface Recorder_interface = 
+        static ::DBus::IntrospectedInterface Manager_adaptor_interface = 
         {
-            "soma.recording.Recorder",
-            Recorder_methods,
-            Recorder_signals,
-            Recorder_properties
+            "soma.recording.Manager",
+            Manager_adaptor_methods,
+            Manager_adaptor_signals,
+            Manager_adaptor_properties
         };
-        return &Recorder_interface;
+        return &Manager_adaptor_interface;
     }
 
 public:
@@ -173,53 +173,53 @@ private:
 namespace soma {
 namespace recording {
 
-class ExperimentManager
+class ExperimentRegistry_adaptor
 : public ::DBus::InterfaceAdaptor
 {
 public:
 
-    ExperimentManager()
-    : ::DBus::InterfaceAdaptor("soma.recording.ExperimentManager")
+    ExperimentRegistry_adaptor()
+    : ::DBus::InterfaceAdaptor("soma.recording.ExperimentRegistry")
     {
-        register_method(ExperimentManager, RegisterExperiment, _RegisterExperiment_stub);
-        register_method(ExperimentManager, UnregisterExperiment, _UnregisterExperiment_stub);
+        register_method(ExperimentRegistry_adaptor, Register, _Register_stub);
+        register_method(ExperimentRegistry_adaptor, Unregister, _Unregister_stub);
     }
 
     ::DBus::IntrospectedInterface *const introspect() const 
     {
-        static ::DBus::IntrospectedArgument RegisterExperiment_args[] = 
+        static ::DBus::IntrospectedArgument Register_args[] = 
         {
             { "filename", "s", true },
             { "dbusconn", "s", true },
             { 0, 0, 0 }
         };
-        static ::DBus::IntrospectedArgument UnregisterExperiment_args[] = 
+        static ::DBus::IntrospectedArgument Unregister_args[] = 
         {
             { "dbusconn", "s", true },
             { 0, 0, 0 }
         };
-        static ::DBus::IntrospectedMethod ExperimentManager_methods[] = 
+        static ::DBus::IntrospectedMethod ExperimentRegistry_adaptor_methods[] = 
         {
-            { "RegisterExperiment", RegisterExperiment_args },
-            { "UnregisterExperiment", UnregisterExperiment_args },
+            { "Register", Register_args },
+            { "Unregister", Unregister_args },
             { 0, 0 }
         };
-        static ::DBus::IntrospectedMethod ExperimentManager_signals[] = 
+        static ::DBus::IntrospectedMethod ExperimentRegistry_adaptor_signals[] = 
         {
             { 0, 0 }
         };
-        static ::DBus::IntrospectedProperty ExperimentManager_properties[] = 
+        static ::DBus::IntrospectedProperty ExperimentRegistry_adaptor_properties[] = 
         {
             { 0, 0, 0, 0 }
         };
-        static ::DBus::IntrospectedInterface ExperimentManager_interface = 
+        static ::DBus::IntrospectedInterface ExperimentRegistry_adaptor_interface = 
         {
-            "soma.recording.ExperimentManager",
-            ExperimentManager_methods,
-            ExperimentManager_signals,
-            ExperimentManager_properties
+            "soma.recording.ExperimentRegistry",
+            ExperimentRegistry_adaptor_methods,
+            ExperimentRegistry_adaptor_signals,
+            ExperimentRegistry_adaptor_properties
         };
-        return &ExperimentManager_interface;
+        return &ExperimentRegistry_adaptor_interface;
     }
 
 public:
@@ -233,8 +233,8 @@ public:
     /* methods exported by this interface,
      * you will have to implement them in your ObjectAdaptor
      */
-    virtual void RegisterExperiment(const std::string& filename, const std::string& dbusconn) = 0;
-    virtual void UnregisterExperiment(const std::string& dbusconn) = 0;
+    virtual void Register(const std::string& filename, const std::string& dbusconn) = 0;
+    virtual void Unregister(const std::string& dbusconn) = 0;
 
 public:
 
@@ -245,22 +245,22 @@ private:
 
     /* unmarshalers (to unpack the DBus message before calling the actual interface method)
      */
-    ::DBus::Message _RegisterExperiment_stub(const ::DBus::CallMessage &call)
+    ::DBus::Message _Register_stub(const ::DBus::CallMessage &call)
     {
         ::DBus::MessageIter ri = call.reader();
 
         std::string argin1; ri >> argin1;
         std::string argin2; ri >> argin2;
-        RegisterExperiment(argin1, argin2);
+        Register(argin1, argin2);
         ::DBus::ReturnMessage reply(call);
         return reply;
     }
-    ::DBus::Message _UnregisterExperiment_stub(const ::DBus::CallMessage &call)
+    ::DBus::Message _Unregister_stub(const ::DBus::CallMessage &call)
     {
         ::DBus::MessageIter ri = call.reader();
 
         std::string argin1; ri >> argin1;
-        UnregisterExperiment(argin1);
+        Unregister(argin1);
         ::DBus::ReturnMessage reply(call);
         return reply;
     }

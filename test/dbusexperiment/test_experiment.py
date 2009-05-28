@@ -17,6 +17,11 @@ def setup():
     dbusDaemon = dbusserver.LocalDBUSDaemon(dbusserver.tcpconfig)
     dbusDaemon.run()
 
+def shutdown():
+    global dbusDaemon
+    dbusDaemon.close()
+    
+
 def start_experiment(dbusDaemon):
     """
     Run the experiment independently in a temporary directory

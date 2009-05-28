@@ -5,7 +5,7 @@
 namespace soma {
   namespace recorder {
     class DBusRecorderManager : 
-      public soma::recording::ExperimentManager, 
+      public soma::recording::ExperimentRegistry_proxy, 
       public DBus::IntrospectableProxy, 
       public DBus::ObjectProxy {
       

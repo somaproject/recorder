@@ -46,11 +46,8 @@ def verify_tspike(t1, t2):
     assert_equal(t1['src'], t2['src'])
     assert_equal(t1['time'], t2['time'])
 
-    assert_equal(t1['x']['filtid'], t2['x']['filtid'])
-                 
-##     for j, s in enumerate(['x', 'y', 'a', 'b']):
-##         for f in ['filtid', 'valid', 'threshold']:
-##             assert_equal(t1[s][f], t2[s][f])
-##         for k in range(WAVELEN):
-##             assert_equal(t1[s]['wave'][k], t2[s]['wave'][k])
+    for j, s in enumerate(['x', 'y', 'a', 'b']):
+        for f in ['filtid', 'valid', 'threshold']:
+            assert_equal(t1[s][f], t2[s][f])
+            assert_true((t1[s]['wave'] == t2[s]['wave']).all())
 
