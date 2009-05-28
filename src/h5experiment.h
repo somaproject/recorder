@@ -36,7 +36,7 @@ namespace soma {
     public:
 
       static pExperiment_t create(pNetworkInterface_t pn, filename_t expfilename); 
-
+      
       static pExperiment_t open(pNetworkInterface_t pn, filename_t expfilename); 
       
       std::map<string, string> getFileProperties(); 
