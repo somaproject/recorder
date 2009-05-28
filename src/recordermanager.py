@@ -74,7 +74,7 @@ class ExperimentServerFactory(ExperimentFactory):
         proc = subprocess.Popen(args)
         return proc
     
-class RecorderManager(dbus.service.Object):
+class Manager(dbus.service.Object):
     def __init__(self, bus, loc, somaip, experiment_dir, experimentFactory):
         dbus.service.Object.__init__(self, bus, loc)
         self.bus = bus
@@ -93,12 +93,16 @@ class RecorderManager(dbus.service.Object):
         self.open_experiments = {}
         
 
+
+
+
     @dbus.service.method("soma.recording.Manager",
                          out_signature='as')
     def ListOpenExperiments(self):
         
         return self.open_experiments.values()
-    
+
+
     @dbus.service.method("soma.recording.Manager",
                          out_signature='as')
     def ListAvailableExperiments(self):
@@ -116,6 +120,7 @@ class RecorderManager(dbus.service.Object):
                     
         return expfiles
     
+
     @dbus.service.method("soma.recording.Manager",
                          in_signature='s')
     def OpenExperiment(self, expname):
@@ -123,6 +128,8 @@ class RecorderManager(dbus.service.Object):
             raise Exception("Experiment not found")
         
         self.expFactory.OpenExperiment(expname, self)
+
+
 
     @dbus.service.method("soma.recording.Manager",
                          in_signature='s')
@@ -133,10 +140,12 @@ class RecorderManager(dbus.service.Object):
         self.expFactory.CreateExperiment(os.path.join(self.experiment_dir, expname),
                                          self)
             
+
     @dbus.service.method("soma.recording.Manager",
                          out_signature="a{ss}")
     def GetStatistics(self):
         return {}
+
 
     @dbus.service.method("soma.recording.ExperimentRegistry",
                          in_signature="s", sender_keyword='dbusconn')
@@ -146,6 +155,7 @@ class RecorderManager(dbus.service.Object):
         # fire the signal 
         self.ExperimentAvailable(str(dbusconn))
         
+
     @dbus.service.method("soma.recording.ExperimentRegistry",
                          sender_keyword='dbusconn')
     def Unregister(self, dbusconn=None):
@@ -154,45 +164,9 @@ class RecorderManager(dbus.service.Object):
                 del self.open_experiments[i]
                 break
 
+
     @dbus.service.signal(dbus_interface="soma.recording.Manager",
                          signature="s")
     def ExperimentAvailable(self, objconn):
         pass
     
-if __name__ == "__main__":
-
-    
-    parser = OptionParser()
-    parser.add_option("-i", "--soma-ip", dest="somaip", help="The IP address of the Soma hardware")
-    parser.add_option("-d", "--dbus", dest="dbus", help="dbus bus to connect to (defaults to Session bus)")
-    parser.add_option("-e", "--expdir", dest="expdir", help="directory for experiments")
-    parser.add_option("-m", "--mock", action="store_true",
-                      dest="mock", help="use mock experiment server (for testing)")
-    parser.add_option("-b", "--expbin", dest="expbin",
-                      help="The location of the experiment server binary")
-    
-    (options, args) = parser.parse_args()
-    
-    dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
-
-    if options.dbus:
-        session_bus = dbus.bus.BusConnection(options.dbus)
-        session_bus.address = options.dbus
-    else:
-        session_bus = dbus.SessionBus()
-
-    if not options.expdir:
-        raise Exception("Must specify experiment directory with --expdir")
-
-        
-    name = dbus.service.BusName("soma.recording.Manager", session_bus)
-    if options.mock:
-        ef = ExperimentFactoryMockup()
-    else:
-        ef = ExperimentServerFactory(options.expbin)
-    
-    
-    object = RecorderManager(session_bus, '/manager', options.somaip, options.expdir, ef)
-    
-    mainloop = gobject.MainLoop()
-    mainloop.run()
