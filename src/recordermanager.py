@@ -143,6 +143,9 @@ class RecorderManager(dbus.service.Object):
     def Register(self, filename, dbusconn=None):
         self.open_experiments[filename] = dbusconn
 
+        # fire the signal 
+        self.ExperimentAvailable(str(dbusconn))
+        
     @dbus.service.method("soma.recording.ExperimentRegistry",
                          sender_keyword='dbusconn')
     def Unregister(self, dbusconn=None):
@@ -150,6 +153,11 @@ class RecorderManager(dbus.service.Object):
             if v == dbusconn:
                 del self.open_experiments[i]
                 break
+
+    @dbus.service.signal(dbus_interface="soma.recording.Manager",
+                         signature="s")
+    def ExperimentAvailable(self, objconn):
+        pass
     
 if __name__ == "__main__":
 

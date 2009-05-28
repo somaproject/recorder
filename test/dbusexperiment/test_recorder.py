@@ -7,6 +7,7 @@ import dbus.bus
 import time
 import tables
 import socket
+import os
 
 dbusDaemon = None
 
@@ -94,7 +95,11 @@ def test_mock_experiment_creation():
     
 def test_actual_experiment_creation():
     """
-    Try and create an actual experiment, by using a real binary? 
+    Try and create an actual experiment, by using the actual
+    "soma-experiment" binary. We only make sure that we
+    successfully run the experiment here, and verify at the
+    end that the file has been created and can be read. 
+    
     """
     
     global dbusDaemon
@@ -121,13 +126,21 @@ def test_actual_experiment_creation():
     exp_proxy = dbus_test_bus.get_object(exp_conn,
                                      "/soma/recording/experiment")
     exp_proxyif = dbus.Interface(exp_proxy, "soma.recording.Experiment")
+    exp_proxyif.CreateEpoch("testepoch")
     exp_proxyif.Close()
 
     while len(proxyif.ListOpenExperiments() ) >  0:
         time.sleep(1)
 
     time.sleep(1)
-        
+    tgtf = os.path.join(tgtdir, "SillyExp.h5")
+    assert_true(os.path.exists(tgtf))
+    # try and open the file, which should be a valid HDF5 file
+    table = tables.openFile(tgtf, 'r')
+    assert_true("testepoch" in table.root._v_children)
+    table.close()
+    
+    
     proc.terminate()
     
     
