@@ -40,7 +40,6 @@ int main(int argc, char * argv[])
     ("soma-ip", po::value<string>(), "The IP of the soma hardware")
     ("request-dbus-name", po::value<string>(), "Request the target dbus name for debugging")
     ("no-register",  "register with primary recorder (soma.Recorder) on DBus")
-    ("no-daemon", "do not fork as a dameon, but remain attached to the console")
     ("domain-socket-dir", po::value<string>(), "Domain socket directory to use for testing; overrides soma IP")
     ;
   
@@ -87,7 +86,6 @@ int main(int argc, char * argv[])
   } else {
     logrecorder.infoStream() << "open file: " << filename; 
   }    
-  
   somanetwork::pNetworkInterface_t network; 
   
   if (vm.count("soma-ip")) {
@@ -107,8 +105,6 @@ int main(int argc, char * argv[])
     logrecorder.fatal("soma-ip not specified, domain-socket-dir not specified; no way to get data"); 
     return -1; 
   }
-
-
 
   // by default, we try and discover and use the link-local soma bus
 
@@ -136,21 +132,8 @@ int main(int argc, char * argv[])
     logdbus.infoStream() << "requesting dbus name" << dbusname; 
   }
 
-  if (! vm.count("no-daemon")) {
-    pid_t pid = fork(); 
-    if (pid == 0) {
-      logrecorder.infoStream() << "daemon process running"; 
-    } else {
-      // parent
-      return 0; 
-    }
-  } else {
-
-    logdbus.warnStream() << "not forking daemon as requested"; 
-  }
 
   mainloop = Glib::MainLoop::create(); 
-
   soma::recorder::DBUSExperiment server(conn, mainloop, 
 					filename, network, create); 
 
@@ -174,9 +157,7 @@ int main(int argc, char * argv[])
   }
   
   mainloop->run(); 
-
   if (!vm.count("no-register")) {
     precorder->Unregister(); 
   }
-  
 }
