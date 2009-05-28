@@ -460,6 +460,8 @@ std::string H5Epoch::getDataName(datasource_t src)
 void H5Epoch::appendData(const pDataPacket_t pkt)
 {
   dpair_t tgtdpair(pkt->src, pkt->typ); 
+  logepoch_.infoStream() << "Received packet with sequence id= " 
+			 << pkt->seq; 
   // FIXME: what do we do if we get an incorrect packet? 
 
   // This is ugly, but is because the [] operator in map
@@ -467,7 +469,12 @@ void H5Epoch::appendData(const pDataPacket_t pkt)
   // which in our class is an ABC
   if (dispatchTable_.find(tgtdpair) != dispatchTable_.end()) {
     (*(dispatchTable_.find(tgtdpair)->second))->append(pkt); 
+  } else {
+    logepoch_.warnStream() << "Received unexpected data packet for" 
+			   << " src = " << (int)pkt->src
+			   << " type =" << (int)pkt->typ; 
   }
+
 }
 
 
