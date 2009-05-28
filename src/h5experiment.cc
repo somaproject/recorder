@@ -153,7 +153,6 @@ void H5Experiment::close() {
   h5file_.flush(H5F_SCOPE_LOCAL);
 
   h5file_.close();   
-
   pNetwork_->shutdown(); 
 
   isClosed_ =true; 
@@ -164,7 +163,6 @@ H5Experiment::~H5Experiment() {
     logexperiment_.warn("H5Experiment destructor called without explicit invocation of close"); 
     close(); 
   }
-
 }
 
 
@@ -245,7 +243,7 @@ void H5Experiment::startRecording(epochname_t targetEpoch) {
   somatime_t currentts = getCurrentTS(); 
   int time = getCurrentTime(); 
   if (isRecording_) {
-    std::map<dpair_t, SinkStats> ss; 
+    std::map<dpair_t, SinkStats> ss;  // FIXME 
     currentTargetEpoch_->endSession(currentts, time, ss); 
   } 
   
