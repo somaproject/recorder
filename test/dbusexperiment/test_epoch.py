@@ -223,14 +223,16 @@ def test_epoch_sessions():
             ts = canonical_data.createTSpike(0, i)
             seqstr = struct.pack(">i4", seq)
             socktest.sendto(seqstr + ts.tostring(), sockdir + "/data/tspike/0")
+
             seq += 1
-        
         time.sleep(1) # wait for the data to get there
 
         epoch_if.StopRecording()
+
         while(epoch_if.GetRecordingState() ):
+            print "Waiting for state"
+            
             pass # spin until we know we are done recording
-        
     experiment_if.Close()
     proc.wait()
 

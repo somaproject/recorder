@@ -40,12 +40,10 @@ class ExperimentFactoryMockup(ExperimentFactory):
         pass
 
     def OpenExperiment(self, name, recordermanager):
-        print "ExperimentFactoryMockup opening experiment", name
         recordermanager.Register(name, "dummyconnection%d" % self.dummy)
         self.dummy += 1
 
     def CreateExperiment(self, name, recordermanager):
-        print "ExperimentFactoryMockup creating experiment", name
         fid = file(name, 'w')
         fid.write("Hello world")
         fid.close()
@@ -73,7 +71,6 @@ class ExperimentServerFactory(ExperimentFactory):
                 "--create-file=%s" % name,
                 "--dbus=%s" % recordermanager.bus.address,
                 "--soma-ip=%s" % recordermanager.somaIP]
-        print "Creating experiment with args", args
         proc = subprocess.Popen(args)
         return proc
     
@@ -100,7 +97,7 @@ class RecorderManager(dbus.service.Object):
                          out_signature='as')
     def ListOpenExperiments(self):
         
-        return self.open_experiments
+        return self.open_experiments.values()
     
     @dbus.service.method("soma.recording.Manager",
                          out_signature='as')
@@ -149,8 +146,10 @@ class RecorderManager(dbus.service.Object):
     @dbus.service.method("soma.recording.ExperimentRegistry",
                          sender_keyword='dbusconn')
     def Unregister(self, dbusconn=None):
-        pass
-
+        for i, v in self.open_experiments.iteritems():
+            if v == dbusconn:
+                del self.open_experiments[i]
+                break
     
 if __name__ == "__main__":
 

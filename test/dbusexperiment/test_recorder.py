@@ -115,8 +115,19 @@ def test_actual_experiment_creation():
 
     while len(proxyif.ListOpenExperiments() ) == 0:
         pass
-    
-    
+
+    # connect to this experiment and close it
+    exp_conn = proxyif.ListOpenExperiments()[0]
+    exp_proxy = dbus_test_bus.get_object(exp_conn,
+                                     "/soma/recording/experiment")
+    exp_proxyif = dbus.Interface(exp_proxy, "soma.recording.Experiment")
+    exp_proxyif.Close()
+
+    while len(proxyif.ListOpenExperiments() ) >  0:
+        time.sleep(1)
+
+    time.sleep(1)
+        
     proc.terminate()
     
     

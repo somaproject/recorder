@@ -46,12 +46,12 @@ def start_experiment(dbusDaemon):
     sock_eventtx.bind("%s/eventtx" % tfdir)
     
     args = [soma_experiment_binary,
-                             "--create-file=%s" % filename,
-                             "--domain-socket-dir=%s" % tfdir,
-                             "--request-dbus-name=%s" % "soma.recording.Experiment",
-                             "--dbus=%s" % dbusDaemon.address,
-                             "--no-register",
-                             "--no-daemon"]
+            "--create-file=%s" % filename,
+            "--domain-socket-dir=%s" % tfdir,
+            "--request-dbus-name=%s" % "soma.recording.Experiment",
+            "--dbus=%s" % dbusDaemon.address,
+            "--no-register",
+            "--log-level=0"]
     
     proc = subprocess.Popen(args)
     time.sleep(1) # FIXME : Race condition
