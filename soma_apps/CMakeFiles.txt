@@ -1,0 +1,6 @@
+
+
+MESSAGE("HERE YO")
+INSTALL(FILES __init__.py recorder/__init__.py recorder/manager.py
+	       DESTINATION ${PY_SOMA_TARGET})
+

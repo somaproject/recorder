@@ -2,10 +2,15 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 PROJECT(tspikes)
 
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake)
+
 find_package(Boost 1.37.0 COMPONENTS 
   thread unit_test_framework filesystem program_options system REQUIRED)
 find_package(PkgConfig)
-set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake)
+find_package(PythonInterp)
+find_package(PythonLibs)
+find_package(PythonLibrary)
+include(PythonMacros)
 
 find_package(HDF5 REQUIRED)
 
@@ -20,7 +25,12 @@ pkg_check_modules(EXPDEPS REQUIRED
 
 include_directories(experiment)
 
+set(PY_SOMA_TARGET "${PYTHON_SITE_PACKAGES_DIR}/soma_apps/")
+MESSAGE("The soma python recording module will be installed in " ${PY_SOMA_TARGET})
+
 ENABLE_TESTING()
 add_subdirectory(experiment)
+add_subdirectory(manager)
+add_subdirectory(soma_apps)
 add_subdirectory(tests)
 add_subdirectory(benchmarks)

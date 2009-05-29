@@ -13,6 +13,7 @@ import os
 import os.path
 import subprocess
 from optparse import OptionParser
+import soma_apps.recorder
 
 if __name__ == "__main__":
 
@@ -42,12 +43,20 @@ if __name__ == "__main__":
         
     name = dbus.service.BusName("soma.recording.Manager", session_bus)
     if options.mock:
-        ef = soma.recorder.ExperimentFactoryMockup()
+        ef = soma_apps.recorder.ExperimentFactoryMockup()
     else:
-        ef = soma.recorder.ExperimentServerFactory(options.expbin)
+        if options.expbin:
+            binname = options.expbin
+        else:
+            binname = "soma-recording-experiment"
+            
+        ef = soma_apps.recorder.ExperimentServerFactory(binname)
+
+    if !options.somaip:
+        raise Exception("must specify a soma IP")
     
     
-    object = soma.recorder.Manager(session_bus, '/manager', options.somaip, options.expdir, ef)
+    object = soma_apps.recorder.Manager(session_bus, '/manager', options.somaip, options.expdir, ef)
     
     mainloop = gobject.MainLoop()
     mainloop.run()

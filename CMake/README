@@ -1,0 +1,19 @@
+
+Additional CMAKE files: 
+
+FindHDF5.cmake
+-------------------
+We stole (and hacked up) FindHDF5.cmake from the paraview project on github
+
+
+FindPythonLibrary.cmake and PythonMacros.cmake
+-----------------------------------------------
+
+The KDE project has additional very useful .cmake files, at
+
+http://websvn.kde.org/trunk/KDE/kdelibs/cmake/modules/
+
+Their copyright policy is in KDE_cmake_copy, but it's just BSD. 
+
+FindPythonLibrary.cmake and PythonMacros.cmake are from there. 
+
