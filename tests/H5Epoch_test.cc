@@ -11,6 +11,8 @@
 #include "h5experiment.h"
 
 #include "datasetio.h"
+#include "test_config.h"
+#include "test_util.h"
 
 using namespace soma; 
 using namespace boost;       
@@ -23,7 +25,9 @@ BOOST_AUTO_TEST_CASE(H5EpochCreate )
   // Test if file creation works; 
   
   std::string filename = "H5Epoch_create.h5"; 
-  filesystem::remove_all(filename); 
+  path h5filepath = test_binary_path /  filename; 
+  
+  filesystem::remove_all(h5filepath); 
 
   // separate block to get delete called on object
   pNetworkInterface_t pfn(new FakeNetwork()); 
@@ -52,13 +56,14 @@ BOOST_AUTO_TEST_CASE(H5EpochDataEnable)
   */
   
   std::string filename = "H5Epoch_dataenable.h5"; 
-  filesystem::remove_all(filename); 
+  path h5filepath = test_binary_path /  filename; 
+  filesystem::remove_all(h5filepath); 
 
   // separate block to get delete called on object
   pNetworkInterface_t pfn(new FakeNetwork()); 
 
   recorder::pExperiment_t pExp =
-    recorder::H5Experiment::create(pfn, filename); 
+    recorder::H5Experiment::create(pfn, h5filepath); 
   
   recorder::pEpoch_t epoch  = pExp->createEpoch("Silly"); 
   
@@ -72,7 +77,7 @@ BOOST_AUTO_TEST_CASE(H5EpochDataEnable)
     
   // Now read the file, check
   H5::H5File newfile; 
-  newfile.openFile(filename, H5F_ACC_RDWR); 
+  newfile.openFile(h5filepath.string(), H5F_ACC_RDWR); 
   H5::Group g = newfile.openGroup("/Silly/TSpike"); 
   BOOST_CHECK_EQUAL(g.getNumObjs(), 2); 
   
@@ -86,13 +91,15 @@ BOOST_AUTO_TEST_CASE(H5EpochDatagetSets)
   */
   
   std::string filename = "H5Epoch_datatypesets.h5"; 
-  filesystem::remove_all(filename); 
+  path h5filepath = test_binary_path /  filename; 
+
+  filesystem::remove_all(h5filepath); 
 
   // separate block to get delete called on object
   pNetworkInterface_t pfn(new FakeNetwork()); 
 
   recorder::pExperiment_t pExp =
-    recorder::H5Experiment::create(pfn, filename); 
+    recorder::H5Experiment::create(pfn, h5filepath); 
   
   recorder::pEpoch_t epoch  = pExp->createEpoch("Silly"); 
   
@@ -115,13 +122,14 @@ BOOST_AUTO_TEST_CASE(H5Epoch_rename)
   */
   
   std::string filename = "H5Epoch_rename.h5"; 
-  filesystem::remove_all(filename); 
+  path h5filepath = test_binary_path /  filename; 
+ filesystem::remove_all(h5filepath); 
 
   // separate block to get delete called on object
   pNetworkInterface_t pfn(new FakeNetwork()); 
 
   recorder::pExperiment_t pExp =
-    recorder::H5Experiment::create(pfn, filename); 
+    recorder::H5Experiment::create(pfn, h5filepath); 
   
   recorder::pEpoch_t epoch  = pExp->createEpoch("Silly"); 
   
@@ -138,8 +146,8 @@ BOOST_AUTO_TEST_CASE(H5Epoch_rename)
   pExp->close(); 
   
   // now try and read it! 
-  
-  int retval = std::system("python H5Epoch_test.py rename");
+  int retval = run_standard_py_script("H5Epoch_test.py", 
+				      "rename"); 
   BOOST_CHECK_EQUAL(retval , 0); 
 
 }

@@ -8,10 +8,10 @@ import time
 import tables
 import socket
 import os
-
+import recorder_test_config
 dbusDaemon = None
 
-soma_recorder_binary = "../../src/recordermanager.py"
+
 
 
 def setup():
@@ -27,7 +27,7 @@ def start_recorder(dbusDaemon, somaip, mock=True, expbin = None):
     
     tfdir  = tempfile.mkdtemp()
     
-    args = [soma_recorder_binary,
+    args = [recorder_test_config.soma_recorder_binary,
             "--dbus=%s" % dbusDaemon.address,
             "--expdir=%s" % tfdir,
             "--soma-ip=%s" % somaip]
@@ -104,7 +104,7 @@ def test_actual_experiment_creation():
     
     global dbusDaemon
     proc, tgtdir = start_recorder(dbusDaemon, "127.0.0.1", False,
-                                  "../../src/soma-experiment")
+                                  recorder_test_config.soma_experiment_binary)
 
 
     # now check that the device lives on the bus

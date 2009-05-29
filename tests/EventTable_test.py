@@ -9,14 +9,15 @@ The first argument is the name of the test to run
 
 import tables
 import sys
+import os.path
 
 def typecheck(t, name, type):
     assert isinstance(t.coldescrs[name], type)
         
     
 
-def create_test():
-    t = tables.openFile('EventTable_create.h5')
+def create_test(filepath):
+    t = tables.openFile(os.path.join(filepath, 'EventTable_create.h5'))
     g = t.root.testGroup
     setable = t.root.testGroup.Events
 
@@ -28,9 +29,9 @@ def create_test():
     assert setable.coldescrs["data"].shape == (5,)
     
     
-def append_test():
+def append_test(filepath):
     
-    f = tables.openFile('EventTable_append.h5')
+    f = tables.openFile(os.path.join(filepath, 'EventTable_append.h5'))
     g = f.root.testGroup
     setable = g.Events
 
@@ -51,8 +52,8 @@ def append_test():
     
 if __name__ == "__main__":
     if sys.argv[1] == "create":
-        create_test()
+        create_test(sys.argv[2])
     elif sys.argv[1] == "append":
-        append_test()
+        append_test(sys.argv[2])
         
         

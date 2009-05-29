@@ -34,12 +34,14 @@ TARGET_LINK_LIBRARIES(experiment_core
   ${EXPDEPS_LIBRARIES}
 )
 
-ADD_EXECUTABLE(soma-experiment
+ADD_EXECUTABLE(soma-recorder-experiment
   experimentmain.cc
   ${dbus_experiment_SRCS} 
   )
 
-TARGET_LINK_LIBRARIES(soma-experiment
+TARGET_LINK_LIBRARIES(soma-recorder-experiment
   experiment_core
   ${Boost_LIBRARIES} 
   )
+
+INSTALL(PROGRAMS soma-recorder-experiment DESTINATION bin)

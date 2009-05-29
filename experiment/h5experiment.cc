@@ -26,7 +26,7 @@ pExperiment_t H5Experiment::open(pNetworkInterface_t pn, filename_t expfilename)
   
   // try and open the file
   H5::H5File file; 
-  file.openFile(expfilename, H5F_ACC_RDWR); 
+  file.openFile(p.string(), H5F_ACC_RDWR); 
 
   // pass to the real constructor
   pH5Experiment_t h5e(new H5Experiment(pn, file)); 
@@ -89,7 +89,7 @@ pExperiment_t H5Experiment::create(pNetworkInterface_t pn, filename_t name) {
     }
   
 
-  H5::H5File file(name, H5F_ACC_TRUNC); 
+  H5::H5File file(p.string(), H5F_ACC_TRUNC); 
 
   // set the file root group
   H5::Group root = file.openGroup("/"); 
@@ -429,7 +429,7 @@ bool H5Experiment::eventRXCallback(Glib::IOCondition io_condition)
 
 std::string H5Experiment::getName()
 {
-  return filename_; 
+  return filename_.string(); 
 }
 
 

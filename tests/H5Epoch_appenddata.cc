@@ -8,12 +8,19 @@
 #include "wavetable.h"
 #include <somanetwork/fakenetwork.h>
 #include "h5epoch.h"
+#include <boost/format.hpp>  
+#include "test_config.h"
+
+#include "test_util.h"
 
 using namespace soma; 
 using namespace boost;       
 using namespace boost::filesystem; 
 
 BOOST_AUTO_TEST_SUITE(H5Epoch_appenddata); 
+
+path test_binary_path(TEST_BINARY_PATH); 
+path test_source_path(TEST_SOURCE_PATH); 
 
 BOOST_AUTO_TEST_CASE(H5Epoch_appenddata1)
 {
@@ -23,13 +30,15 @@ BOOST_AUTO_TEST_CASE(H5Epoch_appenddata1)
   // CREATE FILE
   {
     std::string filename = "H5Epoch_appenddata1.h5"; 
-    filesystem::remove_all(filename); 
+    path h5filepath = test_binary_path / filename; 
+
+    filesystem::remove_all(h5filepath); 
     
     // separate block to get delete called on object
     pNetworkInterface_t pfn(new FakeNetwork()); 
     
     recorder::pExperiment_t pExp =
-      recorder::H5Experiment::create(pfn, filename); 
+      recorder::H5Experiment::create(pfn, h5filepath); 
     
     recorder::pEpoch_t ei  = pExp->createEpoch("myEpoch"); 
     
@@ -100,7 +109,9 @@ BOOST_AUTO_TEST_CASE(H5Epoch_appenddata1)
 
     // now we need to flush the file
   }
-  int retval = std::system("python H5Epoch_appenddata.py appenddata1");
+
+  int retval = run_standard_py_script("H5Epoch_appenddata.py", 
+				      "appenddata1"); 
   BOOST_CHECK_EQUAL(retval , 0); 
 
 }

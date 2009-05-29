@@ -18,5 +18,5 @@ experiment   : source for soma-recorder-experiment
 manager      : source for soma-recorder-manager
 soma         : python library for soma-recorder-manager
 tools        : utility programs for managing the recorder applications
-test / unittest : tests for the recorder program. 
+tests        : tests for the recorder program. 
 

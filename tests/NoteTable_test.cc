@@ -5,6 +5,9 @@
 #include <iostream>                        
 #include <fstream>
 #include "notetable.h"
+#include "test_config.h"
+#include "test_util.h"
+
 using namespace soma; 
 using  namespace boost;       
 using namespace boost::filesystem; 
@@ -16,9 +19,11 @@ BOOST_AUTO_TEST_SUITE(NoteTableTest);
 BOOST_AUTO_TEST_CASE(NoteTable_create)
 {
 
+  path h5filepath = test_binary_path / "NoteTable_create.h5";
+
   // create a temp file
   H5::H5File::H5File * h5file 
-    = new H5::H5File::H5File("NoteTable_create.h5", H5F_ACC_TRUNC); 
+    = new H5::H5File::H5File(h5filepath.string(), H5F_ACC_TRUNC); 
 
   H5::Group grp = h5file->createGroup("testGroup");
   
@@ -30,7 +35,9 @@ BOOST_AUTO_TEST_CASE(NoteTable_create)
   h5file->close(); 
   delete h5file; 
 
-  int retval = std::system("python NoteTable_test.py create");
+  int retval = run_standard_py_script("NoteTable_test.py", 
+				      "create"); 
+
   BOOST_CHECK_EQUAL(retval , 0); 
 
 }
@@ -40,8 +47,10 @@ BOOST_AUTO_TEST_CASE(NoteTable_apitest)
   // Test the note create / remove / etc. interfaces
 
   // create a temp file
+  path h5filepath = test_binary_path / "NoteTable_apitest.h5";
+
   H5::H5File::H5File * h5file 
-    = new H5::H5File::H5File("NoteTable_apitest.h5", H5F_ACC_TRUNC); 
+    = new H5::H5File::H5File(h5filepath.string(), H5F_ACC_TRUNC); 
   {
   H5::Group grp = h5file->createGroup("testGroup");
   
@@ -107,10 +116,11 @@ BOOST_AUTO_TEST_CASE(NoteTable_apitest)
 // BOOST_AUTO_TEST_CASE(NoteTable_diskcheck)
 // {
 //   // Test the note create / remove / etc. interfaces
+//   path h5filepath = test_binary_path / "NoteTable_diskcheck.h5";
 
 //   // create a temp file
 //   H5::H5File::H5File * h5file 
-//     = new H5::H5File::H5File("NoteTable_diskcheck.h5", H5F_ACC_TRUNC); 
+//     = new H5::H5File::H5File(h5filepath.string(), H5F_ACC_TRUNC); 
 
 //   H5::Group grp = h5file->createGroup("testGroup");
   
@@ -143,7 +153,8 @@ BOOST_AUTO_TEST_CASE(NoteTable_apitest)
 //   h5file->close(); 
 //   delete h5file; 
 
-//   int retval = std::system("python NoteTable_test.py diskcheck");
+//   int retval = run_standard_py_script("NoteTable_test.py", 
+// 				      "diskcheck"); 
 //   BOOST_CHECK_EQUAL(retval , 0); 
 
   

@@ -9,6 +9,8 @@
 #include "experiment.h"  
 #include "epoch.h"                   
 #include "h5experiment.h"
+#include "test_config.h"
+#include "test_util.h"
 
 using namespace soma; 
 using namespace boost;       
@@ -45,11 +47,13 @@ BOOST_AUTO_TEST_CASE(H5ExperimentRecording_simplesave )
   */
   
   std::string filename = "H5ExperimentRecording_simplesave.h5"; 
-  filesystem::remove_all(filename); 
+  path h5filepath = test_binary_path / filename; 
+
+  filesystem::remove_all(h5filepath); 
 
   // separate block to get delete called on object
   pNetworkInterface_t pfn(new FakeNetwork()); 
-  recorder::pExperiment_t pExp = recorder::H5Experiment::create(pfn, filename); 
+  recorder::pExperiment_t pExp = recorder::H5Experiment::create(pfn, h5filepath); 
   
   recorder::pEpoch_t epoch  = pExp->createEpoch("Rose"); 
   epoch->enableDataSink(0, TSPIKE); 
@@ -65,7 +69,9 @@ BOOST_AUTO_TEST_CASE(H5ExperimentRecording_simplesave )
   epoch->stopRecording(); 
   pExp->close(); 
 
-  int retval = std::system("python H5Experiment_recording.py simplesave");
+  int retval = run_standard_py_script("H5Experiment_recording.py", 
+				      "simplesave"); 
+
   BOOST_CHECK_EQUAL(retval , 0); 
 
 }
@@ -77,11 +83,12 @@ BOOST_AUTO_TEST_CASE(H5ExperimentRecording_saveswitch )
   */
   
   std::string filename = "H5ExperimentRecording_saveswitch.h5"; 
-  filesystem::remove_all(filename); 
+  path h5filepath = test_binary_path / filename; 
+  filesystem::remove_all(h5filepath); 
 
   // separate block to get delete called on object
   pNetworkInterface_t pfn(new FakeNetwork()); 
-  recorder::pExperiment_t pExp = recorder::H5Experiment::create(pfn, filename); 
+  recorder::pExperiment_t pExp = recorder::H5Experiment::create(pfn, h5filepath); 
   
   recorder::pEpoch_t epochR  = pExp->createEpoch("Rose"); 
   epochR->enableDataSink(0, TSPIKE); 
@@ -106,7 +113,9 @@ BOOST_AUTO_TEST_CASE(H5ExperimentRecording_saveswitch )
   epochD->stopRecording(); 
   pExp->close(); 
 
-  int retval = std::system("python H5Experiment_recording.py saveswitch");
+  int retval = run_standard_py_script("H5Experiment_recording.py", 
+				      "saveswitch"); 
+
   BOOST_CHECK_EQUAL(retval , 0); 
 
 }
@@ -120,10 +129,12 @@ BOOST_AUTO_TEST_CASE(H5ExperimentRecording_datasets )
   */
   
   std::string filename = "H5ExperimentRecording_datasets.h5"; 
-  filesystem::remove_all(filename); 
+  path h5filepath = test_binary_path / filename; 
+
+  filesystem::remove_all(h5filepath); 
 
   pNetworkInterface_t pfn(new FakeNetwork()); 
-  recorder::pExperiment_t pExp = recorder::H5Experiment::create(pfn, filename); 
+  recorder::pExperiment_t pExp = recorder::H5Experiment::create(pfn, h5filepath); 
 
   
   recorder::pEpoch_t epochR  = pExp->createEpoch("Rose"); 
@@ -161,7 +172,9 @@ BOOST_AUTO_TEST_CASE(H5ExperimentRecording_datasets )
   epochD->stopRecording(); 
   pExp->close(); 
 
-  int retval = std::system("python H5Experiment_recording.py datasets");
+  int retval = run_standard_py_script("H5Experiment_recording.py", 
+				      "datasets"); 
+
   BOOST_CHECK_EQUAL(retval , 0); 
 
 }
@@ -175,11 +188,13 @@ BOOST_AUTO_TEST_CASE(H5ExperimentRecording_sessiontest )
   */
   
   std::string filename = "H5ExperimentRecording_sessiontest.h5"; 
-  filesystem::remove_all(filename); 
+  path h5filepath = test_binary_path / filename; 
+
+  filesystem::remove_all(h5filepath); 
 
   // separate block to get delete called on object
   pNetworkInterface_t pfn(new FakeNetwork()); 
-  recorder::pExperiment_t pExp = recorder::H5Experiment::create(pfn, filename); 
+  recorder::pExperiment_t pExp = recorder::H5Experiment::create(pfn, h5filepath); 
   
   recorder::pEpoch_t epoch  = pExp->createEpoch("Rose"); 
   epoch->enableDataSink(0, TSPIKE); 
@@ -216,7 +231,9 @@ BOOST_AUTO_TEST_CASE(H5ExperimentRecording_sessiontest )
 
   pExp->close(); 
 
-  int retval = std::system("python H5Experiment_recording.py sessiontest");
+  int retval = run_standard_py_script("H5Experiment_recording.py", 
+				      "sessiontest"); 
+
   BOOST_CHECK_EQUAL(retval , 0); 
 
 }
@@ -231,11 +248,11 @@ BOOST_AUTO_TEST_CASE(H5ExperimentRecording_sessiontest )
 //   */
   
 //   std::string filename = "H5ExperimentRecording_stats.h5"; 
-//   filesystem::remove_all(filename); 
+//   filesystem::remove_all(h5filepath); 
 
 //   // separate block to get delete called on object
 //   pFakeNetwork_t pfn(new FakeNetwork()); 
-//   recorder::pExperiment_t pExp = recorder::H5Experiment::create(pfn, filename); 
+//   recorder::pExperiment_t pExp = recorder::H5Experiment::create(pfn, h5filepath); 
   
 //   recorder::pEpoch_t epoch  = pExp->createEpoch("Rose"); 
 //   epoch->enableDataSink(0, TSPIKE); 
@@ -287,10 +304,12 @@ BOOST_AUTO_TEST_CASE(H5ExperimentRecording_epochrename )
   */
   
   std::string filename = "H5ExperimentRecording_epochrename.h5"; 
-  filesystem::remove_all(filename); 
+  path h5filepath = test_binary_path / filename; 
+
+  filesystem::remove_all(h5filepath); 
 
   pNetworkInterface_t pfn(new FakeNetwork()); 
-  recorder::pExperiment_t pExp = recorder::H5Experiment::create(pfn, filename); 
+  recorder::pExperiment_t pExp = recorder::H5Experiment::create(pfn, h5filepath); 
 
   
   recorder::pEpoch_t epochR  = pExp->createEpoch("Rose"); 
@@ -328,7 +347,9 @@ BOOST_AUTO_TEST_CASE(H5ExperimentRecording_epochrename )
   epochD->stopRecording(); 
   pExp->close(); 
 
-  int retval = std::system("python H5Experiment_recording.py epochrename");
+  int retval = run_standard_py_script("H5Experiment_recording.py", 
+				      "epochrename"); 
+
   BOOST_CHECK_EQUAL(retval , 0); 
 
 }

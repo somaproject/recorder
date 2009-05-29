@@ -57,6 +57,47 @@ edit_cache:
 edit_cache/fast: edit_cache
 .PHONY : edit_cache/fast
 
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/local/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/local/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/usr/local/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: install/local
+.PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/usr/local/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: install/strip
+.PHONY : install/strip/fast
+
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
@@ -123,25 +164,25 @@ experiment_core/fast:
 .PHONY : experiment_core/fast
 
 # Convenience name for target.
-experiment/CMakeFiles/soma-experiment.dir/rule:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 experiment/CMakeFiles/soma-experiment.dir/rule
-.PHONY : experiment/CMakeFiles/soma-experiment.dir/rule
+experiment/CMakeFiles/soma-recorder-experiment.dir/rule:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 experiment/CMakeFiles/soma-recorder-experiment.dir/rule
+.PHONY : experiment/CMakeFiles/soma-recorder-experiment.dir/rule
 
 # Convenience name for target.
-soma-experiment: experiment/CMakeFiles/soma-experiment.dir/rule
-.PHONY : soma-experiment
+soma-recorder-experiment: experiment/CMakeFiles/soma-recorder-experiment.dir/rule
+.PHONY : soma-recorder-experiment
 
 # fast build rule for target.
-soma-experiment/fast:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/build
-.PHONY : soma-experiment/fast
+soma-recorder-experiment/fast:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-recorder-experiment.dir/build.make experiment/CMakeFiles/soma-recorder-experiment.dir/build
+.PHONY : soma-recorder-experiment/fast
 
 dbusepoch.o: dbusepoch.cc.o
 .PHONY : dbusepoch.o
 
 # target to build an object file
 dbusepoch.cc.o:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/dbusepoch.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-recorder-experiment.dir/build.make experiment/CMakeFiles/soma-recorder-experiment.dir/dbusepoch.cc.o
 .PHONY : dbusepoch.cc.o
 
 dbusepoch.i: dbusepoch.cc.i
@@ -149,7 +190,7 @@ dbusepoch.i: dbusepoch.cc.i
 
 # target to preprocess a source file
 dbusepoch.cc.i:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/dbusepoch.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-recorder-experiment.dir/build.make experiment/CMakeFiles/soma-recorder-experiment.dir/dbusepoch.cc.i
 .PHONY : dbusepoch.cc.i
 
 dbusepoch.s: dbusepoch.cc.s
@@ -157,7 +198,7 @@ dbusepoch.s: dbusepoch.cc.s
 
 # target to generate assembly for a file
 dbusepoch.cc.s:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/dbusepoch.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-recorder-experiment.dir/build.make experiment/CMakeFiles/soma-recorder-experiment.dir/dbusepoch.cc.s
 .PHONY : dbusepoch.cc.s
 
 dbusexperiment.o: dbusexperiment.cc.o
@@ -165,7 +206,7 @@ dbusexperiment.o: dbusexperiment.cc.o
 
 # target to build an object file
 dbusexperiment.cc.o:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/dbusexperiment.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-recorder-experiment.dir/build.make experiment/CMakeFiles/soma-recorder-experiment.dir/dbusexperiment.cc.o
 .PHONY : dbusexperiment.cc.o
 
 dbusexperiment.i: dbusexperiment.cc.i
@@ -173,7 +214,7 @@ dbusexperiment.i: dbusexperiment.cc.i
 
 # target to preprocess a source file
 dbusexperiment.cc.i:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/dbusexperiment.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-recorder-experiment.dir/build.make experiment/CMakeFiles/soma-recorder-experiment.dir/dbusexperiment.cc.i
 .PHONY : dbusexperiment.cc.i
 
 dbusexperiment.s: dbusexperiment.cc.s
@@ -181,7 +222,7 @@ dbusexperiment.s: dbusexperiment.cc.s
 
 # target to generate assembly for a file
 dbusexperiment.cc.s:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/dbusexperiment.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-recorder-experiment.dir/build.make experiment/CMakeFiles/soma-recorder-experiment.dir/dbusexperiment.cc.s
 .PHONY : dbusexperiment.cc.s
 
 dbusrecordermanager.o: dbusrecordermanager.cc.o
@@ -189,7 +230,7 @@ dbusrecordermanager.o: dbusrecordermanager.cc.o
 
 # target to build an object file
 dbusrecordermanager.cc.o:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/dbusrecordermanager.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-recorder-experiment.dir/build.make experiment/CMakeFiles/soma-recorder-experiment.dir/dbusrecordermanager.cc.o
 .PHONY : dbusrecordermanager.cc.o
 
 dbusrecordermanager.i: dbusrecordermanager.cc.i
@@ -197,7 +238,7 @@ dbusrecordermanager.i: dbusrecordermanager.cc.i
 
 # target to preprocess a source file
 dbusrecordermanager.cc.i:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/dbusrecordermanager.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-recorder-experiment.dir/build.make experiment/CMakeFiles/soma-recorder-experiment.dir/dbusrecordermanager.cc.i
 .PHONY : dbusrecordermanager.cc.i
 
 dbusrecordermanager.s: dbusrecordermanager.cc.s
@@ -205,7 +246,7 @@ dbusrecordermanager.s: dbusrecordermanager.cc.s
 
 # target to generate assembly for a file
 dbusrecordermanager.cc.s:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/dbusrecordermanager.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-recorder-experiment.dir/build.make experiment/CMakeFiles/soma-recorder-experiment.dir/dbusrecordermanager.cc.s
 .PHONY : dbusrecordermanager.cc.s
 
 eventmaskset.o: eventmaskset.cc.o
@@ -261,7 +302,7 @@ experimentmain.o: experimentmain.cc.o
 
 # target to build an object file
 experimentmain.cc.o:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/experimentmain.cc.o
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-recorder-experiment.dir/build.make experiment/CMakeFiles/soma-recorder-experiment.dir/experimentmain.cc.o
 .PHONY : experimentmain.cc.o
 
 experimentmain.i: experimentmain.cc.i
@@ -269,7 +310,7 @@ experimentmain.i: experimentmain.cc.i
 
 # target to preprocess a source file
 experimentmain.cc.i:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/experimentmain.cc.i
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-recorder-experiment.dir/build.make experiment/CMakeFiles/soma-recorder-experiment.dir/experimentmain.cc.i
 .PHONY : experimentmain.cc.i
 
 experimentmain.s: experimentmain.cc.s
@@ -277,7 +318,7 @@ experimentmain.s: experimentmain.cc.s
 
 # target to generate assembly for a file
 experimentmain.cc.s:
-	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-experiment.dir/build.make experiment/CMakeFiles/soma-experiment.dir/experimentmain.cc.s
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f experiment/CMakeFiles/soma-recorder-experiment.dir/build.make experiment/CMakeFiles/soma-recorder-experiment.dir/experimentmain.cc.s
 .PHONY : experimentmain.cc.s
 
 h5epoch.o: h5epoch.cc.o
@@ -432,8 +473,12 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... experiment_core"
+	@echo "... install"
+	@echo "... install/local"
+	@echo "... install/strip"
+	@echo "... list_install_components"
 	@echo "... rebuild_cache"
-	@echo "... soma-experiment"
+	@echo "... soma-recorder-experiment"
 	@echo "... test"
 	@echo "... dbusepoch.o"
 	@echo "... dbusepoch.i"

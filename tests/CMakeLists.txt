@@ -2,6 +2,10 @@ include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${EXPDEPS_INCLUDE_DIRS})
 include_directories(${HDF5_INCLUDE_DIRS})
 
+add_library(test_util
+  test_util.cc
+)
+
 add_executable(H5FileCreate_test
   runner.cc
   H5FileCreate.cc
@@ -59,6 +63,7 @@ foreach(testname ${testlist})
   
   target_link_libraries(${testname}
     experiment_core
+    test_util
     ${Boost_LIBRARIES} 
     ${EXPDEPS_LIBRARIES}
     )
@@ -66,4 +71,13 @@ foreach(testname ${testlist})
   ADD_TEST(${testname} ${testname})
 
 endforeach(testname)
+
+
+SET(TEST_SOURCE_PATH "${PROJECT_SOURCE_DIR}/tests")
+SET(TEST_BINARY_PATH "${PROJECT_BINARY_DIR}/tests")
+
+CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/tests/test_config.h.in
+  ${PROJECT_BINARY_DIR}/tests/test_config.h)
+include_directories("${PROJECT_BINARY_DIR}/tests")
+
 

@@ -1,3 +1,4 @@
+#include <boost/filesystem/operations.hpp>
 #include "dbusexperiment.h"
 #include "dbusepoch.h"
 #include "h5experiment.h"
@@ -20,10 +21,12 @@ DBUSExperiment::DBUSExperiment(DBus::Connection & connection,
     logdbus_(log4cpp::Category::getInstance("soma.recording.experiment.dbus"))
 
 {
+  boost::filesystem::path filepath(filename); 
+
   if (create) {
-    pExperiment_ = H5Experiment::create(pNetwork_, filename); 
+    pExperiment_ = H5Experiment::create(pNetwork_, filepath); 
   } else {
-    pExperiment_ = H5Experiment::open(pNetwork_, filename); 
+    pExperiment_ = H5Experiment::open(pNetwork_, filepath); 
   }
   
   // now get all of the epochs that might exist with the file, and

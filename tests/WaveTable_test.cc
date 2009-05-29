@@ -5,6 +5,9 @@
 #include <iostream>                        
 #include <fstream>
 #include "wavetable.h"
+#include "test_config.h"
+#include "test_util.h"
+
 using namespace soma; 
 using  namespace boost;       
 using namespace boost::filesystem; 
@@ -15,9 +18,11 @@ BOOST_AUTO_TEST_SUITE(WaveTableTest);
 BOOST_AUTO_TEST_CASE(WaveTable_create)
 {
   using namespace somanetwork; 
+  path h5filepath = test_binary_path / "WaveTable_create.h5"; 
+
   // create a temp file
   H5::H5File::H5File * h5file 
-    = new H5::H5File::H5File("WaveTable_create.h5", H5F_ACC_TRUNC); 
+    = new H5::H5File::H5File(h5filepath.string(), H5F_ACC_TRUNC); 
 
   H5::Group grp = h5file->createGroup("testGroup");
   
@@ -27,8 +32,8 @@ BOOST_AUTO_TEST_CASE(WaveTable_create)
 
   h5file->close(); 
   delete h5file; 
-
-  int retval = std::system("python WaveTable_test.py create");
+  int retval = run_standard_py_script("WaveTable_test.py", 
+				      "create"); 
   BOOST_CHECK_EQUAL(retval , 0); 
 
 }
@@ -37,8 +42,10 @@ BOOST_AUTO_TEST_CASE(WaveTable_append)
 {
   using namespace somanetwork; 
   // create a temp file
+  path h5filepath = test_binary_path / "WaveTable_append.h5"; 
+
   H5::H5File::H5File * h5file 
-    = new H5::H5File::H5File("WaveTable_append.h5", H5F_ACC_TRUNC); 
+    = new H5::H5File::H5File(h5filepath.string(), H5F_ACC_TRUNC); 
 
   H5::Group grp = h5file->createGroup("testGroup");
   
@@ -78,7 +85,8 @@ BOOST_AUTO_TEST_CASE(WaveTable_append)
   delete h5file; 
 
 
-  int retval = std::system("python WaveTable_test.py append");
+  int retval = run_standard_py_script("WaveTable_test.py", 
+				      "append"); 
   BOOST_CHECK_EQUAL(retval , 0); 
 
 }

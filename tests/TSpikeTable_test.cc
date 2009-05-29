@@ -7,6 +7,8 @@
 #include <fstream>
 
 #include "tspiketable.h"
+#include "test_config.h"
+#include "test_util.h"
 
 using namespace soma; 
 
@@ -19,8 +21,10 @@ BOOST_AUTO_TEST_SUITE(TSpikeTableTest);
 BOOST_AUTO_TEST_CASE(TSpikeTable_create)
 {
   // create a temp file
+  path h5filepath = test_binary_path / "TSpikeTable_create.h5"; 
+
   H5::H5File::H5File * h5file 
-    = new H5::H5File::H5File("TSpikeTable_create.h5", H5F_ACC_TRUNC); 
+    = new H5::H5File::H5File(h5filepath.string(), H5F_ACC_TRUNC); 
   H5::Group grp = h5file->createGroup("testGroup");
   
   int SRC = 17; 
@@ -29,8 +33,9 @@ BOOST_AUTO_TEST_CASE(TSpikeTable_create)
   h5file->close(); 
   delete h5file; 
   
-  
-  int retval = std::system("python TSpikeTable_test.py create");
+  int retval = run_standard_py_script("TSpikeTable_test.py", 
+				      "create"); 
+
   BOOST_CHECK_EQUAL(retval , 0); 
   
 }
@@ -40,8 +45,10 @@ BOOST_AUTO_TEST_CASE(TSpikeTable_append)
   using namespace somanetwork; 
 
   // create a temp file
+  path h5filepath = test_binary_path / "TSpikeTable_append.h5"; 
+
   H5::H5File::H5File * h5file =
-    new H5::H5File::H5File("TSpikeTable_append.h5", H5F_ACC_TRUNC);
+    new H5::H5File::H5File(h5filepath.string(), H5F_ACC_TRUNC);
 
   H5::Group grp = h5file->createGroup("testGroup");
   
@@ -84,7 +91,9 @@ BOOST_AUTO_TEST_CASE(TSpikeTable_append)
   // verify the table
   
 
-  int retval = std::system("python TSpikeTable_test.py append");
+  int retval = run_standard_py_script("TSpikeTable_test.py", 
+				      "append"); 
+
   BOOST_CHECK_EQUAL(retval , 0); 
 
 }

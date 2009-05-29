@@ -5,7 +5,7 @@ PROJECT(tspikes)
 find_package(Boost 1.37.0 COMPONENTS 
   thread unit_test_framework filesystem program_options system REQUIRED)
 find_package(PkgConfig)
-set(CMAKE_MODULE_PATH CMake)
+set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake)
 
 find_package(HDF5 REQUIRED)
 
@@ -22,5 +22,5 @@ include_directories(experiment)
 
 ENABLE_TESTING()
 add_subdirectory(experiment)
-add_subdirectory(unittest)
+add_subdirectory(tests)
 add_subdirectory(benchmarks)

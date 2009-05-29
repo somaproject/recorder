@@ -9,14 +9,15 @@ The first argument is the name of the test to run
 
 import tables
 import sys
+import os
 
 def typecheck(t, name, type):
     assert isinstance(t.coldescrs[name], type)
         
     
 
-def simplesave_test():
-    f = tables.openFile('H5ExperimentRecording_simplesave.h5')
+def simplesave_test(filepath):
+    f = tables.openFile(os.path.join(filepath, 'H5ExperimentRecording_simplesave.h5'))
     g = f.root.Rose
     t = f.root.Rose.TSpike.Sink0
     assert len(t.read()) == 10;
@@ -27,8 +28,8 @@ def simplesave_test():
     f.close()
     
         
-def saveswitch_test():
-    t = tables.openFile('H5ExperimentRecording_saveswitch.h5')
+def saveswitch_test(filepath):
+    t = tables.openFile(os.path.join(filepath, 'H5ExperimentRecording_saveswitch.h5'))
     tR = t.root.Rose.TSpike.Sink0
     tD = t.root.Donna.TSpike.Sink0
     assert len(tR.read()) == 10;
@@ -43,8 +44,8 @@ def saveswitch_test():
         pos += 1
     t.close()
     
-def datasets_test():
-    t = tables.openFile('H5ExperimentRecording_datasets.h5')
+def datasets_test(filepath):
+    t = tables.openFile(os.path.join(filepath, 'H5ExperimentRecording_datasets.h5'))
     rdata = [0, 1, 2]
     ddata = [2, 3, 4]
 
@@ -67,8 +68,8 @@ def datasets_test():
             pos += 1
     t.close()
 
-def epochrename_test():
-    t = tables.openFile('H5ExperimentRecording_epochrename.h5')
+def epochrename_test(filepath):
+    t = tables.openFile(os.path.join(filepath, 'H5ExperimentRecording_epochrename.h5'))
     rdata = [0, 1, 2]
     ddata = [0]
 
@@ -92,15 +93,15 @@ def epochrename_test():
     t.close()
 
 
-def session_test():
-    f = tables.openFile('H5ExperimentRecording_sessiontest.h5')
+def session_test(filepath):
+    f = tables.openFile(os.path.join(filepath, 'H5ExperimentRecording_sessiontest.h5'))
     g = f.root.Rose
     t = f.root.Rose.TSpike.Sink0
     # FIXME NEED REAL TEST HERE
     f.close()
     
-def stats_test():
-    f = tables.openFile('H5ExperimentRecording_stats.h5')
+def stats_test(filepath):
+    f = tables.openFile(os.path.join(filepath, 'H5ExperimentRecording_stats.h5'))
     g = f.root.Rose
     t = f.root.Rose.TSpike.Sink0
     # FIXME NEED REAL TEST HERE
@@ -110,16 +111,16 @@ def stats_test():
     
 if __name__ == "__main__":
     if sys.argv[1] == "simplesave":
-        simplesave_test()
+        simplesave_test(sys.argv[2])
     elif sys.argv[1] == "saveswitch":
-        saveswitch_test()
+        saveswitch_test(sys.argv[2])
     elif sys.argv[1] == "sessiontest":
-        session_test()
+        session_test(sys.argv[2])
     elif sys.argv[1] == "statstest":
-        stats_test()
+        stats_test(sys.argv[2])
     elif sys.argv[1] == "datasets":
-        datasets_test()
+        datasets_test(sys.argv[2])
     elif sys.argv[1] == "epochrename":
-        epochrename_test()
+        epochrename_test(sys.argv[2])
         
         

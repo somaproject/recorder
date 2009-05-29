@@ -11,6 +11,8 @@
 #include "experiment.h"  
 #include "epoch.h"                   
 #include "h5experiment.h"
+#include "test_config.h"
+#include "test_util.h"
 
 using namespace soma; 
 using namespace boost;       
@@ -24,16 +26,17 @@ BOOST_AUTO_TEST_CASE(H5Experiment_filecreate )
   // Test if file creation works; 
   
   std::string filename = "H5Experiment_filecreate.h5"; 
-  filesystem::remove_all(filename); 
+  path h5filepath = test_binary_path / filename; 
+
+  filesystem::remove_all(h5filepath); 
   {
     // separate block to get delete called on object
     pNetworkInterface_t pfn(new FakeNetwork()); 
-    recorder::H5Experiment::create(pfn, filename); 
+    recorder::H5Experiment::create(pfn, h5filepath); 
 
   }
   // confirm existence of file
-  path p(filename); 
-  BOOST_CHECK( exists(p) );
+  BOOST_CHECK( exists(h5filepath) );
   
 }
 
@@ -43,13 +46,14 @@ BOOST_AUTO_TEST_CASE(H5FileInterface_filecreateexists )
   // Test if file creation fails when the file exists
   
   std::string filename = "H5Experiment_filecreate_exist.h5"; 
+  path h5filepath = test_binary_path / filename; 
   // create the file
-  std::ofstream file(filename.c_str() );
+  std::ofstream file(h5filepath.string().c_str() );
   file << "test output"; 
   file.close(); 
   pNetworkInterface_t pfn(new FakeNetwork()); 
     
-  BOOST_CHECK_THROW(recorder::H5Experiment::create(pfn, filename), 
+  BOOST_CHECK_THROW(recorder::H5Experiment::create(pfn, h5filepath), 
 		    std::runtime_error); 
 }
 
@@ -60,21 +64,22 @@ BOOST_AUTO_TEST_CASE(H5FileInterface_fileopen )
   // Test if file opening works
   
   std::string filename = "H5FileInterface_fileopen.h5"; 
-  H5::H5File * h5f = new H5::H5File(filename,  H5F_ACC_TRUNC); 
+  path h5filepath = test_binary_path / filename; 
+  H5::H5File * h5f = new H5::H5File(h5filepath.string(),  H5F_ACC_TRUNC); 
   h5f->close(); 
   delete h5f; 
 
-  path p(filename); 
   
-  BOOST_CHECK( exists(p) ); // verify our create was successful. 
+  BOOST_CHECK( exists(h5filepath) ); // verify our create was successful. 
   // separate block to get delete called on object
 
   pNetworkInterface_t pfn(new FakeNetwork()); 
 
   recorder::pExperiment_t pFI =
-    recorder::H5Experiment::open(pfn, filename); 
+    recorder::H5Experiment::open(pfn, h5filepath); 
   
-  BOOST_CHECK_THROW(recorder::H5Experiment::open(pfn, filename + "ERROR"), 
+  path h5fileerr = test_binary_path / (filename + "ERROR"); 
+  BOOST_CHECK_THROW(recorder::H5Experiment::open(pfn, h5fileerr), 
 		    std::runtime_error)
   
 }
@@ -82,14 +87,16 @@ BOOST_AUTO_TEST_CASE(H5FileInterface_fileopen )
 
 BOOST_AUTO_TEST_CASE(H5FileInterface_fileopennotexists)
 {
-  // Test if file creation fails when the file exists
+  // Test if file open fails when the file doesn't exist
   
   std::string filename = "H5FileInterface_fileopen.h5"; 
-  filesystem::remove_all(filename); 
+  path h5filepath = test_binary_path / filename; 
+
+  filesystem::remove_all(h5filepath); 
   
   pNetworkInterface_t pfn(new FakeNetwork()); 
 
-  BOOST_CHECK_THROW(recorder::H5Experiment::open(pfn, filename), 
+  BOOST_CHECK_THROW(recorder::H5Experiment::open(pfn, h5filepath), 
 		    std::runtime_error); 
 }
 		     
@@ -110,13 +117,14 @@ BOOST_AUTO_TEST_CASE(H5Experiment_epochnums )
   */
   
   std::string filename = "H5Experiment_epochmanip.h5"; 
-  filesystem::remove_all(filename); 
+  path h5filepath = test_binary_path / filename; 
+  filesystem::remove_all(h5filepath); 
 
   // separate block to get delete called on object
   pNetworkInterface_t pfn(new FakeNetwork()); 
 
   recorder::pExperiment_t pExp =
-    recorder::H5Experiment::create(pfn, filename); 
+    recorder::H5Experiment::create(pfn, h5filepath); 
   
   typedef std::vector<std::string > svect_t;
   typedef std::vector<recorder::pEpoch_t> evect_t; 
@@ -161,7 +169,7 @@ BOOST_AUTO_TEST_CASE(H5Experiment_epochnums )
   
   // now try and reopen it
   H5::H5File newfile; 
-  newfile.openFile(filename, H5F_ACC_RDWR); 
+  newfile.openFile(h5filepath.string(), H5F_ACC_RDWR); 
   // now count the number of children -- should just be notes, i.e. 1
   BOOST_CHECK_EQUAL(newfile.getNumObjs(), 1); 
 
@@ -233,13 +241,15 @@ BOOST_AUTO_TEST_CASE(H5Experiment_epochrename )
   */
   
   std::string filename = "H5Experiment_epochrename.h5"; 
-  filesystem::remove_all(filename); 
+  path h5filepath = test_binary_path / "TSpikeTable_create.h5"; 
+
+  filesystem::remove_all(h5filepath); 
   {
   // separate block to get delete called on object
   pNetworkInterface_t pfn(new FakeNetwork()); 
 
   recorder::pExperiment_t pExp =
-    recorder::H5Experiment::create(pfn, filename); 
+    recorder::H5Experiment::create(pfn, h5filepath); 
   
   typedef std::vector<std::string > svect_t;
   typedef std::vector<recorder::pEpoch_t> evect_t; 
@@ -295,7 +305,7 @@ BOOST_AUTO_TEST_CASE(H5Experiment_epochrename )
   }
   // now try and reopen it
   H5::H5File newfile; 
-  newfile.openFile(filename, H5F_ACC_RDWR); 
+  newfile.openFile(h5filepath.string(), H5F_ACC_RDWR); 
   // now count the number of children -- should be just the notes
   BOOST_CHECK_EQUAL(newfile.getNumObjs(), 1); 
 

@@ -9,6 +9,7 @@
 #include <boost/ptr_container/ptr_map.hpp>
 #include <boost/enable_shared_from_this.hpp>
 #include <boost/utility.hpp>
+#include <boost/filesystem/operations.hpp>
 #include <somanetwork/network.h>
 #include <somanetwork/datapacket.h>
 #include <somanetwork/event.h>
@@ -32,7 +33,7 @@ namespace soma {
     class H5Experiment : public Experiment,  
 			 public boost::enable_shared_from_this<H5Experiment>
     {
-      typedef string filename_t; 
+      typedef boost::filesystem::path filename_t; 
     public:
 
       static pExperiment_t create(pNetworkInterface_t pn, filename_t expfilename); 

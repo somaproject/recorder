@@ -5,6 +5,7 @@
 #include <iostream>   
 #include <somanetwork/event.h>
 #include "eventmaskset.h"
+#include "test_config.h"
 
 using namespace soma; 
 using namespace soma::recorder; 

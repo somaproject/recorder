@@ -7,10 +7,10 @@ import dbus.bus
 import time
 import tables
 import socket
+import recorder_test_config
 
 dbusDaemon = None
 
-soma_experiment_binary = "../../src/soma-experiment"
 
 def setup():
     global dbusDaemon
@@ -45,7 +45,7 @@ def start_experiment(dbusDaemon):
     sock_eventtx = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
     sock_eventtx.bind("%s/eventtx" % tfdir)
     
-    args = [soma_experiment_binary,
+    args = [recorder_test_config.soma_experiment_binary,
             "--create-file=%s" % filename,
             "--domain-socket-dir=%s" % tfdir,
             "--request-dbus-name=%s" % "soma.recording.Experiment",

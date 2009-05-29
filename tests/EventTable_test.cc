@@ -1,10 +1,14 @@
 
 #include <boost/test/auto_unit_test.hpp>
 #include "boost/filesystem/operations.hpp"
-#include "boost/filesystem/fstream.hpp"   
+#include "boost/filesystem/fstream.hpp" 
 #include <iostream>                        
 #include <fstream>
 #include "eventtable.h"
+#include <boost/format.hpp>  
+#include "test_config.h"
+#include "test_util.h"
+
 using namespace soma; 
 using  namespace boost;       
 using namespace boost::filesystem; 
@@ -16,8 +20,9 @@ BOOST_AUTO_TEST_CASE(EventTable_create)
 {
   using namespace somanetwork; 
   // create a temp file
+  path h5filepath = test_binary_path / "EventTable_create.h5"; 
   H5::H5File::H5File * h5file 
-    = new H5::H5File::H5File("EventTable_create.h5", H5F_ACC_TRUNC); 
+    = new H5::H5File::H5File(h5filepath.string(), H5F_ACC_TRUNC); 
 
   H5::Group grp = h5file->createGroup("testGroup");
   
@@ -26,8 +31,9 @@ BOOST_AUTO_TEST_CASE(EventTable_create)
 
   h5file->close(); 
   delete h5file; 
+  int retval = run_standard_py_script("EventTable_test.py", 
+				      "create"); 
 
-  int retval = std::system("python EventTable_test.py create");
   BOOST_CHECK_EQUAL(retval , 0); 
 
 }
@@ -37,8 +43,10 @@ BOOST_AUTO_TEST_CASE(EventTable_append)
   using namespace somanetwork; 
 
   // create a temp file
+  path h5filepath = test_binary_path / "EventTable_append.h5"; 
+
   H5::H5File::H5File * h5file 
-    = new H5::H5File::H5File("EventTable_append.h5", H5F_ACC_TRUNC); 
+    = new H5::H5File::H5File(h5filepath.string(), H5F_ACC_TRUNC); 
   
   H5::Group grp = h5file->createGroup("testGroup");
   
@@ -73,7 +81,9 @@ BOOST_AUTO_TEST_CASE(EventTable_append)
   delete h5file; 
 
 
-  int retval = std::system("python EventTable_test.py append");
+  int retval = run_standard_py_script("EventTable_test.py", 
+				      "append"); 
+
   BOOST_CHECK_EQUAL(retval , 0); 
   
 
@@ -83,12 +93,12 @@ BOOST_AUTO_TEST_CASE(EventTable_closeopen_Eventtest)
 {
   // create a temp file
   using namespace somanetwork; 
+  
+  path h5filepath = test_binary_path / "EventTable_closeopeneventtest.h5"; 
 
   {
-
-
   H5::H5File::H5File * h5file 
-    = new H5::H5File::H5File("EventTable_closeopeneventtest.h5", H5F_ACC_TRUNC); 
+    = new H5::H5File::H5File(h5filepath.string(), H5F_ACC_TRUNC); 
   
   H5::Group grp = h5file->createGroup("testGroup");
 
@@ -113,7 +123,7 @@ BOOST_AUTO_TEST_CASE(EventTable_closeopen_Eventtest)
 
   // now open
   H5::H5File hf; 
-  hf.openFile("EventTable_closeopeneventtest.h5", H5F_ACC_RDWR); 
+  hf.openFile(h5filepath.string(),  H5F_ACC_RDWR); 
   H5::Group grp = hf.openGroup("testGroup");
   
   recorder::pEventTable_t  tst = recorder::EventTable::open(grp); 
