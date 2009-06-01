@@ -4,21 +4,20 @@ To install you will need:
 
 dbus-c++
 -----------
-http://freedesktop.org/wiki/Software/dbus-c%2B%2B
 
-git clone git://anongit.freedesktop.org/git/dbus/dbus-c++/
+dbus-c++ are c++ bindings for DBus. See
+http://freedesktop.org/wiki/Software/dbus-c%2B%2B
 
 However, the existing freedesktop version has issues, so you'll want 
 the Soma fork: 
 
 http://github.com/somaproject/dbus-c--/tree/master
-Remember to configure with --enable-glib
 
+Remember to configure with --enable-glib
 
 log4cpp
 ------------
 now included with ubuntu!
-
 aptitude install liblog4cpp5-dev
 
 hdf5 1.8.x 

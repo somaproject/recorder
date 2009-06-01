@@ -15,8 +15,9 @@
 namespace soma {
   namespace recorder {
     class DBUSExperiment : 
-      public  soma::recording::Experiment, 
-      public  soma::recording::Notes, 
+      public  soma::recording::Experiment_adaptor, 
+      //public  soma::recording::Timeline_adaptor, 
+      public  soma::recording::Notes_adaptor, 
       public DBus::IntrospectableAdaptor,
       public DBus::ObjectAdaptor
 

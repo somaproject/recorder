@@ -19,7 +19,8 @@ public:
     Manager_proxy()
     : ::DBus::InterfaceProxy("soma.recording.Manager")
     {
-        connect_signal(Manager_proxy, experimentavailable, _experimentavailable_stub);
+        connect_signal(Manager_proxy, ExperimentAvailable, _ExperimentAvailable_stub);
+        connect_signal(Manager_proxy, StatsUpdate, _StatsUpdate_stub);
     }
 
 public:
@@ -30,10 +31,10 @@ public:
     /* methods exported by this interface,
      * this functions will invoke the corresponding methods on the remote objects
      */
-    std::vector< std::string > ListOpenExperiments()
+    std::vector< std::string > ListAvailableExperiments()
     {
         ::DBus::CallMessage call;
-        call.member("ListOpenExperiments");
+        call.member("ListAvailableExperiments");
         ::DBus::Message ret = invoke_method(call);
         ::DBus::MessageIter ri = ret.reader();
 
@@ -42,10 +43,10 @@ public:
         return argout;
     }
 
-    std::vector< std::string > ListAvailableExperiments()
+    std::vector< std::string > ListOpenExperiments()
     {
         ::DBus::CallMessage call;
-        call.member("ListAvailableExperiments");
+        call.member("ListOpenExperiments");
         ::DBus::Message ret = invoke_method(call);
         ::DBus::MessageIter ri = ret.reader();
 
@@ -91,18 +92,26 @@ public:
 
     /* signal handlers for this interface
      */
-    virtual void experimentavailable(const std::string& objconn) = 0;
+    virtual void ExperimentAvailable(const std::string& objconn) = 0;
+    virtual void StatsUpdate(const std::string& objconn) = 0;
 
 private:
 
     /* unmarshalers (to unpack the DBus message before calling the actual signal handler)
      */
-    void _experimentavailable_stub(const ::DBus::SignalMessage &sig)
+    void _ExperimentAvailable_stub(const ::DBus::SignalMessage &sig)
     {
         ::DBus::MessageIter ri = sig.reader();
 
         std::string objconn; ri >> objconn;
-        experimentavailable(objconn);
+        ExperimentAvailable(objconn);
+    }
+    void _StatsUpdate_stub(const ::DBus::SignalMessage &sig)
+    {
+        ::DBus::MessageIter ri = sig.reader();
+
+        std::string objconn; ri >> objconn;
+        StatsUpdate(objconn);
     }
 };
 

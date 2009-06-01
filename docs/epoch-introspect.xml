@@ -45,7 +45,7 @@
       <arg type="s" name="name" direction="out"/>
     </method>
 
-    <signal name="sinkchange">
+    <signal name="SinkChange">
       <arg name="sinksrc" type="i"/>
     </signal>
     
@@ -76,12 +76,9 @@
     </method>
     <!-- signal the recording state change for this epoch  -->
 
-    <signal name="recordingstate">
+    <signal name="RecordingState">
       <arg name="isRecording" type="b"/>
     </signal>
-    
-
   </interface>
-  
   
 </node>

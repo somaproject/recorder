@@ -52,7 +52,7 @@ if __name__ == "__main__":
             
         ef = soma_apps.recorder.ExperimentServerFactory(binname)
 
-    if !options.somaip:
+    if not options.somaip:
         raise Exception("must specify a soma IP")
     
     

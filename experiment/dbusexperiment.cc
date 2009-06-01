@@ -37,7 +37,7 @@ DBUSExperiment::DBUSExperiment(DBus::Connection & connection,
     DBUSEpoch * dbe = new DBUSEpoch(connection_, *ei, nextEpochDBusID_); 
     nextEpochDBusID_++; 
     dbusEpochs_.push_back(dbe); 
-    epochcreate(dbe->path()); 
+    EpochCreate(dbe->path()); 
   }
   
 }
@@ -77,7 +77,7 @@ DBus::Path DBUSExperiment::CreateEpoch( const std::string& name )
 
     dbusEpochs_.push_back(dbe); 
     
-    epochcreate(dbe->path()); 
+    EpochCreate(dbe->path()); 
     return dbe->path();   
 
   } catch (exception & e) {

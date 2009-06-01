@@ -7,24 +7,25 @@
 #define __dbusxx__dbusexperimentadaptor_h__ADAPTOR_MARSHAL_H
 
 #include <dbus-c++/dbus.h>
+
 namespace soma {
 namespace recording {
 
-class Experiment
+class Experiment_adaptor
 : public ::DBus::InterfaceAdaptor
 {
 public:
 
-    Experiment()
+    Experiment_adaptor()
     : ::DBus::InterfaceAdaptor("soma.recording.Experiment")
     {
-        register_method(Experiment, GetFileProperties, _GetFileProperties_stub);
-        register_method(Experiment, GetName, _GetName_stub);
-        register_method(Experiment, GetEpochs, _GetEpochs_stub);
-        register_method(Experiment, CreateEpoch, _CreateEpoch_stub);
-        register_method(Experiment, RenameEpoch, _RenameEpoch_stub);
-        register_method(Experiment, GetEpoch, _GetEpoch_stub);
-        register_method(Experiment, Close, _Close_stub);
+        register_method(Experiment_adaptor, GetFileProperties, _GetFileProperties_stub);
+        register_method(Experiment_adaptor, GetName, _GetName_stub);
+        register_method(Experiment_adaptor, GetEpochs, _GetEpochs_stub);
+        register_method(Experiment_adaptor, CreateEpoch, _CreateEpoch_stub);
+        register_method(Experiment_adaptor, RenameEpoch, _RenameEpoch_stub);
+        register_method(Experiment_adaptor, GetEpoch, _GetEpoch_stub);
+        register_method(Experiment_adaptor, Close, _Close_stub);
     }
 
     ::DBus::IntrospectedInterface *const introspect() const 
@@ -66,12 +67,12 @@ public:
         {
             { 0, 0, 0 }
         };
-        static ::DBus::IntrospectedArgument epochcreate_args[] = 
+        static ::DBus::IntrospectedArgument EpochCreate_args[] = 
         {
             { "objpath", "o", false },
             { 0, 0, 0 }
         };
-        static ::DBus::IntrospectedMethod Experiment_methods[] = 
+        static ::DBus::IntrospectedMethod Experiment_adaptor_methods[] = 
         {
             { "GetFileProperties", GetFileProperties_args },
             { "GetName", GetName_args },
@@ -82,23 +83,23 @@ public:
             { "Close", Close_args },
             { 0, 0 }
         };
-        static ::DBus::IntrospectedMethod Experiment_signals[] = 
+        static ::DBus::IntrospectedMethod Experiment_adaptor_signals[] = 
         {
-            { "epochcreate", epochcreate_args },
+            { "EpochCreate", EpochCreate_args },
             { 0, 0 }
         };
-        static ::DBus::IntrospectedProperty Experiment_properties[] = 
+        static ::DBus::IntrospectedProperty Experiment_adaptor_properties[] = 
         {
             { 0, 0, 0, 0 }
         };
-        static ::DBus::IntrospectedInterface Experiment_interface = 
+        static ::DBus::IntrospectedInterface Experiment_adaptor_interface = 
         {
             "soma.recording.Experiment",
-            Experiment_methods,
-            Experiment_signals,
-            Experiment_properties
+            Experiment_adaptor_methods,
+            Experiment_adaptor_signals,
+            Experiment_adaptor_properties
         };
-        return &Experiment_interface;
+        return &Experiment_adaptor_interface;
     }
 
 public:
@@ -124,9 +125,9 @@ public:
 
     /* signal emitters for this interface
      */
-    void epochcreate(const ::DBus::Path& arg1)
+    void EpochCreate(const ::DBus::Path& arg1)
     {
-        ::DBus::SignalMessage sig("epochcreate");
+        ::DBus::SignalMessage sig("EpochCreate");
         ::DBus::MessageIter wi = sig.writer();
         wi << arg1;
         emit_signal(sig);
@@ -147,7 +148,7 @@ private:
         return reply;
     }
     ::DBus::Message _GetName_stub(const ::DBus::CallMessage &call)
-  {
+    {
         ::DBus::MessageIter ri = call.reader();
 
         std::string argout1 = GetName();
@@ -212,19 +213,19 @@ private:
 namespace soma {
 namespace recording {
 
-class Notes
+class Notes_adaptor
 : public ::DBus::InterfaceAdaptor
 {
 public:
 
-    Notes()
+    Notes_adaptor()
     : ::DBus::InterfaceAdaptor("soma.recording.Notes")
     {
-        register_method(Notes, CreateNote, _CreateNote_stub);
-        register_method(Notes, GetNote, _GetNote_stub);
-        register_method(Notes, SetNote, _SetNote_stub);
-        register_method(Notes, DeleteNote, _DeleteNote_stub);
-        register_method(Notes, GetNotes, _GetNotes_stub);
+        register_method(Notes_adaptor, CreateNote, _CreateNote_stub);
+        register_method(Notes_adaptor, GetNote, _GetNote_stub);
+        register_method(Notes_adaptor, SetNote, _SetNote_stub);
+        register_method(Notes_adaptor, DeleteNote, _DeleteNote_stub);
+        register_method(Notes_adaptor, GetNotes, _GetNotes_stub);
     }
 
     ::DBus::IntrospectedInterface *const introspect() const 
@@ -263,7 +264,7 @@ public:
             { "nodehandles", "ai", false },
             { 0, 0, 0 }
         };
-        static ::DBus::IntrospectedMethod Notes_methods[] = 
+        static ::DBus::IntrospectedMethod Notes_adaptor_methods[] = 
         {
             { "CreateNote", CreateNote_args },
             { "GetNote", GetNote_args },
@@ -272,22 +273,22 @@ public:
             { "GetNotes", GetNotes_args },
             { 0, 0 }
         };
-        static ::DBus::IntrospectedMethod Notes_signals[] = 
+        static ::DBus::IntrospectedMethod Notes_adaptor_signals[] = 
         {
             { 0, 0 }
         };
-        static ::DBus::IntrospectedProperty Notes_properties[] = 
+        static ::DBus::IntrospectedProperty Notes_adaptor_properties[] = 
         {
             { 0, 0, 0, 0 }
         };
-        static ::DBus::IntrospectedInterface Notes_interface = 
+        static ::DBus::IntrospectedInterface Notes_adaptor_interface = 
         {
             "soma.recording.Notes",
-            Notes_methods,
-            Notes_signals,
-            Notes_properties
+            Notes_adaptor_methods,
+            Notes_adaptor_signals,
+            Notes_adaptor_properties
         };
-        return &Notes_interface;
+        return &Notes_adaptor_interface;
     }
 
 public:

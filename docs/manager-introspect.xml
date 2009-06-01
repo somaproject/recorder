@@ -3,11 +3,11 @@
 
   <interface name="soma.recording.Manager">
 
-    <method name="ListOpenExperiments">
+    <method name="ListAvailableExperiments">
       <arg type="as" name="results" direction="out"/>
     </method>
 
-    <method name="ListAvailableExperiments">
+    <method name="ListOpenExperiments">
       <arg type="as" name="results" direction="out"/>
     </method>
 
@@ -20,6 +20,10 @@
     </method>
 
     <signal name="ExperimentAvailable">
+      <arg name="objconn" type="s"/>
+    </signal>
+
+    <signal name="StatsUpdate">
       <arg name="objconn" type="s"/>
     </signal>
 

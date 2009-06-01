@@ -37,7 +37,7 @@ void DBUSEpoch::StartRecording()
   if (recstatusold != recstatusnew) {
     logdbus_.info("DBusEpoch sending recording state change signal "); 
     
-    recordingstate(recstatusnew); 
+    RecordingState(recstatusnew); 
   }
 
 }
@@ -53,7 +53,7 @@ void DBUSEpoch::StopRecording()
   if (recstatusold != recstatusnew) {
     logdbus_.info("DBusEpoch sending recording state change signal"); 
 
-    recordingstate(recstatusnew); 
+    RecordingState(recstatusnew); 
   }
 
 
@@ -64,7 +64,7 @@ void DBUSEpoch::EnableDataSink( const int32_t& src, const int32_t& typ )
   try {
 
     pEpoch_->enableDataSink(src, (datatype_t)typ); 
-    sinkchange(src); 
+    SinkChange(src); 
   } catch (std::exception & e) {
     
     throw DBus::Error("soma.Epoch", "cannot modify data sink when recording or once recorded" ); 
@@ -77,7 +77,7 @@ void DBUSEpoch::DisableDataSink( const int32_t& src, const int32_t& typ )
 {
   try {
     pEpoch_->disableDataSink(src, (datatype_t)typ); 
-    sinkchange(src); 
+    SinkChange(src); 
   } catch (std::exception & e) {
     throw DBus::Error("soma.Epoch", "cannot modify data sink when recording or once recorded" ); 
 
@@ -124,7 +124,7 @@ void DBUSEpoch::SetDataName( const int32_t& src, const ::string& name )
 {
   try {
     pEpoch_->setDataName(src, name); 
-    sinkchange(src); 
+    SinkChange(src); 
 
   } catch (std::exception & e) {
     throw DBus::Error("soma.Epoch", "cannot modify data sink name when recording or once recorded" ); 

@@ -261,6 +261,20 @@ WaveTable_test/fast:
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f tests/CMakeFiles/WaveTable_test.dir/build.make tests/CMakeFiles/WaveTable_test.dir/build
 .PHONY : WaveTable_test/fast
 
+# Convenience name for target.
+tests/CMakeFiles/test_util.dir/rule:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f CMakeFiles/Makefile2 tests/CMakeFiles/test_util.dir/rule
+.PHONY : tests/CMakeFiles/test_util.dir/rule
+
+# Convenience name for target.
+test_util: tests/CMakeFiles/test_util.dir/rule
+.PHONY : test_util
+
+# fast build rule for target.
+test_util/fast:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f tests/CMakeFiles/test_util.dir/build.make tests/CMakeFiles/test_util.dir/build
+.PHONY : test_util/fast
+
 EventMaskSet_test.o: EventMaskSet_test.cc.o
 .PHONY : EventMaskSet_test.o
 
@@ -546,6 +560,30 @@ runner.cc.s:
 	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f tests/CMakeFiles/WaveTable_test.dir/build.make tests/CMakeFiles/WaveTable_test.dir/runner.cc.s
 .PHONY : runner.cc.s
 
+test_util.o: test_util.cc.o
+.PHONY : test_util.o
+
+# target to build an object file
+test_util.cc.o:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f tests/CMakeFiles/test_util.dir/build.make tests/CMakeFiles/test_util.dir/test_util.cc.o
+.PHONY : test_util.cc.o
+
+test_util.i: test_util.cc.i
+.PHONY : test_util.i
+
+# target to preprocess a source file
+test_util.cc.i:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f tests/CMakeFiles/test_util.dir/build.make tests/CMakeFiles/test_util.dir/test_util.cc.i
+.PHONY : test_util.cc.i
+
+test_util.s: test_util.cc.s
+.PHONY : test_util.s
+
+# target to generate assembly for a file
+test_util.cc.s:
+	cd /home/jonas/soma/gitmigrate/software/recorder && $(MAKE) -f tests/CMakeFiles/test_util.dir/build.make tests/CMakeFiles/test_util.dir/test_util.cc.s
+.PHONY : test_util.cc.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -567,6 +605,7 @@ help:
 	@echo "... list_install_components"
 	@echo "... rebuild_cache"
 	@echo "... test"
+	@echo "... test_util"
 	@echo "... EventMaskSet_test.o"
 	@echo "... EventMaskSet_test.i"
 	@echo "... EventMaskSet_test.s"
@@ -600,6 +639,9 @@ help:
 	@echo "... runner.o"
 	@echo "... runner.i"
 	@echo "... runner.s"
+	@echo "... test_util.o"
+	@echo "... test_util.i"
+	@echo "... test_util.s"
 .PHONY : help
 
 

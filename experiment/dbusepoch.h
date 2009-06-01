@@ -16,8 +16,8 @@
 namespace soma {
   namespace recorder {
     class DBUSEpoch : 
-      public  soma::recording::Epoch, 
-      public  soma::recording::Notes, 
+      public  soma::recording::Epoch_adaptor, 
+      public  soma::recording::Notes_adaptor, 
 
       public DBus::IntrospectableAdaptor,
       public DBus::ObjectAdaptor

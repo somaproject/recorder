@@ -20,7 +20,6 @@
 
     <method name="RenameEpoch">
       <arg type="o" name="epoch" direction="in"/>
-
       <arg type="s" name="newname" direction="in"/>
     </method>
 
@@ -31,7 +30,7 @@
       <arg type="o" name="epoch" direction="out"/>
     </method>
 
-    <signal name="epochcreate">
+    <signal name="EpochCreate">
       <arg name="objpath" type="o"/>
     </signal>
 

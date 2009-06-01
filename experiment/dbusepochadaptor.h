@@ -11,29 +11,29 @@
 namespace soma {
 namespace recording {
 
-class Epoch
+class Epoch_adaptor
 : public ::DBus::InterfaceAdaptor
 {
 public:
 
-    Epoch()
+    Epoch_adaptor()
     : ::DBus::InterfaceAdaptor("soma.recording.Epoch")
     {
-        register_method(Epoch, GetName, _GetName_stub);
-        register_method(Epoch, StartRecording, _StartRecording_stub);
-        register_method(Epoch, StopRecording, _StopRecording_stub);
-        register_method(Epoch, GetRecordingState, _GetRecordingState_stub);
-        register_method(Epoch, EnableDataSink, _EnableDataSink_stub);
-        register_method(Epoch, DisableDataSink, _DisableDataSink_stub);
-        register_method(Epoch, GetDataSinks, _GetDataSinks_stub);
-        register_method(Epoch, GetDataSink, _GetDataSink_stub);
-        register_method(Epoch, SetDataName, _SetDataName_stub);
-        register_method(Epoch, GetDataName, _GetDataName_stub);
-        register_method(Epoch, GetSinkSessionStatistics, _GetSinkSessionStatistics_stub);
-        register_method(Epoch, GetSessions, _GetSessions_stub);
-        register_method(Epoch, AddEventRXMask, _AddEventRXMask_stub);
-        register_method(Epoch, GetEventRXMask, _GetEventRXMask_stub);
-        register_method(Epoch, RemoveEventRXMask, _RemoveEventRXMask_stub);
+        register_method(Epoch_adaptor, GetName, _GetName_stub);
+        register_method(Epoch_adaptor, StartRecording, _StartRecording_stub);
+        register_method(Epoch_adaptor, StopRecording, _StopRecording_stub);
+        register_method(Epoch_adaptor, GetRecordingState, _GetRecordingState_stub);
+        register_method(Epoch_adaptor, EnableDataSink, _EnableDataSink_stub);
+        register_method(Epoch_adaptor, DisableDataSink, _DisableDataSink_stub);
+        register_method(Epoch_adaptor, GetDataSinks, _GetDataSinks_stub);
+        register_method(Epoch_adaptor, GetDataSink, _GetDataSink_stub);
+        register_method(Epoch_adaptor, SetDataName, _SetDataName_stub);
+        register_method(Epoch_adaptor, GetDataName, _GetDataName_stub);
+        register_method(Epoch_adaptor, GetSinkSessionStatistics, _GetSinkSessionStatistics_stub);
+        register_method(Epoch_adaptor, GetSessions, _GetSessions_stub);
+        register_method(Epoch_adaptor, AddEventRXMask, _AddEventRXMask_stub);
+        register_method(Epoch_adaptor, GetEventRXMask, _GetEventRXMask_stub);
+        register_method(Epoch_adaptor, RemoveEventRXMask, _RemoveEventRXMask_stub);
     }
 
     ::DBus::IntrospectedInterface *const introspect() const 
@@ -122,17 +122,17 @@ public:
             { "cmdlist", "ai", true },
             { 0, 0, 0 }
         };
-        static ::DBus::IntrospectedArgument sinkchange_args[] = 
+        static ::DBus::IntrospectedArgument SinkChange_args[] = 
         {
             { "sinksrc", "i", false },
             { 0, 0, 0 }
         };
-        static ::DBus::IntrospectedArgument recordingstate_args[] = 
+        static ::DBus::IntrospectedArgument RecordingState_args[] = 
         {
             { "isRecording", "b", false },
             { 0, 0, 0 }
         };
-        static ::DBus::IntrospectedMethod Epoch_methods[] = 
+        static ::DBus::IntrospectedMethod Epoch_adaptor_methods[] = 
         {
             { "GetName", GetName_args },
             { "StartRecording", StartRecording_args },
@@ -151,24 +151,24 @@ public:
             { "RemoveEventRXMask", RemoveEventRXMask_args },
             { 0, 0 }
         };
-        static ::DBus::IntrospectedMethod Epoch_signals[] = 
+        static ::DBus::IntrospectedMethod Epoch_adaptor_signals[] = 
         {
-            { "sinkchange", sinkchange_args },
-            { "recordingstate", recordingstate_args },
+            { "SinkChange", SinkChange_args },
+            { "RecordingState", RecordingState_args },
             { 0, 0 }
         };
-        static ::DBus::IntrospectedProperty Epoch_properties[] = 
+        static ::DBus::IntrospectedProperty Epoch_adaptor_properties[] = 
         {
             { 0, 0, 0, 0 }
         };
-        static ::DBus::IntrospectedInterface Epoch_interface = 
+        static ::DBus::IntrospectedInterface Epoch_adaptor_interface = 
         {
             "soma.recording.Epoch",
-            Epoch_methods,
-            Epoch_signals,
-            Epoch_properties
+            Epoch_adaptor_methods,
+            Epoch_adaptor_signals,
+            Epoch_adaptor_properties
         };
-        return &Epoch_interface;
+        return &Epoch_adaptor_interface;
     }
 
 public:
@@ -202,16 +202,16 @@ public:
 
     /* signal emitters for this interface
      */
-    void sinkchange(const int32_t& arg1)
+    void SinkChange(const int32_t& arg1)
     {
-        ::DBus::SignalMessage sig("sinkchange");
+        ::DBus::SignalMessage sig("SinkChange");
         ::DBus::MessageIter wi = sig.writer();
         wi << arg1;
         emit_signal(sig);
     }
-    void recordingstate(const bool& arg1)
+    void RecordingState(const bool& arg1)
     {
-        ::DBus::SignalMessage sig("recordingstate");
+        ::DBus::SignalMessage sig("RecordingState");
         ::DBus::MessageIter wi = sig.writer();
         wi << arg1;
         emit_signal(sig);
