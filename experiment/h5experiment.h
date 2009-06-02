@@ -49,6 +49,13 @@ namespace soma {
       
       std::string getName(); 
 
+
+      //---------------------------------------------------
+      //  Initial timeline API
+      //---------------------------------------------------
+      void setReferenceTime(somatime_t time); 
+      somatime_t getReferenceTime(); 
+
       // epoch interface
       std::vector<pEpoch_t> getEpochs(); 
       pEpoch_t createEpoch(epochname_t name); 
@@ -77,6 +84,8 @@ namespace soma {
       
       somatime_t currentTS_; 
       int currentTime_; 
+
+      somatime_t getCurrentTS(); 
       
     private:
       H5Experiment(pNetworkInterface_t pn, H5::H5File file); 
@@ -98,7 +107,6 @@ namespace soma {
       
       pEpoch_t setupEpoch(H5::Group epochgroup); 
 
-      somatime_t getCurrentTS(); 
       void setCurrentTS(somatime_t); 
 
       void setCurrentTime(int); 

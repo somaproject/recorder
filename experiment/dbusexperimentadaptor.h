@@ -213,6 +213,113 @@ private:
 namespace soma {
 namespace recording {
 
+class Timeline_adaptor
+: public ::DBus::InterfaceAdaptor
+{
+public:
+
+    Timeline_adaptor()
+    : ::DBus::InterfaceAdaptor("soma.recording.Timeline")
+    {
+        register_method(Timeline_adaptor, GetReferenceTime, _GetReferenceTime_stub);
+        register_method(Timeline_adaptor, MarkReferenceTime, _MarkReferenceTime_stub);
+    }
+
+    ::DBus::IntrospectedInterface *const introspect() const 
+    {
+        static ::DBus::IntrospectedArgument GetReferenceTime_args[] = 
+        {
+            { "reftime", "t", false },
+            { 0, 0, 0 }
+        };
+        static ::DBus::IntrospectedArgument MarkReferenceTime_args[] = 
+        {
+            { 0, 0, 0 }
+        };
+        static ::DBus::IntrospectedArgument ReferenceTimeChange_args[] = 
+        {
+            { "time", "t", false },
+            { 0, 0, 0 }
+        };
+        static ::DBus::IntrospectedMethod Timeline_adaptor_methods[] = 
+        {
+            { "GetReferenceTime", GetReferenceTime_args },
+            { "MarkReferenceTime", MarkReferenceTime_args },
+            { 0, 0 }
+        };
+        static ::DBus::IntrospectedMethod Timeline_adaptor_signals[] = 
+        {
+            { "ReferenceTimeChange", ReferenceTimeChange_args },
+            { 0, 0 }
+        };
+        static ::DBus::IntrospectedProperty Timeline_adaptor_properties[] = 
+        {
+            { 0, 0, 0, 0 }
+        };
+        static ::DBus::IntrospectedInterface Timeline_adaptor_interface = 
+        {
+            "soma.recording.Timeline",
+            Timeline_adaptor_methods,
+            Timeline_adaptor_signals,
+            Timeline_adaptor_properties
+        };
+        return &Timeline_adaptor_interface;
+    }
+
+public:
+
+    /* properties exposed by this interface, use
+     * property() and property(value) to get and set a particular property
+     */
+
+public:
+
+    /* methods exported by this interface,
+     * you will have to implement them in your ObjectAdaptor
+     */
+    virtual uint64_t GetReferenceTime() = 0;
+    virtual void MarkReferenceTime() = 0;
+
+public:
+
+    /* signal emitters for this interface
+     */
+    void ReferenceTimeChange(const uint64_t& arg1)
+    {
+        ::DBus::SignalMessage sig("ReferenceTimeChange");
+        ::DBus::MessageIter wi = sig.writer();
+        wi << arg1;
+        emit_signal(sig);
+    }
+
+private:
+
+    /* unmarshalers (to unpack the DBus message before calling the actual interface method)
+     */
+    ::DBus::Message _GetReferenceTime_stub(const ::DBus::CallMessage &call)
+    {
+        ::DBus::MessageIter ri = call.reader();
+
+        uint64_t argout1 = GetReferenceTime();
+        ::DBus::ReturnMessage reply(call);
+        ::DBus::MessageIter wi = reply.writer();
+        wi << argout1;
+        return reply;
+    }
+    ::DBus::Message _MarkReferenceTime_stub(const ::DBus::CallMessage &call)
+    {
+        ::DBus::MessageIter ri = call.reader();
+
+        MarkReferenceTime();
+        ::DBus::ReturnMessage reply(call);
+        return reply;
+    }
+};
+
+} } 
+namespace soma {
+namespace recording {
+
 class Notes_adaptor
 : public ::DBus::InterfaceAdaptor
 {

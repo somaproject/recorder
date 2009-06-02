@@ -36,9 +36,9 @@ pExperiment_t H5Experiment::open(pNetworkInterface_t pn, filename_t expfilename)
   int N = file.getNumObjs(); 
   for (int i = 0; i < N; i++) {
     std::string name = file.getObjnameByIdx(i); 
-    if (name == "/notes") {
-      // Per experiment notes
-
+    if (name == "/experiment") {
+      // Per experimentdata
+      
     } else {
       // must be an epoch?  FIXME: Have epoch attribute
       H5::Group g = file.openGroup(name); 
@@ -54,18 +54,30 @@ pExperiment_t H5Experiment::open(pNetworkInterface_t pn, filename_t expfilename)
   }
 
   H5::Group root = file.openGroup("/"); 
+  
+  try { 
+    H5::Group experiment = file.openGroup("/experiment");  
 
-  pNoteTable_t nt; 
-  try {
-    nt = NoteTable::open(root); 
+    pNoteTable_t nt; 
+    try {
+      nt = NoteTable::open(experiment); 
+    } catch (Exception & e) {
+      h5e->logexperiment_.errorStream() << "Cannot find notes table in file"
+					<< h5helper::getPath(root)
+					<< " creating notes table"; 
+      nt = NoteTable::create(root); 
+    }
+  
+    h5e->pNoteTable_ = nt; 
+    
   } catch (Exception & e) {
-    h5e->logexperiment_.errorStream() << "Cannot find notes table in file"
-				      << h5helper::getPath(root)
-				      << " creating notes table"; 
-    nt = NoteTable::create(root); 
+    h5e->logexperiment_.errorStream()  << "Cannot find 'experiment' group "
+				       << "in this file. Invalid recorder file?"; 
+    throw std::runtime_error("Invalid Experiment File"); 
+
   }
   
-  h5e->pNoteTable_ = nt; 
+  
 
   return boost::dynamic_pointer_cast<Experiment>(h5e); 
 }
@@ -102,8 +114,10 @@ pExperiment_t H5Experiment::create(pNetworkInterface_t pn, filename_t name) {
   pH5Experiment_t h5exp(new H5Experiment(pn, file)); 
   h5exp->filename_ = name; 
 
+  // create per-experiment group
+  H5::Group expgroup = root.createGroup("experiment");  
   // note table
-  h5exp->pNoteTable_ = NoteTable::create(root); 
+  h5exp->pNoteTable_ = NoteTable::create(expgroup); 
 
   return pExperiment_t(h5exp); 
   
@@ -132,14 +146,13 @@ H5Experiment::H5Experiment(pNetworkInterface_t pn, H5::H5File file) :
   int event_fd =  pNetwork_->getEventFifoPipe(); 
   Glib::signal_io().connect(sigc::mem_fun(*this, &H5Experiment::eventRXCallback), 
 			    event_fd, Glib::IO_IN, Glib::PRIORITY_HIGH); 
-
-
+  
   // The network object is always running, but we do selectively 
   // enable and disable the glib callbacks! 
 
   pNetwork_->run(); 
   
-
+  
 }
 
 
@@ -499,4 +512,17 @@ void H5Experiment::deleteNote(notehandle_t nid)
   pNoteTable_->deleteNote(nid); 
 
 }
+
+
+void  H5Experiment::setReferenceTime(somatime_t time) {
+
+
+}
+
+somatime_t  H5Experiment::getReferenceTime() { 
+
+
+}
+
+
 

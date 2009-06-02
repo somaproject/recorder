@@ -46,6 +46,7 @@ DBUSExperiment::DBUSExperiment(DBus::Connection & connection,
 std::map< std::string, std::string > DBUSExperiment::GetFileProperties()
 {
   std::map< std::string, std::string > result; 
+  // FIXME: Add in real properties
   result["Foo"] = "Bar"; 
   return result; 
 }
@@ -196,5 +197,15 @@ std::vector< int32_t > DBUSExperiment::GetNotes()
     results.push_back(*i); 
   }
   return results; 
+
+}
+
+uint64_t DBUSExperiment::GetReferenceTime() {
+  return pExperiment_->getReferenceTime(); 
+}
+
+void DBUSExperiment::MarkReferenceTime() {
+  // we need to get the time from the h5file and then set the time? 
+  pExperiment_->setReferenceTime(pExperiment_->getCurrentTS()); 
 
 }

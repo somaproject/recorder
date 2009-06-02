@@ -1,0 +1,47 @@
+manager-introspect.xml contains the DBUS introspection information
+for the recorder experiment manager
+
+The Soma Recording manager exists at the well-known name "soma.recording.Manager"
+and exposes two interfaces: 
+
+   "soma.recording.Manager" : the application-facing interface for controlling the
+   creation and parsing of experiments
+
+   "soma.recording.ExperimentRegistry" : The interface that the separate
+   expeirment process uses to register / unregister. Not used by
+   end-user applications. 
+
+Interface: soma.recording.Manager
+----------------------------------
+  Experiments are effectively "hdf5 files" that are on the disk. 
+
+  They can be "open", that is, they have an associated server running
+  and accessable from dbus. 
+
+  ListAvailableExperiments: Returns a list of Experiment Names that
+  can be opened. 
+
+  ListOpenExperiments: returns a list of Experiment dbus connections
+  (not names) that can be connected to and queried
+  
+  OpenExperiment : request that a particular experiment name be opened. 
+  
+  CreateExperiment : create a particular experiment with the requested
+  name. Will fail if the experiment already exists or the name is somehow	
+  invalid. 
+
+  GetStatistics: Returns a dicationary of string->string indicating
+    various useful recorder parameters, like time, available disk
+    space, soma IP, etc. 
+
+  signals: 
+    ExperimentAvailable
+    StatsUpdate
+
+Interface: soma.recording.ExperimentRegistry
+---------------------------------------------
+This is the interface that soma-recording-expeirment uses to
+register and unregister experiments. Experiments register
+by invoking "Register" with their -name-, and the associated
+connection information is deduced by dbus. 
+

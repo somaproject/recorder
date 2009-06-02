@@ -16,7 +16,7 @@ namespace soma {
   namespace recorder {
     class DBUSExperiment : 
       public  soma::recording::Experiment_adaptor, 
-      //public  soma::recording::Timeline_adaptor, 
+      public  soma::recording::Timeline_adaptor, 
       public  soma::recording::Notes_adaptor, 
       public DBus::IntrospectableAdaptor,
       public DBus::ObjectAdaptor
@@ -37,9 +37,14 @@ namespace soma {
       void RenameEpoch( const ::DBus::Path& epoch, const std::string& newname );
       void Close(); 
 
+      // Timeline interface
+      uint64_t GetReferenceTime(); 
+      void MarkReferenceTime(); 
+
       // Note interface
       int32_t CreateNote(); 
-      void GetNote( const int32_t& notehandle, std::string& name, uint64_t& createtime, uint64_t& createts, uint64_t& edittime, uint64_t& editts, std::vector< std::string >& tags ); 
+      void GetNote( const int32_t& notehandle, std::string& name, uint64_t& createtime, 
+		    uint64_t& createts, uint64_t& edittime, uint64_t& editts, std::vector< std::string >& tags ); 
       
       void SetNote( const int32_t& notehandle, const std::string& name, const std::string& notetext, const std::vector< std::string >& tags ); 
       void DeleteNote(const int32_t& nodehandle); 

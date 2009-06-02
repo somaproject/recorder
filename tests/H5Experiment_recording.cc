@@ -238,6 +238,68 @@ BOOST_AUTO_TEST_CASE(H5ExperimentRecording_sessiontest )
 
 }
 
+BOOST_AUTO_TEST_CASE(H5ExperimentRecording_timestamp )
+{
+  /*
+    Does getCurrentTS() return the correct value when timestamp
+    events are sent? 
+    
+    Does se
+    
+    
+  */
+  
+  std::string filename = "H5ExperimentRecording_sessiontest.h5"; 
+  path h5filepath = test_binary_path / filename; 
+
+  filesystem::remove_all(h5filepath); 
+
+  // separate block to get delete called on object
+  pNetworkInterface_t pfn(new FakeNetwork()); 
+  recorder::pExperiment_t pExp = recorder::H5Experiment::create(pfn, h5filepath); 
+  
+  recorder::pEpoch_t epoch  = pExp->createEpoch("Rose"); 
+  epoch->enableDataSink(0, TSPIKE); 
+  epoch->setDataName(0, "Sink0"); 
+  
+  pExp->dispatchData(createSpike(0, 0)); 
+
+  recorder::pH5Experiment_t pH5Exp(boost::dynamic_pointer_cast<recorder::H5Experiment>(pExp)); 
+  
+//   // now start recording
+//   pH5Exp->currentTS_ = 0x1234; 
+//   pH5Exp->currentTime_ = 100000; 
+  
+//   epoch->startRecording(); 
+//   for (int i = 0; i < 10; i++) {
+//     pExp->dispatchData(createSpike(i + 1000, 0)); 
+//   }
+
+//   // FIXME ugly hack
+//   pH5Exp->currentTS_ = 0x1234 * 2; 
+//   pH5Exp->currentTime_ = 100000 * 2; 
+
+//   epoch->stopRecording(); 
+
+//   pH5Exp->currentTS_ = 0x11223344;
+//   pH5Exp->currentTime_ = 8000000; 
+
+//   epoch->startRecording(); 
+
+//   pH5Exp->currentTS_ = 0x55667788;
+//   pH5Exp->currentTime_ = 10000000; 
+
+//   epoch->stopRecording(); 
+
+//   pExp->close(); 
+
+//   int retval = run_standard_py_script("H5Experiment_recording.py", 
+// 				      "sessiontest"); 
+
+//   BOOST_CHECK_EQUAL(retval , 0); 
+
+}
+
 
 
 // BOOST_AUTO_TEST_CASE(H5ExperimentRecording_statstest )

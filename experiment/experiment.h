@@ -38,6 +38,12 @@ namespace soma {
       virtual void dispatchData(pDataPacket_t dp) = 0; 
       virtual void dispatchEvent(pEventPacket_t el) =0; 
       
+      // timeline
+      virtual void setReferenceTime(somatime_t time) = 0; 
+      virtual somatime_t getReferenceTime() =0; 
+
+      virtual somatime_t getCurrentTS() = 0; 
+
       
       virtual void close()  = 0;   
       

@@ -39,6 +39,23 @@
 
   </interface>
   
+  <interface name="soma.recording.Timeline">
+    <!-- timeline stuff is sort of a gross hack right now, 
+    but that's okay. I think at some point we're going to have to have some notion
+    of an "active epoch", but now is not the time. -->
+
+    <method name="GetReferenceTime"> 
+      <arg type="t" name="reftime" direction="out"/>
+    </method>
+
+    <method name="MarkReferenceTime">
+    </method>
+
+    <signal name="ReferenceTimeChange">
+      <arg name="time" type="t"/>
+    </signal>
+  </interface>
+  
   <interface name="soma.recording.Notes">
 
     <method name="CreateNote">
