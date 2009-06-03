@@ -27,7 +27,6 @@ pH5Epoch_t H5Epoch::create(pH5ExperimentWeak_t parent,
 
 
   // create the events
-  
   pH5Epoch->pEventTable_ = EventTable::create(epochGroup); 
   
   pH5Epoch->pNoteTable_ = NoteTable::create(epochGroup); 
@@ -39,6 +38,7 @@ pH5Epoch_t H5Epoch::create(pH5ExperimentWeak_t parent,
 pH5Epoch_t H5Epoch:: open(pH5ExperimentWeak_t parent, H5::Group epochGroup)
 {
 
+  H5::Exception::dontPrint();
 
   pH5Epoch_t pH5Epoch(new H5Epoch(parent, epochGroup)); 
 
@@ -50,13 +50,12 @@ pH5Epoch_t H5Epoch:: open(pH5ExperimentWeak_t parent, H5::Group epochGroup)
   try {
     et = EventTable::open(epochGroup); 
     
-  } catch (Exception & e) {
+  } catch (Exception &  e) {
     pH5Epoch->logepoch_.errorStream() << "Cannot find Events table in epoch" 
-				      << h5helper::getPath(epochGroup) 
-				      << " Creating events table."; 
-    et = EventTable::create(epochGroup); 
+				      << h5helper::getPath(epochGroup); 
+    
+    throw std::runtime_error("Error finding events table in epoch");
   }
-
   pH5Epoch->pEventTable_ = et; 
 
   pNoteTable_t nt; 
@@ -178,10 +177,12 @@ H5Epoch::H5Epoch(pH5ExperimentWeak_t parent, H5::Group epochGroup) :
 
 void H5Epoch::close()
 {
-  h5TSpikeGroup_.close(); 
-  h5WaveGroup_.close(); 
-  pEventTable_->close(); 
-  isClosed_=true; 
+  if (not isClosed_) {
+    h5TSpikeGroup_.close(); 
+    h5WaveGroup_.close(); 
+    pEventTable_->close(); 
+    isClosed_=true; 
+  }
 }
 
 H5Epoch::~H5Epoch()

@@ -9,25 +9,30 @@ using namespace soma::recorder;
 const std::string EventTable::datasetName("Events"); 
 
 pEventTable_t EventTable::open(H5::Group containingGroup) {
- 
-  pEventTable_t pEventTable(new EventTable(containingGroup)); 
-  
-  pEventTable->selfDataSet_ = containingGroup.openDataSet(datasetName); 
 
-  // load the eventset
-  H5::Attribute attr = pEventTable->selfDataSet_.openAttribute("eventmask"); 
+  try {
+    pEventTable_t pEventTable(new EventTable(containingGroup)); 
+
+    pEventTable->selfDataSet_ = containingGroup.openDataSet(datasetName); 
     
-  char eventset[EventMaskSet::EVENT_SRC_MAX + 1][EventMaskSet::EVENT_CMD_MAX + 1]; 
-
-  attr.read(H5::PredType::NATIVE_CHAR, eventset); 
-  
-  for (int i = 0; i < EventMaskSet::EVENT_SRC_MAX + 1; i++) {
-    for (int j = 0; j < EventMaskSet::EVENT_CMD_MAX + 1; j++) {
-      pEventTable->eventMaskSet_.set(i, j, eventset[i][j] ); 
+  // load the eventset
+    H5::Attribute attr = pEventTable->selfDataSet_.openAttribute("eventmask"); 
+    
+    char eventset[EventMaskSet::EVENT_SRC_MAX + 1][EventMaskSet::EVENT_CMD_MAX + 1]; 
+    
+    attr.read(H5::PredType::NATIVE_CHAR, eventset); 
+    
+    for (int i = 0; i < EventMaskSet::EVENT_SRC_MAX + 1; i++) {
+      for (int j = 0; j < EventMaskSet::EVENT_CMD_MAX + 1; j++) {
+	pEventTable->eventMaskSet_.set(i, j, eventset[i][j] ); 
+      }
     }
+    pEventTable->isClosed_ = false; 
+    return pEventTable; 
+  } catch (H5::Exception & e) {
+    throw std::runtime_error("Error opening Epoch table in file; bad file?"); 
   }
-  
-  return pEventTable; 
+
 }
 
 pEventTable_t EventTable::create(H5::Group containingGroup) {
@@ -69,6 +74,8 @@ pEventTable_t EventTable::create(H5::Group containingGroup) {
 			   false, NULL  );
 
   pEventTable->selfDataSet_ = containingGroup.openDataSet(datasetName); 
+
+  pEventTable->isClosed_ = false; 
   
   return pEventTable; 
   
@@ -82,17 +89,13 @@ EventTable::EventTable(H5::Group containingGroup) :
   seqeventCache_(),
   tableLoc_(containingGroup), 
   eventMaskSet_(), 
-  isClosed_(false)
+  isClosed_(true)
 {
   // setup cache
   seqeventCache_.reserve(CACHESIZE); 
   tableName_ = "Events"; 
   
   setupH5Types(); 
-  
-    
-  // load the eventset // FIXME
-  
 }
 
 void EventTable::setupH5Types()
@@ -145,9 +148,10 @@ void EventTable::close() {
   isClosed_ = true; 
 
 }
+
 EventTable::~EventTable()
 {
-  
+
   if (!isClosed_) {
     close(); 
   }

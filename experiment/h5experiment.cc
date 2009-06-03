@@ -56,8 +56,8 @@ pExperiment_t H5Experiment::open(pNetworkInterface_t pn, filename_t expfilename)
   H5::Group root = file.openGroup("/"); 
   
   try { 
-    H5::Group experiment = file.openGroup("/experiment");  
-
+    H5::Group experiment = file.openGroup("experiment");  
+    
     pNoteTable_t nt; 
     try {
       nt = NoteTable::open(experiment); 
