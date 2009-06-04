@@ -9,14 +9,15 @@ The first argument is the name of the test to run
 
 import tables
 import sys
+import os
 
 def typecheck(t, name, type):
     assert isinstance(t.coldescrs[name], type)
         
     
 
-def create_test():
-    t = tables.openFile('WaveTable_create.h5')
+def create_test(rootpath):
+    t = tables.openFile(os.path.join(rootpath, 'WaveTable_create.h5'))
     g = t.root.testGroup
     t = t.root.testGroup.eeg1
 
@@ -35,9 +36,9 @@ def create_test():
     
     assert t.attrs.src == 17
     
-def append_test():
-    
-    f = tables.openFile('WaveTable_append.h5')
+def append_test(rootpath):
+    print "opening ", os.path.join(rootpath, 'WaveTable_append.h5')
+    f = tables.openFile(os.path.join(rootpath, 'WaveTable_append.h5'))
     g = f.root.testGroup
     table = g.eeg2
 
@@ -59,9 +60,10 @@ def append_test():
     
     
 if __name__ == "__main__":
+    print "SYS.ARGV=", sys.argv
     if sys.argv[1] == "create":
-        create_test()
+        create_test(sys.argv[2])
     elif sys.argv[1] == "append":
-        append_test()
+        append_test(sys.argv[2])
         
         

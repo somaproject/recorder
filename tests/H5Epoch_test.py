@@ -9,14 +9,15 @@ The first argument is the name of the test to run
 
 import tables
 import sys
+import os
 
 def typecheck(t, name, type):
     assert isinstance(t.coldescrs[name], type)
         
     
 
-def rename_test():
-    t = tables.openFile('H5Epoch_rename.h5')
+def rename_test(rootpath):
+    t = tables.openFile(os.path.join(rootpath, 'H5Epoch_rename.h5'))
     g = t.root.Silly
     t1 = t.root.Silly.TSpike.HelloWorld0
     t2 = t.root.Silly.TSpike.GoodbyeWorld7
@@ -43,5 +44,5 @@ def rename_test():
     t.close()
 if __name__ == "__main__":
     if sys.argv[1] == "rename":
-        rename_test()
+        rename_test(sys.argv[2])
         

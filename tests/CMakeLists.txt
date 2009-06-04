@@ -12,7 +12,7 @@ add_executable(H5FileCreate_test
 )
 
 add_executable(H5Experiment_test
-#  H5Experiment_recording.cc
+  H5Experiment_recording.cc
   H5Experiment.cc
   runner.cc
 )

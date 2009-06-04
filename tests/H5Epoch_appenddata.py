@@ -9,15 +9,16 @@ The first argument is the name of the test to run
 
 import tables
 import sys
+import os
 
 def typecheck(t, name, type):
     assert isinstance(t.coldescrs[name], type)
         
     
 
-def appenddata1_test():
+def appenddata1_test(rootpath):
     
-    f = tables.openFile('H5Epoch_appenddata1.h5')
+    f = tables.openFile(os.path.join(rootpath, 'H5Epoch_appenddata1.h5'))
     g = f.root.myEpoch
 
     # check that we created the groups correctly
@@ -28,9 +29,9 @@ def appenddata1_test():
     assert len(hipp4) == 200
     f.close()
     
-def notecheck_test():
+def notecheck_test(rootpath):
     
-    f = tables.openFile('H5Epoch_notetest_diskcheck.h5')
+    f = tables.openFile(os.path.join('H5Epoch_notetest_diskcheck.h5'))
     
     g = f.root.testGroup
     table = g.TestEpoch.notes
@@ -43,7 +44,7 @@ def notecheck_test():
 
 if __name__ == "__main__":
     if sys.argv[1] == "appenddata1":
-        appenddata1_test()
+        appenddata1_test(sys.argv[2])
     elif sys.argv[1] == "notecheck":
-        notecheck_test()
+        notecheck_test(sys.argv[2])
         
