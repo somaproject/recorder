@@ -111,6 +111,39 @@ BOOST_AUTO_TEST_CASE(H5FileInterface_fileopennotexists)
 		     
 
 
+BOOST_AUTO_TEST_CASE(H5Experiment_timestamp )
+{
+  /*
+    Check that we can get and set the reference time
+
+
+   */
+  
+  std::string filename = "H5Experiment_reftime.h5"; 
+  path h5filepath = test_binary_path / filename; 
+
+  filesystem::remove_all(h5filepath); 
+  
+  {
+    // separate block to get delete called on object
+    pNetworkInterface_t pfn(new FakeNetwork()); 
+    pExperiment_t exp = recorder::H5Experiment::create(pfn, h5filepath); 
+    
+    // initially should be zero? 
+    BOOST_CHECK_EQUAL(exp->getReferenceTime(), 0); 
+    exp->setReferenceTime(0x12345678); 
+    
+    BOOST_CHECK_EQUAL(exp->getReferenceTime(), 0x12345678); 
+  }
+  
+  int retval = run_standard_py_script("H5Experiment.py", 
+				      "timestamp"); 
+  BOOST_CHECK_EQUAL(retval , 0); 
+
+}
+
+
+
 BOOST_AUTO_TEST_SUITE_END(); 
 
 

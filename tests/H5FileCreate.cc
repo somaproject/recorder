@@ -211,7 +211,7 @@ BOOST_AUTO_TEST_CASE(H5FileCreate_main )
   log4cpp::Appender * logappender =  new log4cpp::OstreamAppender("appender", &std::cout); 
   log4cpp::Layout* loglayout = new log4cpp::BasicLayout();
   logappender->setLayout(loglayout); 
-  log4cpp::Category::getRoot().setPriority(log4cpp::Priority::DEBUG); 
+  //log4cpp::Category::getRoot().setPriority(log4cpp::Priority::DEBUG); 
   log4cpp::Category& root = log4cpp::Category::getRoot();
   
   root.addAppender(logappender);

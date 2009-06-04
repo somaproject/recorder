@@ -123,6 +123,7 @@ namespace soma {
       
       bool isClosed_; 
 
+      somatime_t reftime_; 
     };
     
   }

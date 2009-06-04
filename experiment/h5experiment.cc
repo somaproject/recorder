@@ -131,6 +131,7 @@ H5Experiment::H5Experiment(pNetworkInterface_t pn, H5::H5File file) :
   currentTargetEpoch_(),
   isRecording_(false), 
   isClosed_(false), 
+  reftime_(0),
   logexperiment_(log4cpp::Category::getInstance("soma.recording.experiment"))
 
 {
@@ -515,12 +516,21 @@ void H5Experiment::deleteNote(notehandle_t nid)
 
 
 void  H5Experiment::setReferenceTime(somatime_t time) {
+  H5::Group root = h5file_.openGroup("/experiment"); 
 
+  std::string reftime("referencetime"); 
+
+  H5::DataSpace attrspace;
+
+  H5::Attribute attr = root.createAttribute(reftime, H5::PredType::NATIVE_UINT64, attrspace); 
+  attr.write(H5::PredType::NATIVE_UINT64, &time); 
+  
+  reftime_ = time; 
 
 }
 
 somatime_t  H5Experiment::getReferenceTime() { 
-
+  return reftime_; 
 
 }
 
