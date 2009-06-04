@@ -32,7 +32,7 @@ def test_epoch_create():
     """
     
     global dbusDaemon
-    proc, filename, sockdir = test_experiment.start_experiment(dbusDaemon)
+    proc, filename, socks = test_experiment.start_experiment(dbusDaemon)
     
     # now check that the device lives on the bus
     dbus_test_bus = dbus.bus.BusConnection(dbusDaemon.address)
@@ -61,7 +61,7 @@ def test_epoch_manipulate():
     """
     
     global dbusDaemon
-    proc, filename, sockdir = test_experiment.start_experiment(dbusDaemon)
+    proc, filename, socks = test_experiment.start_experiment(dbusDaemon)
     
     # now check that the device lives on the bus
     dbus_test_bus = dbus.bus.BusConnection(dbusDaemon.address)
@@ -107,7 +107,7 @@ def test_epoch_save_data():
     5. Verify those packets in the file.
     """
     global dbusDaemon
-    proc, filename, sockdir = test_experiment.start_experiment(dbusDaemon)
+    proc, filename, socks = test_experiment.start_experiment(dbusDaemon)
     
     # now check that the device lives on the bus
     dbus_test_bus = dbus.bus.BusConnection(dbusDaemon.address)
@@ -135,21 +135,20 @@ def test_epoch_save_data():
     
     # write some test data
     socktest = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
-    data_send_sock_path = sockdir + "/" + "sending_data"
+    data_send_sock_path = socks.dir + "/" + "sending_data"
     socktest.bind(data_send_sock_path)
 
     
-    assert_true(os.path.exists(sockdir + "/data/tspike/0"))
+    assert_true(os.path.exists(socks.dir + "/data/tspike/0"))
     for i in range(10):
         ts = canonical_data.createTSpike(0, i)
         seq = struct.pack(">i4", i)
-        socktest.sendto(seq + ts.tostring(), sockdir + "/data/tspike/0")
+        socktest.sendto(seq + ts.tostring(), socks.dir + "/data/tspike/0")
     
     time.sleep(1) # wait for the data to get there
     epoch_if.StopRecording()
     experiment_if.Close()
     proc.wait()
-
     # now read the hdf5 file
     h5f = tables.openFile(filename, 'r')
     assert_true(epoch_name1 in h5f.root._v_children)
@@ -178,7 +177,7 @@ def test_epoch_sessions():
     """
     
     global dbusDaemon
-    proc, filename, sockdir = test_experiment.start_experiment(dbusDaemon)
+    proc, filename, socks = test_experiment.start_experiment(dbusDaemon)
     print "test epoch session filename = ", filename
     # now check that the device lives on the bus
     dbus_test_bus = dbus.bus.BusConnection(dbusDaemon.address)
@@ -204,7 +203,7 @@ def test_epoch_sessions():
     
     # write some test data
     socktest = socket.socket(socket.AF_UNIX, socket.SOCK_DGRAM)
-    data_send_sock_path = sockdir + "/" + "sending_data"
+    data_send_sock_path = socks.dir + "/" + "sending_data"
     socktest.bind(data_send_sock_path)
     
 
@@ -216,13 +215,13 @@ def test_epoch_sessions():
         while(not epoch_if.GetRecordingState() ):
             pass # spin until we know we are "in recording" 
 
-        while not os.path.exists(sockdir + "/data/tspike/0"):
+        while not os.path.exists(socks.dir + "/data/tspike/0"):
             pass
         
         for i in range(session_send):
             ts = canonical_data.createTSpike(0, i)
             seqstr = struct.pack(">i4", seq)
-            socktest.sendto(seqstr + ts.tostring(), sockdir + "/data/tspike/0")
+            socktest.sendto(seqstr + ts.tostring(), socks.dir + "/data/tspike/0")
 
             seq += 1
         time.sleep(1) # wait for the data to get there

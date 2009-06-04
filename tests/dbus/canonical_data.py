@@ -1,7 +1,7 @@
 
 import numpy as np
 from nose.tools import * 
-
+import struct
 
 WAVELEN = 32
 tspikewave_desc = np.dtype([('valid', np.uint8),
@@ -51,3 +51,20 @@ def verify_tspike(t1, t2):
             assert_equal(t1[s][f], t2[s][f])
             assert_true((t1[s]['wave'] == t2[s]['wave']).all())
 
+
+
+def somaSendTimeEvent(ts, seqid):
+    """
+    simple utility to send the time event from soma
+    """
+
+    eventset = []
+    seqstr = struct.pack(">I", seqid)
+
+    esstr = struct.pack(">HBBQxx",
+                        1, 0x10, 0x0, ts)
+    return seqstr + esstr
+
+    
+    
+    

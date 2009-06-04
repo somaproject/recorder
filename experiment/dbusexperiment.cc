@@ -79,8 +79,10 @@ DBus::Path DBUSExperiment::CreateEpoch( const std::string& name )
     dbusEpochs_.push_back(dbe); 
     
     EpochCreate(dbe->path()); 
+    logdbus_.infoStream() << "Created epoch with name " 
+			  << name;
     return dbe->path();   
-
+ 
   } catch (exception & e) {
     logdbus_.warnStream() << "Epoch name " << name << "already exists (" << e.what() << ")";  
     throw DBus::Error("soma.Experiment", "epoch named %s already exists" ); 
@@ -206,6 +208,8 @@ uint64_t DBUSExperiment::GetReferenceTime() {
 
 void DBUSExperiment::MarkReferenceTime() {
   // we need to get the time from the h5file and then set the time? 
-  pExperiment_->setReferenceTime(pExperiment_->getCurrentTS()); 
+  somatime_t ts = pExperiment_->getCurrentTS(); 
+  pExperiment_->setReferenceTime(ts); 
+  ReferenceTimeChange(ts); 
 
 }
