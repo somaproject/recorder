@@ -15,7 +15,7 @@ find_package(PythonLibs)
 find_package(PythonLibrary)
 include(PythonMacros)
 
-find_package(HDF5 REQUIRED)
+find_package(HDF5 1.8.3 REQUIRED HDF5_HL HDF5_CPP)
 
 pkg_check_modules(EXPDEPS REQUIRED 
   sigc++-2.0>=2.0 
