@@ -3,13 +3,17 @@ include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${EXPDEPS_INCLUDE_DIRS})
 include_directories(${HDF5_INCLUDE_DIRS})
 
+set(logging_SRCS 
+  ext-logging/src/logging.cc
+)
+include_directories(ext-logging/src)
+
 set(experiment_SRCS
   h5experiment.cc 
   h5epoch.cc 
   tspiketable.cc
   wavetable.cc 
   eventtable.cc 
-  logging.cc 
   eventmaskset.cc 
   notetable.cc)
 
@@ -24,6 +28,7 @@ set(dbus_recorder_SRCS
 
 ADD_LIBRARY(experiment_core
   ${experiment_SRCS} 
+  ${logging_SRCS}
   )
 
 TARGET_LINK_LIBRARIES(experiment_core
@@ -37,6 +42,7 @@ TARGET_LINK_LIBRARIES(experiment_core
 ADD_EXECUTABLE(soma-recorder-experiment
   experimentmain.cc
   ${dbus_experiment_SRCS} 
+  ${logging_SRCS}
   )
 
 TARGET_LINK_LIBRARIES(soma-recorder-experiment
