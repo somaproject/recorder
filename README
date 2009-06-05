@@ -16,7 +16,19 @@ CMake        : custom CMake files for building
 docs         : design documents
 experiment   : source for soma-recorder-experiment
 manager      : source for soma-recorder-manager
-soma         : python library for soma-recorder-manager
+soma_app     : python library for soma-recorder-manager
 tools        : utility programs for managing the recorder applications
 tests        : tests for the recorder program. 
+
+
+Tests
+-----------------------
+There are two sets of tests, both can be run
+by "make test". 
+
+   Regular tests: any compiled binary under tests/
+
+   DBus server tests: Python-wrapped subprocess-based dbus tests, 
+   under tests/dbus. Requires the Nose testing framework, a local 
+   dbus daemon, and a prayer. 
 
