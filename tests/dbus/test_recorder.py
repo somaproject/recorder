@@ -36,7 +36,7 @@ def start_recorder(dbusDaemon, somaip, mock=True, expbin = None):
     else:
         args.append("--expbin=%s" % expbin)
         
-    
+    print args
     proc = subprocess.Popen(args)
     time.sleep(1) # FIXME : Race condition
     return proc, tfdir

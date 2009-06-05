@@ -81,3 +81,5 @@ CONFIGURE_FILE(${PROJECT_SOURCE_DIR}/tests/test_config.h.in
 include_directories("${PROJECT_BINARY_DIR}/tests")
 
 
+
+add_subdirectory(dbus)

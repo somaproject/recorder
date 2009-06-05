@@ -1,12 +1,16 @@
 
-include_directories(${Boost_INCLUDE_DIRS})
-include_directories(${EXPDEPS_INCLUDE_DIRS})
-include_directories(${HDF5_INCLUDE_DIRS})
+include_directories(
+  "${CMAKE_CURRENT_SOURCE_DIR}/ext-logging/src" 
+  ${Boost_INCLUDE_DIRS}
+  ${EXPDEPS_INCLUDE_DIRS}
+  ${HDF5_INCLUDE_DIRS}
+)
+
 
 set(logging_SRCS 
   ext-logging/src/logging.cc
 )
-include_directories(ext-logging/src)
+
 
 set(experiment_SRCS
   h5experiment.cc 

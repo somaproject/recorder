@@ -60,7 +60,7 @@ def start_experiment(dbusDaemon):
             "--dbus=%s" % dbusDaemon.address,
             "--no-register",
             "--log-level=0"]
-    
+    print "args = ", args
     proc = subprocess.Popen(args)
     time.sleep(1) # FIXME : Race condition
     return proc, filename, sock

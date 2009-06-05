@@ -26,7 +26,9 @@ pkg_check_modules(EXPDEPS REQUIRED
   log4cpp>=1.0
 )
 
-include_directories(experiment)
+include_directories(experiment
+  "experiment/ext-logging/src" 
+)
 
 set(PY_SOMA_TARGET "${PYTHON_SITE_PACKAGES_DIR}/soma_apps/")
 MESSAGE("The soma python recording module will be installed in " ${PY_SOMA_TARGET})
