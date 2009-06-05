@@ -59,9 +59,13 @@ class ExperimentServerFactory(ExperimentFactory):
     """
     def __init__(self, expbin):
         self.expbin = expbin
-        if not os.path.exists(expbin):
-            raise NotImplementedError("Requested experiment binary, %s, cannot be found" % expbin)
-
+        try:
+            p = os.Popen([expbin])
+            p.terminate()
+            
+        except OSError as (errno, errstr):
+            if errno == 2:
+                raise NotImplementedError("Requested experiment binary, %s, cannot be found" % expbin)
 
     def OpenExperiment(self, name, recordermanager):
         pass
