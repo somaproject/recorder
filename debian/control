@@ -1,11 +1,14 @@
 Source: soma-recorder
-Section: Soma Software
+Section: science
 Priority: extra
 Maintainer: Stuart Layton <slayton@mit.edu>
-Build-Depends: debhelper (>= 5), libsomanetwork, liblog4cpp5-dev, dbus-c++ (>=0.5)
-Standards-Version: 3.7.2
+Build-Depends: debhelper (>= 5), libsomanetwork-dev, liblog4cpp5-dev, dbus-c++ (>=0.5), 
+               cdbs, python-nose, python-dbus, python-tables, libhdf5-serial-dev
+Standards-Version: 3.8.0
 
 Package: soma-recorder
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, 
-Description: Soma 4 channel spike vizualizatin software
+Description: The Soma Recorder saves soma network data to disk in HDF5 format.
+ The Soma Recorder is a DBus-enabled server which saves soma network
+ data to disk in HDF5 format.
