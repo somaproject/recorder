@@ -6,6 +6,13 @@ include_directories(
   ${HDF5_INCLUDE_DIRS}
 )
 
+link_directories(
+  ${Boost_LIBRARY_DIRS}
+  ${EXPDEPS_LIBRARY_DIRS}
+  ${HDF5_LIBRARY_DIRS}
+)
+
+message(STATUS   ${EXPDEPS_LIBRARY_DIRS})
 
 set(logging_SRCS 
   ext-logging/src/logging.cc

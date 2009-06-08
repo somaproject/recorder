@@ -39,3 +39,9 @@ add_subdirectory(manager)
 add_subdirectory(soma_apps)
 add_subdirectory(tests)
 add_subdirectory(benchmarks)
+
+link_directories(
+  ${Boost_LIBRARY_DIRS}
+  ${EXPDEPS_LIBRARY_DIRS}
+  ${HDF5_LIBRARY_DIRS}
+)
