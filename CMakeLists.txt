@@ -2,8 +2,9 @@ CMAKE_MINIMUM_REQUIRED(VERSION 2.6)
 
 PROJECT(recorder)
 
-
-SET(CMAKE_CXX_FLAGS "-O0 -g ${CMAKE_CXX_FLAGS}")
+IF(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
+   SET(CMAKE_BUILD_TYPE RelWithDebInfo)
+ENDIF(NOT CMAKE_CONFIGURATION_TYPES AND NOT CMAKE_BUILD_TYPE)
 
 set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/CMake)
 
@@ -31,7 +32,7 @@ include_directories(experiment
 )
 
 set(PY_SOMA_TARGET "${PYTHON_SITE_PACKAGES_DIR}/soma_apps/")
-MESSAGE("The soma python recording module will be installed in " ${PY_SOMA_TARGET})
+MESSAGE(STATUS "The soma python recording module will be installed in " ${PY_SOMA_TARGET})
 
 ENABLE_TESTING()
 add_subdirectory(experiment)
