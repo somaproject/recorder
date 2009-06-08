@@ -61,4 +61,5 @@ TARGET_LINK_LIBRARIES(soma-recorder-experiment
   ${Boost_LIBRARIES} 
   )
 
-INSTALL(PROGRAMS soma-recorder-experiment DESTINATION bin)
+INSTALL(PROGRAMS "${CMAKE_CURRENT_BINARY_DIR}/soma-recorder-experiment" 
+  DESTINATION bin)

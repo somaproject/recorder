@@ -30,8 +30,12 @@ pkg_check_modules(EXPDEPS REQUIRED
 include_directories(experiment
   "experiment/ext-logging/src" 
 )
+if(CMAKE_INSTALL_PREFIX) 
+  set(PY_SOMA_TARGET "${CMAKE_INSTALL_PREFIX}/lib/python/")
+else(CMAKE_INSTALL_PREFIX)
+  set(PY_SOMA_TARGET "${PYTHON_SITE_PACKAGES_DIR}/soma_apps/")
+endif(CMAKE_INSTALL_PREFIX)
 
-set(PY_SOMA_TARGET "${PYTHON_SITE_PACKAGES_DIR}/soma_apps/")
 MESSAGE(STATUS "The soma python recording module will be installed in " ${PY_SOMA_TARGET})
 
 ENABLE_TESTING()
