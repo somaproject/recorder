@@ -1,5 +1,6 @@
 import nose
 import os
+import sys
 
 SRCLOC = "${CMAKE_CURRENT_SOURCE_DIR}"
 BINLOC = "${CMAKE_CURRENT_BINARY_DIR}"
@@ -9,4 +10,8 @@ os.environ['TEST_BINLOC'] = BINLOC
 os.environ['PROJECT_BINARY_DIR'] = PROJECT_BINARY_DIR
 os.environ['PROJECT_SOURCE_DIR'] = PROJECT_SOURCE_DIR
 
-nose.main(argv=['', SRCLOC])
+os.environ['PYTHONPATH'] = "%s:%s" % (os.path.join(PROJECT_SOURCE_DIR),    
+                                      getattr(os.environ, 'PYTHONPATH', ''))
+print os.environ['PYTHONPATH']
+args = list(sys.argv)
+nose.main(argv=args)

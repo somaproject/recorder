@@ -60,7 +60,7 @@ class ExperimentServerFactory(ExperimentFactory):
     def __init__(self, expbin):
         self.expbin = expbin
         try:
-            p = os.Popen([expbin])
+            p = subprocess.Popen([expbin])
             p.terminate()
             
         except OSError as (errno, errstr):
