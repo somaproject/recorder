@@ -1,3 +1,9 @@
+soma-recorder (0.9~soma-ubuntu6) jaunty; urgency=low
+
+  * fixed control file
+
+ -- Stuart Layton <slayton@mit.edu>  Mon, 15 Jun 2009 16:55:47 -0400
+
 soma-recorder (0.9~soma-ubuntu5) jaunty; urgency=low
 
   * Initial release 
