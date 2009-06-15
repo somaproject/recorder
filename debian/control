@@ -3,7 +3,7 @@ Section: science
 Priority: extra
 Maintainer: Stuart Layton <slayton@mit.edu>
 Build-Depends: debhelper (>= 5), libsomanetwork-dev, liblog4cpp5-dev, libdbus-c++-dev, 
-               cdbs, python-nose, python-dbus, python-tables, libhdf5-serial-dev
+               cdbs, python-nose, python-dbus, python-tables, libhdf5-serial-dev, cmake
 Standards-Version: 3.8.0
 
 Package: soma-recorder
