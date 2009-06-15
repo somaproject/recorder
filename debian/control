@@ -2,7 +2,7 @@ Source: soma-recorder
 Section: science
 Priority: extra
 Maintainer: Stuart Layton <slayton@mit.edu>
-Build-Depends: debhelper (>= 5), libsomanetwork-dev, liblog4cpp5-dev, dbus-c++ (>=0.5), 
+Build-Depends: debhelper (>= 5), libsomanetwork-dev, liblog4cpp5-dev, libdbus-c++-dev, 
                cdbs, python-nose, python-dbus, python-tables, libhdf5-serial-dev
 Standards-Version: 3.8.0
 
